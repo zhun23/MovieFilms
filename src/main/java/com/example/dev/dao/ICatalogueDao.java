@@ -14,5 +14,5 @@ public interface ICatalogueDao extends JpaRepository<Movie, Integer> {
 	List<Movie> findMovieByTitle(String title);
 	List<Movie> findMovieByGenre(Genre genre);
 	List<Movie> findMovieByDirector(String director);
-	List<Movie> findMovieByNewRelease(boolean newrelease);
+	List<Movie> findMovieByNewRelease(boolean newRelease);
 }

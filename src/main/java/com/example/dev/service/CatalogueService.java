@@ -16,6 +16,7 @@ public class CatalogueService implements ICatalogueService {
 	@Autowired
 	private ICatalogueDao catalogueDao;
 	
+	@Override
 	public List<Movie> findAll() {
 		return catalogueDao.findAll();
 	}

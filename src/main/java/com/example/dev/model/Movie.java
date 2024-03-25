@@ -1,7 +1,11 @@
 package com.example.dev.model;
 
+import com.example.dev.utilities.References;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -9,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Table(name="catalogue")
+@Table(name=References.CATALOGUE_TABLE_NAME)
 @Entity
 @Data
 @NoArgsConstructor
@@ -29,10 +33,11 @@ public class Movie {
 	private String description;
 	
 	@NonNull
-	@Column(name="releasedate")
-	private String releasedate;
+	@Column(name="release_date")
+	private String releaseDate;
 	
 	@NonNull
+	@Enumerated(EnumType.STRING)
 	@Column(name="genre")
 	private Genre genre;
 	
@@ -41,6 +46,6 @@ public class Movie {
 	private String director;
 	
 	@NonNull
-	@Column(name="newrelease")
-	private boolean newrelease;
+	@Column(name="new_release")
+	private boolean newRelease;
 }
