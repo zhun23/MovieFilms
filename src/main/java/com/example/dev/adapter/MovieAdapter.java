@@ -6,22 +6,21 @@ import com.example.dev.dto.MovieDto;
 import com.example.dev.model.Movie;
 
 
-
 @Component
 public class MovieAdapter {
 
-	public MovieDto adaptertoDto(Movie movie) {
-		MovieDto movix = new MovieDto();
+	public MovieDto adaptertDto(Movie movie) {
+		MovieDto movieDto = new MovieDto();
 		
-		movix.setId(movie.getId());
-		movix.setTitle(movie.getTitle());
-		movix.setDescription(movie.getDescription());
-		movix.setReleaseDate(movie.getReleaseDate());
-		movix.setGenre(movie.getGenre());
-		movix.setDirector(movie.getDirector());
-		movix.setNewRelease(movie.isNewRelease());
+		movieDto.setId(movie.getId());
+		movieDto.setTitle(movie.getTitle());
+		movieDto.setDescription(movie.getDescription());
+		movieDto.setReleaseDate(movie.getReleaseDate());
+		movieDto.setGenre(movie.getGenre());
+		movieDto.setDirector(movie.getDirector());
+		movieDto.setNewRelease(movie.isNewRelease());
 		
-		return movix;
+		return movieDto;
 	}
 	
 }

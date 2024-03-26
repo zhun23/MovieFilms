@@ -18,6 +18,9 @@ import jakarta.transaction.Transactional;
 @Service
 public class CatalogueService implements ICatalogueService {
 
+	//@Autowired
+	//private MovieAdapter adapter;
+	
 	@Autowired
 	private ICatalogueDao catalogueDao;
 	
@@ -28,14 +31,6 @@ public class CatalogueService implements ICatalogueService {
 	
 	public Optional<Movie> findById(int id) {
 		return catalogueDao.findById(id);
-	}
-	
-	public Movie save(Movie movie) {
-		return catalogueDao.save(movie);
-	}
-	
-	public void deleteById(int id) {
-		catalogueDao.deleteById(id);
 	}
 
 	public List<Movie> findMovieByTitle(String title) {
@@ -59,6 +54,15 @@ public class CatalogueService implements ICatalogueService {
 	public List<Movie> findMovieByNewRelease(boolean newrelease) {
 		return catalogueDao.findMovieByNewRelease(newrelease);
 	}	
+	
+	public Movie save(Movie movie) {
+		Movie savedMovie = catalogueDao.save(movie);
+		return savedMovie;
+	}
+	
+	public void deleteById(int id) {
+		catalogueDao.deleteById(id);
+	}
 	
 	@Autowired
     private EntityManager entityManager;
