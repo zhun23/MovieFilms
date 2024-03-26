@@ -124,7 +124,7 @@ public class CatalogueController {
 		
 		if (!movies.isEmpty()) {
 			catalogueService.deleteMovieByTitle(title);
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body("Movie with id: "+ title + " deleted");
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body("Movie with title: "+ title + " deleted");
 		}else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Can't delete, there are no movies with that title");
 		}

@@ -65,7 +65,7 @@ public class CatalogueService implements ICatalogueService {
 
     @Transactional
     public void deleteMovieByTitle(String title) {
-        Query query = entityManager.createQuery("DELETE FROM catalogue c WHERE c.title = :title");
+        Query query = entityManager.createQuery("DELETE FROM Movie m WHERE m.title = :title");
         query.setParameter("title", title);
         query.executeUpdate();
     }
