@@ -1,5 +1,7 @@
 package com.example.dev;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -7,7 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class MovieFilmsApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void shouldBeAlwaysTrue() {
+		assertThat(true).isTrue();
 	}
 
 }

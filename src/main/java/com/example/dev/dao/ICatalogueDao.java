@@ -12,7 +12,9 @@ import com.example.dev.model.Movie;
 public interface ICatalogueDao extends JpaRepository<Movie, Integer> {
 	
 	List<Movie> findMovieByTitle(String title);
+	List<Movie> findMovieByReleaseDate(String releaseDate);
 	List<Movie> findMovieByGenre(Genre genre);
 	List<Movie> findMovieByDirector(String director);
 	List<Movie> findMovieByNewRelease(boolean newRelease);
+	List<Movie> deleteMovieByTitle(String title);
 }
