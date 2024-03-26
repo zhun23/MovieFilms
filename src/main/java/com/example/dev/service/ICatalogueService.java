@@ -15,7 +15,8 @@ public interface ICatalogueService {
 	public List<Movie> findMovieByGenre(Genre genre);
 	public List<Movie> findMovieByDirector(String director);
 	public List<Movie> findMovieByNewRelease(boolean newrelease);
+	public Movie save(Movie movie);
 	public void deleteById(int id);
 	public void deleteMovieByTitle(String title);
-	public Movie save(Movie movie);
+	
 }
