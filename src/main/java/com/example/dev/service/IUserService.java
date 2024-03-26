@@ -9,6 +9,7 @@ public interface IUserService {
 
 	public List<User> findAll();
 	public Optional<User> findById(int id);
+	public List<User> findUserByNickname(String nickname);
 	public List<User> findUserByFirstName(String firstName);
 	public List<User> findUserByLastName(String lastName);
 	public List<User> findUserByMail(String mail);

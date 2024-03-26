@@ -28,6 +28,10 @@ public class UserService implements IUserService {
 		return userDao.findById(id);
 	}
 	
+	public List<User> findUserByNickname(String nickname) {
+		return userDao.findUserByNickname(nickname);
+	}
+	
 	public List<User> findUserByFirstName(String firstname) {
 		return userDao.findUserByFirstName(firstname);
 	}

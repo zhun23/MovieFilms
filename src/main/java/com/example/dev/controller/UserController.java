@@ -1,16 +1,21 @@
 package com.example.dev.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.dev.model.Movie;
 import com.example.dev.model.User;
 import com.example.dev.service.IUserService;
 
@@ -38,6 +43,17 @@ public class UserController {
 	        return ResponseEntity.ok(users);
 	    } else {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No user matching with that ID were found in the database");
+	    }
+	}
+	
+	@GetMapping("/user/nickname/{nickname}")
+	public ResponseEntity<?> findUserByNickname(@PathVariable String nickname) {
+		List<User> users = userService.findUserByNickname(nickname);
+
+	    if (!users.isEmpty()) {
+	        return ResponseEntity.ok(users);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No users matching that firstname were found in the database");
 	    }
 	}
 	
@@ -70,9 +86,58 @@ public class UserController {
 		if (!users.isEmpty()) {
 	        return ResponseEntity.ok(users);
 	    } else {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No users matching that lastname were found in the database");
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No users matching that mail were found in the database");
 	    }
 	}
 	
+	@PostMapping("/user")
+	public ResponseEntity<?> saveUser(@RequestBody User user){
+		User result = userService.save(user);
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest().path("/user/id/{id}")
+				.buildAndExpand(result.getId())
+				.toUri();
+		return ResponseEntity.created(location).build();
+	}
 	
+	@PutMapping("/editUser/{id}")
+	public ResponseEntity<?> editUser(@PathVariable Integer id, @RequestBody User userInsert){
+		
+		User newUser = new User();
+            
+		newUser.setId(id);
+		newUser.setNickname(userInsert.getNickname());
+		newUser.setFirstName(userInsert.getFirstName());
+		newUser.setLastName(userInsert.getLastName());
+		newUser.setMail(userInsert.getMail());
+		newUser.setPassword(userInsert.getPassword());
+ 
+        User updatedUser = userService.save(newUser);
+            
+        return ResponseEntity.ok(updatedUser);
+	}
+	
+	@DeleteMapping("/deleteUser/{id}")
+	public ResponseEntity<?> deleteUserById(@PathVariable int id) {
+		Optional<User> users = userService.findById(id);
+		
+		if (!users.isEmpty()) {
+			userService.deleteUserById(id);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body("User with id: "+ id + " deleted");
+		} else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Can't delete, there are no user with that id");
+		}
+	}
+	
+	@DeleteMapping("/deleteUserByNickname/{nickname}")
+	public ResponseEntity<?> deleteUserByNickname(@PathVariable String nickname) {
+		List<User> users = userService.findUserByNickname(nickname);
+		
+		if (!users.isEmpty()) {
+			userService.deleteUserByNickname(nickname);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body("User with id: "+ nickname + " deleted");
+		} else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Can't delete, there are no user with that nickname");
+		}
+	}
 }
