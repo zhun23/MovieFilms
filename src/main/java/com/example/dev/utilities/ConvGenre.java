@@ -10,6 +10,6 @@ public class ConvGenre {
 	            return genre;
 	        }
 	    }
-	    return null; // o lanzar una excepción, dependiendo de tu manejo de errores
+	    return null;
 	}
 }

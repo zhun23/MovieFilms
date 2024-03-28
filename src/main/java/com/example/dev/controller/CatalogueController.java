@@ -18,16 +18,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.dev.service.ICatalogueService;
 import com.example.dev.utilities.ConvGenre;
+
 import com.example.dev.model.Genre;
 import com.example.dev.model.Movie;
 
 @RestController
 public class CatalogueController {
-
+	
 	@Autowired
 	private ICatalogueService catalogueService;
 	
-	@GetMapping("/")
+	@GetMapping("/list")
 	public ResponseEntity<?> listMovies() {
 		List<Movie> movies = catalogueService.findAll();
 		
