@@ -132,10 +132,10 @@ public class CatalogueController {
 		newMovie.setReleaseDate(movieInsert.getReleaseDate());
 		newMovie.setGenre(movieInsert.getGenre());
 		newMovie.setDirector(movieInsert.getDirector());
- 
-        Movie updatedUser = catalogueService.save(newMovie);
+		newMovie.setNewRelease(movieInsert.isNewRelease());
+        Movie updatedMovie = catalogueService.save(newMovie);
             
-        return ResponseEntity.ok(updatedUser);
+        return ResponseEntity.ok(updatedMovie);
 	}
 	
 

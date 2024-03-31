@@ -20,10 +20,6 @@
     border-radius: .25rem;
   }
 
-  #releaseDateAllign {
-    padding-left: 20px;
-  }
-
   #newReleaseAllign {
     padding-left: 20px;
   }
@@ -50,6 +46,27 @@
 
   #accions {
     text-align: center;
+  }
+
+  #valor0 input[type="text"] {
+    width: 450px;
+  }
+
+  #valor1 input[type="text"] {
+    width: 90px;
+  }
+
+  #releaseDateAllign {
+    padding-left: 10px;
+  }
+
+  #valor3 input[type="text"] {
+    width: 450px;
+  }
+
+  tr.IDrowEdit {
+    background-color: #f2f2f2;
+    border-bottom: 2px solid #000;
   }
   
   tbody tr:hover {

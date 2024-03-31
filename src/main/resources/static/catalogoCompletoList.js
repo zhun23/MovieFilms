@@ -19,7 +19,7 @@ let fullCatalogue = async () => {
         let newReleaseTrad = movie.newRelease ? "Sí" : "";
 
         let contentRow = `<tr id="row-${movie.id}">
-            <td id="idallign">${movie.id}</td>
+            <td id="valor0">${movie.id}</td>
             <td>${movie.title}</td>
             <td id="releaseDateAllign">${movie.releaseDate}</td>
             <td>${movie.genre}</td>
@@ -38,101 +38,190 @@ let fullCatalogue = async () => {
 }
 
 function showFormEdit(id) {
-
     let tableBody = document.querySelector("#table tbody");
 
-    // Verificar si ya existe una fila de edición para este ID
-    let existingEditRow = document.querySelector(`#edit-row-${id}`);
-    if(existingEditRow) {
-        tableBody.removeChild(existingEditRow);
-        return; // No necesitamos agregar una nueva fila de edición
+    // Verificar si ya existe una fila de edición para este ID específico y eliminarla
+    let existingEditRows = document.querySelectorAll(`.edit-row-${id}`);
+    if (existingEditRows.length) {
+        existingEditRows.forEach(row => row.remove());
+        return; // Salir de la función, actuando como un "cancelar"
     }
 
-    // Obtener la fila correspondiente al ID
     let row = document.getElementById(`row-${id}`);
-    console.log("Fila correspondiente: ", row);
 
-    let newRow = document.createElement("tr");
-    newRow.id = `edit-row-${id}`; // Agregar un ID único a la fila de edición
-    console.log("newRow: ", newRow);
+    // Crear fila para los botones y asignar una clase para identificarla
+    let buttonsRow = document.createElement("tr");
+    buttonsRow.classList.add("edit-row", `edit-row-${id}`);
 
-    for (let i = 0; i < 7; i++) {
-        let newCell = document.createElement("td");
-
-        // Si es la primera celda, crear un desplegable (select)
-        if (i === 3) {
-            let selectField = document.createElement("select");
-
-            // Agregar opciones al desplegable
-            let option1 = document.createElement("option");
-            option1.value = "value1";
-            option1.text = "Opción 1";
-            selectField.appendChild(option1);
-
-            let option2 = document.createElement("option");
-            option2.value = "value2";
-            option2.text = "Opción 2";
-            selectField.appendChild(option2);
-
-            // Agregar más opciones si es necesario
-
-            newCell.appendChild(selectField);
-        } else if (i === 5) {
-                let selectField = document.createElement("select");
-    
-                // Agregar opciones al desplegable
-                let option1 = document.createElement("option");
-                option1.value = "value1";
-                option1.text = "Sí";
-                selectField.appendChild(option1);
-    
-                let option2 = document.createElement("option");
-                option2.value = "value2";
-                option2.text = "No";
-                selectField.appendChild(option2);
-    
-                // Agregar más opciones si es necesario
-    
-                newCell.appendChild(selectField);
-        } else {
-            // Para las otras celdas, crear campos de texto
-            let inputField = document.createElement("input");
-            inputField.type = "text";
-            newCell.appendChild(inputField);
-        }
-
-        newRow.appendChild(newCell);
-    }
-
-    // Crear celda para los botones en la misma fila
+    // Crear celda para el botón "Guardar cambios" y "Cancelar"
     let buttonsCell = document.createElement("td");
-    buttonsCell.colSpan = "7"; // Colspan para ocupar todas las columnas
+    buttonsCell.colSpan = "6";
 
-    // Crear botón "Aceptar"
+    // Crear botón "Guardar cambios"
     let acceptButton = document.createElement("button");
-    acceptButton.textContent = "Aceptar";
+    acceptButton.textContent = "Guardar cambios";
     acceptButton.addEventListener("click", function() {
+        editMovie(id);
+        document.querySelectorAll('.edit-row').forEach(row => row.remove());
     });
-    buttonsCell.appendChild(acceptButton);
 
     // Crear botón "Cancelar"
     let cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancelar";
     cancelButton.addEventListener("click", function() {
-        tableBody.removeChild(newRow);
+        document.querySelectorAll('.edit-row').forEach(row => row.remove());
     });
 
-    // Agregar botones a la celda
     buttonsCell.appendChild(acceptButton);
     buttonsCell.appendChild(cancelButton);
 
-    // Agregar celda de botones a la fila de edición
-    newRow.appendChild(buttonsCell);
+    buttonsRow.appendChild(buttonsCell);
 
-    tableBody.insertBefore(newRow, row.nextSibling);
+    tableBody.insertBefore(buttonsRow, row.nextSibling);
+
+    // Creación de fila, celda y campo para "Novedad"
+    let novedadRow = document.createElement("tr");
+    novedadRow.classList.add("edit-row", `edit-row-${id}`);
+    let novedadCell = document.createElement("td");
+    novedadCell.colSpan = "5";
+    novedadCell.textContent = "Novedad";
+    let novedadInputCell = document.createElement("td");
+    let novedadSelect = document.createElement("select");
+    novedadSelect.id = "selectNovedad";
+    let novedadOption1 = document.createElement("option");
+    novedadOption1.value = "True";
+    novedadOption1.textContent = "True";
+    novedadSelect.appendChild(novedadOption1);
+    let novedadOption2 = document.createElement("option");
+    novedadOption2.value = "False";
+    novedadOption2.textContent = "False";
+    novedadSelect.appendChild(novedadOption2);
+    novedadInputCell.appendChild(novedadSelect);
+    novedadRow.appendChild(novedadCell);
+    novedadRow.appendChild(novedadInputCell);
+
+    // Creación de fila, celda y campo para "Director"
+    let directorRow = document.createElement("tr");
+    directorRow.classList.add("edit-row", `edit-row-${id}`);
+    let directorCell = document.createElement("td");
+    directorCell.colSpan = "5";
+    directorCell.textContent = "Director";
+    let directorInputCell = document.createElement("td");
+    let directorInput = document.createElement("input");
+    directorInput.type = "text";
+    directorInput.id = "inputDirector";
+    directorInputCell.appendChild(directorInput);
+    directorRow.appendChild(directorCell);
+    directorRow.appendChild(directorInputCell);
+
+    // Creación de fila, celda y campo para "Género"
+    let generoRow = document.createElement("tr");
+    generoRow.classList.add("edit-row", `edit-row-${id}`);
+    let generoCell = document.createElement("td");
+    generoCell.colSpan = "5";
+    generoCell.textContent = "Género";
+    let generoInputCell = document.createElement("td");
+    let generoSelect = document.createElement("select");
+    generoSelect.id = "selectGenero";
+    let generos = ["Action", "Adventures", "ScienceFiction", "Fantasy", "Crime", "Comedy", "Romance", "Horror", "Drama", "Musical", "Thriller", "Animation", "Kids"];
+    generos.forEach(genero => {
+        let option = document.createElement("option");
+        option.value = genero;
+        option.textContent = genero;
+        generoSelect.appendChild(option);
+    });
+    generoInputCell.appendChild(generoSelect);
+    generoRow.appendChild(generoCell);
+    generoRow.appendChild(generoInputCell);
+
+    // Creación de fila, celda y campo para "Fecha lanzamiento"
+    let fechaLanzamientoRow = document.createElement("tr");
+    fechaLanzamientoRow.classList.add("edit-row", `edit-row-${id}`);
+    let fechaLanzamientoCell = document.createElement("td");
+    fechaLanzamientoCell.colSpan = "5";
+    fechaLanzamientoCell.textContent = "Fecha lanzamiento";
+    let fechaLanzamientoInputCell = document.createElement("td");
+    let fechaLanzamientoInput = document.createElement("input");
+    fechaLanzamientoInput.type = "text";
+    fechaLanzamientoInput.id = "inputFechaLanzamiento";
+    fechaLanzamientoInputCell.appendChild(fechaLanzamientoInput);
+    fechaLanzamientoRow.appendChild(fechaLanzamientoCell);
+    fechaLanzamientoRow.appendChild(fechaLanzamientoInputCell);
+
+    // Creación de fila, celda y campo para "Descripción"
+    let descripcionRow = document.createElement("tr");
+    descripcionRow.classList.add("edit-row", `edit-row-${id}`);
+    let descripcionCell = document.createElement("td");
+    descripcionCell.colSpan = "5";
+    descripcionCell.textContent = "Descripción";
+    let descripcionInputCell = document.createElement("td");
+    let descripcionInput = document.createElement("textarea");
+    descripcionInput.id = "descripcionInput";
+    descripcionInputCell.appendChild(descripcionInput);
+    descripcionRow.appendChild(descripcionCell);
+    descripcionRow.appendChild(descripcionInputCell);
+
+    // Creación de fila, celda y campo para "Título"
+    let tituloRow = document.createElement("tr");
+    tituloRow.classList.add("edit-row", `edit-row-${id}`);
+    let tituloCell = document.createElement("td");
+    tituloCell.colSpan = "5";
+    tituloCell.textContent = "Título";
+    let tituloInputCell = document.createElement("td");
+    let tituloInput = document.createElement("input");
+    tituloInput.type = "text";
+    tituloInput.id = "inputTitulo";
+    tituloInputCell.appendChild(tituloInput);
+    tituloRow.appendChild(tituloCell);
+    tituloRow.appendChild(tituloInputCell);
+
+    tableBody.insertBefore(tituloRow, row.nextSibling);
+    tableBody.insertBefore(descripcionRow, tituloRow.nextSibling);
+    tableBody.insertBefore(fechaLanzamientoRow, descripcionRow.nextSibling);
+    tableBody.insertBefore(generoRow, fechaLanzamientoRow.nextSibling);
+    tableBody.insertBefore(directorRow, generoRow.nextSibling);
+    tableBody.insertBefore(novedadRow, directorRow.nextSibling);
+
+    let idRow = document.createElement("tr");
+    idRow.classList.add("edit-row", `edit-row-${id}`, "IDrowEdit");
+    let idCell = document.createElement("td");
+    idCell.textContent = id;
+    idCell.setAttribute("rowspan", "8"); 
+    idRow.appendChild(idCell);
+
+    tableBody.insertBefore(idRow, row.nextSibling);
 }
 
+let editMovie = async (id) => {
+    let rowData = {
+        "title": document.getElementById("inputTitulo").value,
+        "description": document.getElementById("descripcionInput").value,
+        "releaseDate": document.getElementById("inputFechaLanzamiento").value,
+        "genre": document.getElementById("selectGenero").value,
+        "director": document.getElementById("inputDirector").value,
+        "newRelease": document.getElementById("selectNovedad").value === "true" ? true : false
+    };
 
+    let jsonData = JSON.stringify(rowData);
+
+    const response = await fetch("http://localhost:8089/edit/" + id, {
+    method: "PUT",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: jsonData
+});
+
+if (response.ok) {
+    console.log("Datos enviados con éxito y respuesta recibida del servidor");
+    // Si la respuesta es exitosa, recarga la lista de películas
+    fullCatalogue();
+    } else {
+    console.error("Error al enviar los datos al servidor");
+    console.error(response.status, response.statusText);
+    }
+}
 
 let delMovie = async (id) => {
     const request = await fetch("http://localhost:8089/delete/" + id, {
