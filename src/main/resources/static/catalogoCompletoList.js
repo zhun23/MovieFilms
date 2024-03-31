@@ -55,10 +55,12 @@ function showFormEdit(id) {
 
     // Crear celda para el botón "Guardar cambios" y "Cancelar"
     let buttonsCell = document.createElement("td");
+    buttonsCell.classList.add("ButtonLabels");
     buttonsCell.colSpan = "6";
 
     // Crear botón "Guardar cambios"
     let acceptButton = document.createElement("button");
+    acceptButton.classList.add("ButtonLabels");
     acceptButton.textContent = "Guardar cambios";
     acceptButton.addEventListener("click", function() {
         editMovie(id);
@@ -83,18 +85,18 @@ function showFormEdit(id) {
     let novedadRow = document.createElement("tr");
     novedadRow.classList.add("edit-row", `edit-row-${id}`);
     let novedadCell = document.createElement("td");
-    novedadCell.colSpan = "5";
+    novedadCell.classList.add("Labels");
     novedadCell.textContent = "Novedad";
     let novedadInputCell = document.createElement("td");
     let novedadSelect = document.createElement("select");
     novedadSelect.id = "selectNovedad";
     let novedadOption1 = document.createElement("option");
-    novedadOption1.value = "True";
-    novedadOption1.textContent = "True";
+    novedadOption1.value = "true"; // Cambiado a true
+    novedadOption1.textContent = "Sí";
     novedadSelect.appendChild(novedadOption1);
     let novedadOption2 = document.createElement("option");
-    novedadOption2.value = "False";
-    novedadOption2.textContent = "False";
+    novedadOption2.value = "false"; // Cambiado a false
+    novedadOption2.textContent = "No";
     novedadSelect.appendChild(novedadOption2);
     novedadInputCell.appendChild(novedadSelect);
     novedadRow.appendChild(novedadCell);
@@ -104,7 +106,7 @@ function showFormEdit(id) {
     let directorRow = document.createElement("tr");
     directorRow.classList.add("edit-row", `edit-row-${id}`);
     let directorCell = document.createElement("td");
-    directorCell.colSpan = "5";
+    directorCell.classList.add("Labels");
     directorCell.textContent = "Director";
     let directorInputCell = document.createElement("td");
     let directorInput = document.createElement("input");
@@ -118,7 +120,7 @@ function showFormEdit(id) {
     let generoRow = document.createElement("tr");
     generoRow.classList.add("edit-row", `edit-row-${id}`);
     let generoCell = document.createElement("td");
-    generoCell.colSpan = "5";
+    generoCell.classList.add("Labels");
     generoCell.textContent = "Género";
     let generoInputCell = document.createElement("td");
     let generoSelect = document.createElement("select");
@@ -138,7 +140,7 @@ function showFormEdit(id) {
     let fechaLanzamientoRow = document.createElement("tr");
     fechaLanzamientoRow.classList.add("edit-row", `edit-row-${id}`);
     let fechaLanzamientoCell = document.createElement("td");
-    fechaLanzamientoCell.colSpan = "5";
+    fechaLanzamientoCell.classList.add("Labels");
     fechaLanzamientoCell.textContent = "Fecha lanzamiento";
     let fechaLanzamientoInputCell = document.createElement("td");
     let fechaLanzamientoInput = document.createElement("input");
@@ -152,7 +154,7 @@ function showFormEdit(id) {
     let descripcionRow = document.createElement("tr");
     descripcionRow.classList.add("edit-row", `edit-row-${id}`);
     let descripcionCell = document.createElement("td");
-    descripcionCell.colSpan = "5";
+    descripcionCell.classList.add("Labels");
     descripcionCell.textContent = "Descripción";
     let descripcionInputCell = document.createElement("td");
     let descripcionInput = document.createElement("textarea");
@@ -165,10 +167,11 @@ function showFormEdit(id) {
     let tituloRow = document.createElement("tr");
     tituloRow.classList.add("edit-row", `edit-row-${id}`);
     let tituloCell = document.createElement("td");
-    tituloCell.colSpan = "5";
+    tituloCell.classList.add("Labels");
     tituloCell.textContent = "Título";
     let tituloInputCell = document.createElement("td");
     let tituloInput = document.createElement("input");
+    tituloInput.classList.add("inputCustomTitle");
     tituloInput.type = "text";
     tituloInput.id = "inputTitulo";
     tituloInputCell.appendChild(tituloInput);
