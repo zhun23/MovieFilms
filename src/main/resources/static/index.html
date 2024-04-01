@@ -3,13 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="admin.css" />
+	<link rel="stylesheet" href="index.css" />
 	<title>Gestión administrador</title>
 </head>
 <body>
 
-	<button id="boton1" class="btn btn-primary" type="submit">Mostrar catálogo completo</button>
-	<button class="btn btn-primary" type="submit">Button</button>
+	<button id="button1" class="buttonMovies" type="submit">Mostrar catálogo completo</button>
+	<button id="button2" class="buttonMovies" type="submit">Añadir película</button>
 	<button class="btn btn-primary" type="submit">Button</button>
 	<button class="btn btn-primary" type="submit">Button</button>
 	<button class="btn btn-primary" type="submit">Button</button>
@@ -19,8 +19,13 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("boton1").addEventListener("click", function() {
-            window.location.href = "/catalogoCompletoList.html";
+        document.getElementById("button1").addEventListener("click", function() {
+            window.location.href = "fullCatalogue.html";
+        });
+    });
+	document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("button2").addEventListener("click", function() {
+            window.location.href = "addMovie.html";
         });
     });
 </script>
