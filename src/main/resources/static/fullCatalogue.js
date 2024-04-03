@@ -95,7 +95,7 @@ async function showFormEdit(id) {
     newReleaseRow.classList.add("edit-row", `edit-row-${id}`);
     let newReleaseCell = document.createElement("td");
     newReleaseCell.classList.add("Labels");
-    newReleaseCell.textContent = "New Release";
+    newReleaseCell.textContent = "Novedad";
     let newReleaseInputCell = document.createElement("td");
     let newReleaseSelect = document.createElement("select");
     newReleaseSelect.id = "selectNewRelease";
@@ -132,7 +132,7 @@ async function showFormEdit(id) {
     genreRow.classList.add("edit-row", `edit-row-${id}`);
     let genreCell = document.createElement("td");
     genreCell.classList.add("Labels");
-    genreCell.textContent = "Genre";
+    genreCell.textContent = "Género";
     let genreInputCell = document.createElement("td");
     let genreSelect = document.createElement("select");
     genreSelect.id = "selectGenre";
@@ -153,7 +153,7 @@ async function showFormEdit(id) {
     releaseDateRow.classList.add("edit-row", `edit-row-${id}`);
     let releaseDateCell = document.createElement("td");
     releaseDateCell.classList.add("Labels");
-    releaseDateCell.textContent = "Release Date";
+    releaseDateCell.textContent = "Fecha de Lanzamiento";
     let releaseDateInputCell = document.createElement("td");
     let releaseDateInput = document.createElement("input");
     releaseDateInput.type = "text";
@@ -168,7 +168,7 @@ async function showFormEdit(id) {
     descriptionRow.classList.add("edit-row", `edit-row-${id}`);
     let descriptionCell = document.createElement("td");
     descriptionCell.classList.add("Labels");
-    descriptionCell.textContent = "Description";
+    descriptionCell.textContent = "Descripción";
     let descriptionInputCell = document.createElement("td");
     let descriptionInput = document.createElement("textarea");
     descriptionInput.id = "inputDescription";
@@ -182,7 +182,7 @@ async function showFormEdit(id) {
     titleRow.classList.add("edit-row", `edit-row-${id}`);
     let titleCell = document.createElement("td");
     titleCell.classList.add("Labels");
-    titleCell.textContent = "Title";
+    titleCell.textContent = "Título";
     let titleInputCell = document.createElement("td");
     let titleInput = document.createElement("input");
     titleInput.classList.add("inputCustomTitle");

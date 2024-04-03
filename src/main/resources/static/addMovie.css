@@ -21,20 +21,30 @@
     background-color: #0056b3;
 }
 
+#cellButtons {
+    width: 20%; /* O el ancho que prefieras */
+    margin: 0 auto; /* Centra la tabla horizontalmente */
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: #333;
 }
 
+#tableAddMovie #imgSpace {
+    background: rgb(213, 213, 213);
+    width: 290px;
+}
+
 #tableAddMovie {
-    text-align: left;
+    text-align: center;
     line-height: 40px;
     border-collapse: separate;
     border-spacing: 0;
     border: 2px solid #858383;
-    width: 80%;
     margin: 20px auto;
     border-radius: .25rem;
+    width: 60%;
 }
 
 thead tr:first-child {
@@ -55,4 +65,69 @@ th {
 
 thead tr:last-child th {
     border-bottom: 3px solid #ddd;
-  }
+}
+
+#descriptionAlign {
+    vertical-align: top;
+    padding-top: 15px;
+}
+
+.message {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.success {
+    color: green;
+    background-color: #ccffcc;
+}
+
+.error {
+    color: red;
+    background-color: #ffcccc;
+}
+
+#tableAddMovie td input,
+#tableAddMovie td textarea,
+#tableAddMovie td select {
+    /*vertical-align: left;*/
+    margin-left: -80px;
+    padding: 7px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+#titleInput {
+    width: 280px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+#directorInput {
+    width: 260px;
+}
+
+#tableAddMovie td textarea {
+    margin-bottom: -15px;
+}
+/*
+#genreSelect {
+    margin-top: -10px;
+}
+
+#descriptionInput {
+    margin-top: 5px;
+}
+*/
+#releaseDateInput {
+    margin-top: 7px;
+    width: 80px;
+}
+
+/*
+#tableAddMovie td .compact-margin {
+    text-align: left;
+}
+*/

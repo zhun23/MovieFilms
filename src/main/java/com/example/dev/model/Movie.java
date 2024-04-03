@@ -6,8 +6,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -21,18 +24,22 @@ import lombok.RequiredArgsConstructor;
 public class Movie {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
 	@NonNull
+	@NotBlank(message = "El título no puede estar vacío")
 	@Column(name="title")
 	private String title;
 	
 	@NonNull
+	@NotBlank(message = "La descripción no puede estar vacía")
 	@Column(name="description")
 	private String description;
 	
 	@NonNull
+	@NotBlank(message = "La fecha de lanzamiento no puede estar vacía")
 	@Column(name="release_date")
 	private String releaseDate;
 	
@@ -42,10 +49,10 @@ public class Movie {
 	private Genre genre;
 	
 	@NonNull
+	@NotBlank(message = "El director no puede estar vacío")
 	@Column(name="director")
 	private String director;
 	
-	@NonNull
 	@Column(name="new_release")
 	private boolean newRelease;
 }

@@ -1,7 +1,9 @@
 package com.example.dev.controller;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.dev.service.ICatalogueService;
 import com.example.dev.utilities.ConvGenre;
+
+import jakarta.validation.Valid;
 
 import com.example.dev.model.Genre;
 import com.example.dev.model.Movie;
@@ -113,13 +117,17 @@ public class CatalogueController {
     }
 	
 	@PostMapping("/movie")
-	public ResponseEntity<?> saveMovie(@RequestBody Movie movie){
+	public ResponseEntity<?> saveMovie(@Valid @RequestBody Movie movie){
 		Movie result = catalogueService.save(movie);
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/id/{id}")
 				.buildAndExpand(result.getId())
 				.toUri();
-		return ResponseEntity.created(location).build();
+		Map<String, Object> response = new HashMap<>();
+        response.put("message", "Movie created successfully");
+        response.put("id", result.getId());
+
+        return ResponseEntity.created(location).body(response);
 	}
 	
 	@PutMapping("/edit/{id}")
