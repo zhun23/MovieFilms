@@ -230,20 +230,20 @@ let editMovie = async (id) => {
     console.log("Sending data to server:", jsonData);
 
     const response = await fetch("http://localhost:8089/edit/" + id, {
-    method: "PUT",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    },
-    body: jsonData
-});
+        method: "PUT",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: jsonData
+    });
 
-if (response.ok) {
-    console.log("Data sent successfully and response received from the server");
-    showFullCatalogue();
+    if (response.ok) {
+        console.log("Data sent successfully and response received from the server");
+        showFullCatalogue();
     } else {
-    console.error("Error sending data to server");
-    console.error(response.status, response.statusText);
+        console.error("Error sending data to server");
+        console.error(response.status, response.statusText);
     }
 }
 
