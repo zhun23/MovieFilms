@@ -7,10 +7,11 @@
 	<title>Gestión administrador</title>
 </head>
 <body>
-
+	<h2>Gestión Películas</h2>
 	<button id="button1" class="buttonMovies" type="submit">Mostrar catálogo completo</button>
 	<button id="button2" class="buttonMovies" type="submit">Añadir película</button>
-	<button class="btn btn-primary" type="submit">Button</button>
+	<h2>Gestión Usuarios</h2>
+	<button id="button3" class="buttonUsers" type="submit">Usuarios</button>
 	<button class="btn btn-primary" type="submit">Button</button>
 	<button class="btn btn-primary" type="submit">Button</button>
 	<button class="btn btn-primary" type="submit">Button</button>
@@ -26,6 +27,11 @@
 	document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("button2").addEventListener("click", function() {
             window.location.href = "addMovie.html";
+        });
+    });
+	document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("button3").addEventListener("click", function() {
+            window.location.href = "fullUsers.html";
         });
     });
 </script>
