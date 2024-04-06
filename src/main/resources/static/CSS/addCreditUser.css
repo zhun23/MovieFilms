@@ -1,0 +1,22 @@
+.buttonBack {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 120px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 550;
+    color: white;
+    background-color: #858383;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .buttonBack:hover {
+    background-color: #0056b3;
+  }

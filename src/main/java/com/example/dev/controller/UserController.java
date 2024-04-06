@@ -110,7 +110,8 @@ public class UserController {
 		newUser.setFirstName(userInsert.getFirstName());
 		newUser.setLastName(userInsert.getLastName());
 		newUser.setMail(userInsert.getMail());
-		newUser.setPassword(userInsert.getPassword());
+		//newUser.setPassword(userInsert.getPassword());
+		newUser.setCredit(userInsert.getCredit());
  
         User updatedUser = userService.save(newUser);
             

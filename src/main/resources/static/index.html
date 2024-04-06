@@ -3,35 +3,49 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="index.css" />
+	<link rel="stylesheet" href="CSS/index.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 	<title>Gestión administrador</title>
 </head>
 <body>
-	<h2>Gestión Películas</h2>
-	<button id="button1" class="buttonMovies" type="submit">Mostrar catálogo completo</button>
-	<button id="button2" class="buttonMovies" type="submit">Añadir película</button>
-	<h2>Gestión Usuarios</h2>
-	<button id="button3" class="buttonUsers" type="submit">Usuarios</button>
-	<button class="btn btn-primary" type="submit">Button</button>
-	<button class="btn btn-primary" type="submit">Button</button>
+	<div class="filmManagement">
+		<i class="material-symbols-outlined" style="font-size:50px;">database</i>
+		<h2>Gestión Películas</h2>
+	</div>
+	<button id="button10" class="buttonMovies" type="submit">Mostrar/Editar catálogo de películas completo</button>
+	<button id="button11" class="buttonMovies" type="submit">Añadir película</button>
+	<button id="button11" class="buttonMovies" type="submit">Gestionar reseñas de las películas</button>
+	<div class="usersManagement">
+		<i class="material-symbols-outlined" style="font-size:50px;">supervisor_account</i>
+		<h2>Gestión Usuarios Administrador</h2>
+	</div>
+	<button id="button20" class="buttonUsers" type="submit">Mostrar/Editar listado de usuarios</button>
+	<button id="button21" class="buttonUsers" type="submit">Gestionar permisos de trabajadores</button>
+	<button id="button22" class="buttonUsers" type="submit">Añadir crédito al usuario</button>
+	<button id="button23" class="buttonUsers" type="submit">Gestionar reseñas de los usuarios</button>
 	<button class="btn btn-primary" type="submit">Button</button>
 	<button class="btn btn-primary" type="submit">Button</button>
 	<button class="btn btn-primary" type="submit">Button</button>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("button1").addEventListener("click", function() {
+        document.getElementById("button10").addEventListener("click", function() {
             window.location.href = "fullCatalogue.html";
         });
     });
 	document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("button2").addEventListener("click", function() {
+        document.getElementById("button11").addEventListener("click", function() {
             window.location.href = "addMovie.html";
         });
     });
 	document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("button3").addEventListener("click", function() {
+        document.getElementById("button20").addEventListener("click", function() {
             window.location.href = "fullUsers.html";
+        });
+    });
+	document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("button22").addEventListener("click", function() {
+            window.location.href = "addCreditUser.html";
         });
     });
 </script>

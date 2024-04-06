@@ -23,6 +23,7 @@ let showFullUsers = async () => {
             <td>${user.firstName}</td>
             <td>${user.lastName}</td>
             <td>${user.mail}</td>
+            <td>${user.credit}</td>
             <td class="acciones">
                 <i onClick="showUserEdit(${user.id})" class="material-icons button edit">edit</i>
                 <i onClick="delUser(${user.id})" class="material-icons button delete">delete</i>
@@ -94,11 +95,26 @@ async function showUserEdit(id) {
 
     tableBody.insertBefore(buttonsRow, row.nextSibling);
 
+    let creditRow = document.createElement("tr");
+    creditRow.classList.add("edit-row", `edit-row-${id}`);
+    let creditCell = document.createElement("td");
+    creditCell.classList.add("Labels");
+    creditCell.textContent = "Saldo";
+    let creditInputCell = document.createElement("td");
+    let creditInput = document.createElement("input");
+    creditInput.classList.add("inputCustomNickname");
+    creditInput.type = "text";
+    creditInput.id = "inputCredit";
+    creditInput.value = user.credit;
+    creditInputCell.appendChild(creditInput);
+    creditRow.appendChild(creditCell);
+    creditRow.appendChild(creditInputCell);
+
     let mailRow = document.createElement("tr");
     mailRow.classList.add("edit-row", `edit-row-${id}`);
     let mailCell = document.createElement("td");
     mailCell.classList.add("Labels");
-    mailCell.textContent = "Correo";
+    mailCell.textContent = "Correo electrónico";
     let mailInputCell = document.createElement("td");
     let mailInput = document.createElement("input");
     mailInput.classList.add("inputCustomMail");
@@ -113,7 +129,7 @@ async function showUserEdit(id) {
     lastNameRow.classList.add("edit-row", `edit-row-${id}`);
     let lastNameCell = document.createElement("td");
     lastNameCell.classList.add("Labels");
-    lastNameCell.textContent = "Apellido";
+    lastNameCell.textContent = "Apellidos";
     let lastNameInputCell = document.createElement("td");
     let lastNameInput = document.createElement("input");
     lastNameInput.classList.add("inputCustomLastName");
@@ -159,17 +175,47 @@ async function showUserEdit(id) {
     tableBody.insertBefore(firstNameRow, nicknameRow.nextSibling);
     tableBody.insertBefore(lastNameRow, firstNameRow.nextSibling);
     tableBody.insertBefore(mailRow, lastNameRow.nextSibling);
+    tableBody.insertBefore(creditRow, mailRow.nextSibling);
 
     let idRow = document.createElement("tr");
     idRow.classList.add("edit-row", `edit-row-${id}`, "IDrowEdit");
     let idCell = document.createElement("td");
     idCell.textContent = id;
-    idCell.setAttribute("rowspan", "6"); 
+    idCell.setAttribute("rowspan", "7"); 
     idRow.appendChild(idCell);
 
     tableBody.insertBefore(idRow, row.nextSibling);
 
     } catch (error) {
     console.error("No se pudo cargar la información del usuario", error);
+    }
+}
+
+let editUser = async (id) => {
+    let rowData = {
+        "nickname": document.getElementById("inputNickname").value,
+        "firstName": document.getElementById("inputFirstName").value,
+        "lastName": document.getElementById("inputLastName").value,
+        "mail": document.getElementById("inputMail").value,
+        "credit": document.getElementById("inputCredit").value
+    };
+
+    let jsonData = JSON.stringify(rowData);
+
+    const response = await fetch("http://localhost:8089/editUser/" + id, {
+        method: "PUT",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: jsonData
+    });
+
+    if (response.ok) {
+        console.log("Data sent successfully and response received from the server");
+        showFullUsers();
+    } else {
+        console.error("Error sending data to server");
+        console.error(response.status, response.statusText);
     }
 }

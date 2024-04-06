@@ -42,4 +42,7 @@ public class User {
 	@NonNull
 	@Column(name="password")
 	private String password;
+	
+	@Column(name="credit")
+	private int credit;
 }
