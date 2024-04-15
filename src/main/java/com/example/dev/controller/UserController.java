@@ -4,7 +4,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.dev.model.ErrorResponse;
 import com.example.dev.model.User;
 import com.example.dev.service.IUserService;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class UserController {
@@ -98,6 +103,32 @@ public class UserController {
 				.buildAndExpand(result.getId())
 				.toUri();
 		return ResponseEntity.created(location).build();
+	}
+	
+	@PostMapping("/regUser")
+	public ResponseEntity<?> regUser(@Valid @RequestBody User user) {
+	    try {
+	        User savedUser = userService.save(user);
+	        return ResponseEntity.ok(savedUser);
+	    } catch (DataIntegrityViolationException ex) {
+	        Throwable rootCause = ex.getMostSpecificCause();
+	        String message = rootCause.getMessage();
+
+	        if (message != null) {
+	            if (message.contains("Duplicate entry") && message.contains("for key 'nickname'")) {
+	                return ResponseEntity
+	                        .status(HttpStatus.BAD_REQUEST)
+	                        .body(new ErrorResponse("Error al crear el usuario", "Nombre de usuario no disponible"));
+	            } else if (message.contains("Duplicate entry") && message.contains("for key 'mail'")) {
+	                return ResponseEntity
+	                        .status(HttpStatus.BAD_REQUEST)
+	                        .body(new ErrorResponse("Error al crear el usuario", "Correo electrónico ya registrado"));
+	            }
+	        }
+	        return ResponseEntity
+	                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body(new ErrorResponse("Error al crear el usuario", "Error interno del servidor"));
+	    }
 	}
 	
 	@PutMapping("/editUser/{id}")

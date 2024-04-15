@@ -23,7 +23,7 @@ let showFullUsers = async () => {
             <td>${user.firstName}</td>
             <td>${user.lastName}</td>
             <td>${user.mail}</td>
-            <td>${user.credit}</td>
+            <td id="showCredit">${user.credit}</td>
             <td class="acciones">
                 <i onClick="showUserEdit(${user.id})" class="material-icons button edit">edit</i>
                 <i onClick="delUser(${user.id})" class="material-icons button delete">delete</i>
@@ -72,6 +72,8 @@ async function showUserEdit(id) {
     let buttonsCell = document.createElement("td");
     buttonsCell.className = "ButtonLabelsTable";
     buttonsCell.colSpan = 6;
+    
+    let buttonRow = document.createElement("td");
 
     let acceptButton = document.createElement("button");
     acceptButton.classList.add("ButtonLabels");

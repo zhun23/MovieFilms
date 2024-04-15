@@ -14,6 +14,7 @@ public interface IUserService {
 	public List<User> findUserByLastName(String lastName);
 	public List<User> findUserByMail(String mail);
 	public User save(User user);
+	public User register(User user);
 	public void deleteUserById(int id);
 	public void deleteUserByNickname(String nickname);
 }

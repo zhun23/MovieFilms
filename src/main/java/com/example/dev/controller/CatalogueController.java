@@ -7,8 +7,11 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -117,33 +120,47 @@ public class CatalogueController {
     }
 	
 	@PostMapping("/movie")
-	public ResponseEntity<?> saveMovie(@Valid @RequestBody Movie movie){
-		Movie result = catalogueService.save(movie);
-		URI location = ServletUriComponentsBuilder
-				.fromCurrentRequest().path("/id/{id}")
-				.buildAndExpand(result.getId())
-				.toUri();
-		Map<String, Object> response = new HashMap<>();
-        response.put("message", "Movie created successfully");
-        response.put("id", result.getId());
-
-        return ResponseEntity.created(location).body(response);
+	public ResponseEntity<?> saveMovie(@Valid @RequestBody Movie movie) {
+		try {
+	        Movie result = catalogueService.save(movie);
+	        URI location = ServletUriComponentsBuilder
+	                .fromCurrentRequest().path("/id/{id}")
+	                .buildAndExpand(result.getId())
+	                .toUri();
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("message", "Movie created successfully");
+	        response.put("id", result.getId());
+	        return ResponseEntity.created(location).body(response);
+	    } catch (DataIntegrityViolationException ex) {
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("error", "Error al crear la película");
+	        response.put("message", "Ya existe una película con ese título");
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+	    }
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<?> editMovie(@PathVariable Integer id, @RequestBody Movie movieInsert){
-		
-		Movie newMovie = new Movie();
-            		newMovie.setId(id);
-		newMovie.setTitle(movieInsert.getTitle());
-		newMovie.setDescription(movieInsert.getDescription());
-		newMovie.setReleaseDate(movieInsert.getReleaseDate());
-		newMovie.setGenre(movieInsert.getGenre());
-		newMovie.setDirector(movieInsert.getDirector());
-		newMovie.setNewRelease(movieInsert.isNewRelease());
-        Movie updatedMovie = catalogueService.save(newMovie);
+	public ResponseEntity<?> editMovie(@PathVariable Integer id, @Valid @RequestBody Movie movieInsert){
+        try {
+        	Movie newMovie = new Movie();
             
-        return ResponseEntity.ok(updatedMovie);
+    		newMovie.setId(id);
+    		newMovie.setTitle(movieInsert.getTitle());
+    		newMovie.setDescription(movieInsert.getDescription());
+    		newMovie.setReleaseDate(movieInsert.getReleaseDate());
+    		newMovie.setGenre(movieInsert.getGenre());
+    		newMovie.setDirector(movieInsert.getDirector());
+    		newMovie.setNewRelease(movieInsert.isNewRelease());
+            Movie updatedMovie = catalogueService.save(newMovie);
+
+            return ResponseEntity.ok(updatedMovie);
+            
+        } catch (DataIntegrityViolationException ex) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("error", "Error al editar la película");
+            response.put("message", "Datos inválidos o duplicados, por ejemplo, un título que ya existe.");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+        }
 	}
 	
 

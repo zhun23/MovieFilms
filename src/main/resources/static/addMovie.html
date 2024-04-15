@@ -7,29 +7,36 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Añadir Película</title>
 </head>
+<header>
+	<div id="header">
+		<img src="img/201.png" id="headbackground" alt="fondo header">
+        <a href="/index.html" class="buttonBack"><- Atrás</a>
+		<img src="img/115.png" id="headerlogo" alt="LOGO de la página web MovieFilms">
+	</div>
+</header>
 <body>
-    <a href="/index.html" class="buttonBack"><- Atrás</a>
-
     <table id="tableAddMovie">
         <thead>
             <tr>
-                <th colspan="3">Añadir Película</th>
+                <th colspan="3" id="thTitle">AÑADIR PELÍCULA</th>
             </tr>
             <tr>
                 <td>Insertar carátula de la película</td>
                 <td>Título:</td>
                 <td><input type="text" id="titleInput" placeholder="Título de la película"></td>
             </tr>
-            <tr>
-                <td id="imgSpace" rowspan="4">Carátula de la película</td>
+            <tr id="vertical">
+                <td id="imgSpace" >Carátula de la película</td>
                 <td id="descriptionAlign">Descripción:</td>
                 <td><textarea name="description" id="descriptionInput" rows="10" cols="50" placeholder="Añade la descripción de la película"></textarea></td>
             </tr>
             <tr>
+                <td></td>
                 <td>Fecha de lanzamiento:</td>
-                <td><input type="text" id="releaseDateInput" name="releaseDate" class="compact-margin" placeholder="01-01-1889"></td>
+                <td id="releaseDateInput2"><input type="text" id="releaseDateInput" name="releaseDate" class="compact-margin" placeholder="01-01-1889"></td>
             </tr>
             <tr>
+                <td></td>
                 <td>Género:</td>
                 <td>
                     <select id="genreSelect" name="genre" class="compact-margin">
@@ -50,6 +57,7 @@
                 </td>
             </tr>
             <tr>
+                <td></td>
                 <td>Director:</td>
                 <td><input type="text" id="directorInput" class="compact-margin" placeholder="Director de la película"></td>
             </tr>
@@ -67,7 +75,7 @@
     <table id="cellButtons">
         <tr>
             <td><button id="buttonAcpt" class="buttonBack" type="submit">Añadir</button></td>
-            <td><button id="buttonCncl" class="buttonBack" type="submit">Cancelar</button></td>
+            <td><button id="buttonCncl" class="buttonDelete" type="submit">Borrar</button></td>
         </tr>
     </table>
     <div id="msgShow"></div>

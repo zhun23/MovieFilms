@@ -1,8 +1,40 @@
+html {
+  background-color: #f1f1f1;
+  margin: 0px;
+}
+
+header #header {
+  position: relative;
+  margin: -10px;
+  width: 100%;
+  height: 160px;
+  overflow: visible;
+}
+
+#headbackground{
+  width: 100%;
+  height: 125px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#headerlogo {
+  margin-top: 5px;
+  margin-left: 240px;
+  width: 300px;
+  height: 165px;
+  position: relative;
+  z-index: 3;
+}
+
 .buttonBack {
+  position: absolute;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   margin-top: 20px;
   margin-left: 20px;
-  width: 120px;
+  width: 80px;
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
@@ -15,6 +47,7 @@
   border: none;
   border-radius: 5px;
   transition: background-color 0.3s;
+  z-index: 4;
 }
   
 .buttonBack:hover {
@@ -54,16 +87,16 @@ h2 {
 #sangriaLat {
   margin-right: 10px; /* Asegura un espaciado entre el texto y el input */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 #search {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   margin-left: 10px;
-  width: 120px;
+  width: 140px;
   height: 58px;
-  font-size: 20px;
-  font-weight: 550;
+  font-size: 22px;
+  font-weight:600;
   color: white;
   background-color: #858383;
   text-align: center;

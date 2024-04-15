@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const movieJSON = JSON.stringify(movie);
 
+            //console.log(movieJSON); //Guardo el consolelog para revisar como le pasa el JSON dado que he tenido que pelearme muchas veces con ello al hacer envios fallidos
+
             const response = await fetch('http://localhost:8089/movie', {
                 method: 'POST',
                 headers: {
@@ -50,5 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error en la solicitud:', error);
             document.getElementById('msgShow').innerHTML = "Error al conectar con el servidor.";
         }
+    });
+
+document.getElementById('buttonCncl').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    document.getElementById('titleInput').value = '';
+    document.getElementById('descriptionInput').value = '';
+    document.getElementById('releaseDateInput').value = '';
+    document.getElementById('genreSelect').selectedIndex = 0; // Esto asume que el primer valor es el valor por defecto
+    document.getElementById('directorInput').value = '';
+    document.getElementById('newRelease').selectedIndex = 0; // Establece el select al primer valor por defecto
+
+    const messageContainer = document.getElementById('msgShow');
+    messageContainer.innerHTML = '';
+    messageContainer.className = '';
     });
 });

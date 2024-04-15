@@ -49,6 +49,11 @@ public class UserService implements IUserService {
 		return savedUser;
 	}
 	
+	public User register(User user) {
+		User registeredUser = userDao.save(user);
+		return registeredUser;
+	}
+	
 	public void deleteUserById(int id) {
 		userDao.deleteById(id);
 	}

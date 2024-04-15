@@ -1,0 +1,214 @@
+#datreg{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: -20px;
+}
+
+html {
+    background-color: #f1f1f1;
+}
+
+.registro ul{
+    list-style: none;
+}
+
+#nickname {
+    font-family:Verdana;
+    font-weight: bold;
+    margin-bottom: 10px;
+    height: 40px;
+    width: 180px;
+    padding-left: 20px;
+}
+
+#firstName {
+    font-family:Verdana;
+    font-weight: bold;
+    margin-bottom: 10px;
+    height: 40px;
+    width: 220px;
+    padding-left: 20px;
+}
+
+#lastName {
+    font-family:Verdana;
+    font-weight: bold;
+    margin-bottom: 10px;
+    height: 40px;
+    width: 220px;
+    padding-left: 20px;
+}
+
+#regmail {
+    font-family:Verdana;
+    font-weight: bold;
+    margin-bottom: 10px;
+    height: 40px;
+    width: 220px;
+    padding-left: 20px;
+}
+
+#regpass {
+    font-family:Verdana;
+    font-weight: bold;
+    margin-bottom: 10px;
+    height: 40px;
+    width: 220px;
+    padding-left: 20px;
+}
+
+#password {
+    font-family:Verdana;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 7px;
+    height: 40px;
+    width: 220px;
+    padding-left: 20px;
+}
+
+#check{
+    width: 20px;
+    height: 20px;
+    margin-bottom: 35px;
+}
+
+.buttonBack {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 120px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 550;
+    color: white;
+    background-color: #858383;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+  
+.buttonBack:hover {
+    background-color: #0056b3;
+}
+
+#registerButton {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    width: 170px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 550;
+    color: white;
+    background-color: #858383;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#registerButton:disabled {
+    background-color: #858383;
+    cursor: default;
+}
+
+#registerButton:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+
+#formStyle {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    width: 100%;
+}
+
+.container {
+    text-align: center;
+    margin: auto;
+    width: 90%;
+    max-width: 600px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: tomato; /* O el color que prefieras */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+.registro {
+    margin: auto;
+    width: 100%;
+}
+
+.footer {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.createdUser{
+    font-size: 25px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: green;
+}
+
+.errorUser {
+    font-size: 25px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: red;
+}
+
+.parpa{  
+    animation-name: parpadeo;
+    animation-duration: 4s;
+    animation-timing-function: linear;
+    animation-iteration-count: 4;
+    -webkit-animation-name:parpadeo;
+    -webkit-animation-duration: 1.2s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: 2s;
+}
+
+@-moz-keyframes parpadeo{  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes parpadeo {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes parpadeo {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}

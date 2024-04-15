@@ -1,4 +1,61 @@
 .buttonBack {
+    position: absolute;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 80px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 550;
+    color: white;
+    background-color: #858383;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    z-index: 4;
+  }
+
+html {
+    background-color: #f1f1f1;
+    margin: 0px;
+}
+
+header #header {
+    position: relative;
+    margin: -10px;
+    width: 100%;
+    height: 160px;
+    overflow: visible;
+    margin-bottom: 25px;
+  }
+  
+  #headbackground{
+    width: 100%;
+    height: 125px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  #headerlogo {
+    margin-top: 5px;
+    margin-left: 240px;
+    width: 300px;
+    height: 165px;
+    position: relative; /* Posiciona el logo relativo al contenedor para alinearlo correctamente */
+    z-index: 3;
+  }
+  
+.buttonBack:hover {
+    background-color: #0056b3;
+}
+
+.buttonDelete {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     margin-top: 20px;
     margin-left: 20px;
@@ -16,14 +73,14 @@
     border-radius: 5px;
     transition: background-color 0.3s;
 }
-  
-.buttonBack:hover {
-    background-color: #0056b3;
+
+.buttonDelete:hover {
+    background-color: #2f2f2f;
 }
 
 #cellButtons {
-    width: 20%; /* O el ancho que prefieras */
-    margin: 0 auto; /* Centra la tabla horizontalmente */
+    width: 20%;
+    margin: 0 auto;
 }
 
 body {
@@ -31,10 +88,16 @@ body {
     color: #333;
 }
 
-#tableAddMovie #imgSpace {
+#thTitle {
+    font-size: 20px;
+  }
+
+#imgSpace {
     background: rgb(213, 213, 213);
+    height: 350px;
     width: 290px;
 }
+
 
 #tableAddMovie {
     text-align: center;
@@ -45,11 +108,12 @@ body {
     margin: 20px auto;
     border-radius: .25rem;
     width: 60%;
+    background-color: white;
 }
 
 thead tr:first-child {
     background: #858383;
-    color: #fff;
+    color: #ffffff;
     border: none;
 }
 
@@ -67,8 +131,12 @@ thead tr:last-child th {
     border-bottom: 3px solid #ddd;
 }
 
+#vertical>#imgSpace {
+    max-width: 200px;
+    height: auto;
+}
+
 #descriptionAlign {
-    vertical-align: top;
     padding-top: 15px;
 }
 
@@ -91,15 +159,6 @@ thead tr:last-child th {
     background-color: #ffcccc;
 }
 
-#tableAddMovie td input,
-#tableAddMovie td textarea,
-#tableAddMovie td select {
-    vertical-align: left;
-    margin-left: -80px;
-    padding: 7px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
 #titleInput {
     width: 280px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -112,22 +171,18 @@ thead tr:last-child th {
 #tableAddMovie td textarea {
     margin-bottom: -15px;
 }
-/*
-#genreSelect {
-    margin-top: -10px;
-}
 
-#descriptionInput {
-    margin-top: 5px;
-}
-*/
 #releaseDateInput {
     margin-top: 7px;
     width: 80px;
 }
 
-/*
-#tableAddMovie td .compact-margin {
+table tr td #releaseDateInput2 {
     text-align: left;
 }
-*/
+
+table tr td:nth-child(3n) {
+    text-align: left;
+}
+
+

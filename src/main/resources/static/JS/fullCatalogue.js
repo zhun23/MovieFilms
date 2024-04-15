@@ -56,41 +56,41 @@ async function showFormEdit(id) {
         }
         const movie = await response.json();
 
-    // Crear fila para los botones y asignar una clase para identificarla
-    let buttonsRow = document.createElement("tr");
-    buttonsRow.classList.add("edit-row", `edit-row-${id}`);
+        // Crear fila para los botones y asignar una clase para identificarla
+        let buttonsRow = document.createElement("tr");
+        buttonsRow.classList.add("edit-row", `edit-row-${id}`);
 
+        // Crear celda para el botón "Guardar cambios" y "Cancelar"
+        let buttonsCell = document.createElement("td");
+        buttonsCell.className = "ButtonLabelsTable";
+        buttonsCell.colSpan = 6;
 
-    // Crear celda para el botón "Guardar cambios" y "Cancelar"
-    let buttonsCell = document.createElement("td");
-    buttonsCell.className = "ButtonLabelsTable";
-    buttonsCell.colSpan = 6;
+        // Crear formulario para contener los botones
+        let form = document.createElement("form");
+        form.onsubmit = function() {
+            editMovie(id);
+            return false;
+        };
 
-    // Crear botón "Guardar cambios"
-    let acceptButton = document.createElement("button");
-    acceptButton.classList.add("ButtonLabels");
-    acceptButton.textContent = "Modificar cambios";
-    acceptButton.addEventListener("click", function() {
-        editMovie(id);
-        document.querySelectorAll('.edit-row').forEach(row => row.remove());
-    });
+        let acceptButton = document.createElement("button");
+        acceptButton.type = "submit";
+        acceptButton.classList.add("ButtonLabels", "acceptButton");
+        acceptButton.textContent = "Modificar cambios";
+        
+        let cancelButton = document.createElement("button");
+        cancelButton.type = "button";
+        cancelButton.classList.add("ButtonLabels", "cancelButton");
+        cancelButton.textContent = "Cancelar";
+        cancelButton.onclick = function() {
+            document.querySelectorAll('.edit-row').forEach(row => row.remove());
+        };
 
-    // Crear botón "Cancelar"
-    let cancelButton = document.createElement("button");
-    cancelButton.classList.add("ButtonLabels");
-    cancelButton.textContent = "Cancelar";
-    cancelButton.addEventListener("click", function() {
-        document.querySelectorAll('.edit-row').forEach(row => row.remove());
-    });
+        form.appendChild(acceptButton);
+        form.appendChild(cancelButton);
+        buttonsCell.appendChild(form);
+        buttonsRow.appendChild(buttonsCell);
+        tableBody.insertBefore(buttonsRow, row.nextSibling);
 
-    buttonsCell.appendChild(acceptButton);
-    buttonsCell.appendChild(cancelButton);
-
-    buttonsRow.appendChild(buttonsCell);
-
-    tableBody.insertBefore(buttonsRow, row.nextSibling);
-
-    // Creación de fila, celda y campo para "Novedad"
     let newReleaseRow = document.createElement("tr");
     newReleaseRow.classList.add("edit-row", `edit-row-${id}`);
     let newReleaseCell = document.createElement("td");
@@ -112,7 +112,6 @@ async function showFormEdit(id) {
     newReleaseRow.appendChild(newReleaseCell);
     newReleaseRow.appendChild(newReleaseInputCell);
 
-    // Creación de fila, celda y campo para "Director"
     let directorRow = document.createElement("tr");
     directorRow.classList.add("edit-row", `edit-row-${id}`);
     let directorCell = document.createElement("td");
@@ -123,11 +122,11 @@ async function showFormEdit(id) {
     directorInput.type = "text";
     directorInput.id = "inputDirector";
     directorInput.value = movie.director;
+    directorInput.required = true;
     directorInputCell.appendChild(directorInput);
     directorRow.appendChild(directorCell);
     directorRow.appendChild(directorInputCell);
 
-    // Creación de fila, celda y campo para "Género"
     let genreRow = document.createElement("tr");
     genreRow.classList.add("edit-row", `edit-row-${id}`);
     let genreCell = document.createElement("td");
@@ -148,7 +147,6 @@ async function showFormEdit(id) {
     genreRow.appendChild(genreCell);
     genreRow.appendChild(genreInputCell);
 
-    // Creación de fila, celda y campo para "Fecha lanzamiento"
     let releaseDateRow = document.createElement("tr");
     releaseDateRow.classList.add("edit-row", `edit-row-${id}`);
     let releaseDateCell = document.createElement("td");
@@ -159,11 +157,11 @@ async function showFormEdit(id) {
     releaseDateInput.type = "text";
     releaseDateInput.id = "inputReleaseDate";
     releaseDateInput.value = movie.releaseDate;
+    releaseDateInput.required = true;
     releaseDateInputCell.appendChild(releaseDateInput);
     releaseDateRow.appendChild(releaseDateCell);
     releaseDateRow.appendChild(releaseDateInputCell);
 
-    // Creación de fila, celda y campo para "Descripción"
     let descriptionRow = document.createElement("tr");
     descriptionRow.classList.add("edit-row", `edit-row-${id}`);
     let descriptionCell = document.createElement("td");
@@ -173,11 +171,11 @@ async function showFormEdit(id) {
     let descriptionInput = document.createElement("textarea");
     descriptionInput.id = "inputDescription";
     descriptionInput.value = movie.description;
+    descriptionInput.required = true;
     descriptionInputCell.appendChild(descriptionInput);
     descriptionRow.appendChild(descriptionCell);
     descriptionRow.appendChild(descriptionInputCell);
 
-    // Creación de fila, celda y campo para "Título"
     let titleRow = document.createElement("tr");
     titleRow.classList.add("edit-row", `edit-row-${id}`);
     let titleCell = document.createElement("td");
@@ -189,9 +187,12 @@ async function showFormEdit(id) {
     titleInput.type = "text";
     titleInput.id = "inputTitle";
     titleInput.value = movie.title;
+    titleInput.required = true;
     titleInputCell.appendChild(titleInput);
     titleRow.appendChild(titleCell);
     titleRow.appendChild(titleInputCell);
+
+    form.appendChild(titleRow);
 
     tableBody.insertBefore(titleRow, row.nextSibling);
     tableBody.insertBefore(descriptionRow, titleRow.nextSibling);
@@ -227,25 +228,28 @@ let editMovie = async (id) => {
 
     let jsonData = JSON.stringify(rowData);
 
-    console.log("Sending data to server:", jsonData);
+    //console.log("Sending data to server:", jsonData);
 
     const response = await fetch("http://localhost:8089/edit/" + id, {
         method: "PUT",
         headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         },
         body: jsonData
     });
 
     if (response.ok) {
-        console.log("Data sent successfully and response received from the server");
+        //console.log("Data sent successfully and response received from the server");
         showFullCatalogue();
     } else {
-        console.error("Error sending data to server");
-        console.error(response.status, response.statusText);
+        //console.error("Error sending data to server");
+        const errorData = await response.json();
+        //console.error(`Error: ${errorData.error}, Message: ${errorData.message}`);
+        alert(`Error: ${errorData.error}\nMensaje: ${errorData.message}`);
     }
 }
+        
 
 let delMovie = async (id) => {
     const request = await fetch("http://localhost:8089/delete/" + id, {

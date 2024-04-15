@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/register.css" />
+    <title>Registrarse</title>
+</head>
+<!-- <header class="header">
+    <div class="container logonavweb">
+        <a href="index.php" class="logo"><img src="img/stud.png" id = "imgnav"></a>
+        <h2 class ="fenotipo">Tu Web de apoyo y aprendizaje</h2>
+        <nav class="navegacion">
+            <ul>
+                <li><a href="index.php">ATRÁS</a></li>
+            </ul>
+        </nav>
+    </div> 
+</header>
+-->
+<body>
+    <a href="/index.html" class="buttonBack"><- Atrás</a>
+    <div id="formStyle">
+    <main class="mainreg">
+        <div class="container">
+
+    <!--EN FRONT SOLO COMPRUEBO QUE LOS CAMPOS CONTENGAN DATOS MEDIANTE EL REQUIRED-->
+<ul>
+    <li><p id="datreg">REGISTRARSE</p><form class="registro"></li>
+    <li><input type="text" name="nickname" id= "nickname" placeholder="Apodo" required= "required"></li>
+    <li><input type="text" name="firstName" id= "firstName" placeholder="Nombre" required= "required"></li>
+    <li><input type="text" name="lastName" id= "lastName" placeholder="Apellidos" required= "required"></li>    
+    <li><input type="email" name="mail" id= "regmail" placeholder="Correo electrónico" required= "required"></li>
+    <li><input type="password" name="pass" id="regpass" placeholder="Contraseña" required= "required"></li>
+    <li><p id="infopass">Al menos ocho caracteres, incluyendo mayúsculas, minúsculas y números</p></li>
+    <li><input type="password" name="password" id="password" placeholder="Repite la contraseña" required= "required"></li>
+    <li><input type="checkbox" name="accept" id="check" required><label for="check"><span style="color:black">Al marcar aceptas el </span><span style="color: tomato">tratamiento de datos</span></label></li>
+    <li><button type="submit" name="submit" id="registerButton">Registrarse</button></li>
+</ul> 
+</form>
+        </div>
+    </main>
+</div>
+</body>
+<footer class="footer">
+    <div class="container">
+    <p>Website designed by Iván Casado</p>
+    </div>
+</footer>
+<script src="JS/register.js"></script>
+</html>

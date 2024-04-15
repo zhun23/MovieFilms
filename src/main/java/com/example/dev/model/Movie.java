@@ -38,7 +38,6 @@ public class Movie {
 	@Column(name="description")
 	private String description;
 	
-	@NonNull
 	@NotBlank(message = "La fecha de lanzamiento no puede estar vacía")
 	@Column(name="release_date")
 	private String releaseDate;
