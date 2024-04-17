@@ -44,6 +44,18 @@ public class UserService implements IUserService {
 		return userDao.findUserByMail(mail);
 	}
 	
+	public List<User> findByFirstNameAndLastName(String firstName, String lastName) {
+		return userDao.findByFirstNameAndLastName(firstName, lastName);
+	}
+	
+	public List<User> findByFirstNameContaining(String firstName) {
+	    return userDao.findByFirstNameContaining(firstName);
+	}
+	
+	public List<User> findByLastNameContaining(String lastName) {
+	    return userDao.findByLastNameContaining(lastName);
+	}
+	
 	public User save(User user) {
 		User savedUser = userDao.save(user);
 		return savedUser;
@@ -67,7 +79,4 @@ public class UserService implements IUserService {
         query.setParameter("nickname", nickname);
         query.executeUpdate();
     }
-	
-	
-	
 }

@@ -25,6 +25,7 @@ let showFullCatalogue = async () => {
             <td>${movie.genre}</td>
             <td>${movie.director}</td>
             <td id="newReleaseAllign">${newReleaseTrad}</td>
+            <td>${movie.stock}</td>
             <td class="acciones">
                 <i onClick="showFormEdit(${movie.id})" class="material-icons button edit">edit</i>
                 <i onClick="delMovie(${movie.id})" class="material-icons button delete">delete</i>
@@ -90,6 +91,22 @@ async function showFormEdit(id) {
         buttonsCell.appendChild(form);
         buttonsRow.appendChild(buttonsCell);
         tableBody.insertBefore(buttonsRow, row.nextSibling);
+
+    let stockRow = document.createElement("tr");
+    stockRow.classList.add("edit-row", `edit-row-${id}`);
+    let stockCell = document.createElement("td");
+    stockCell.classList.add("Labels");
+    stockCell.textContent = "Stock";
+    let stockInputCell = document.createElement("td");
+    let stockInput = document.createElement("input");
+    stockInput.classList.add("inputCustomStock");
+    stockInput.type = "text";
+    stockInput.id = "inputStock";
+    stockInput.value = movie.stock;
+    stockInput.required = true;
+    stockInputCell.appendChild(stockInput);
+    stockRow.appendChild(stockCell);
+    stockRow.appendChild(stockInputCell);
 
     let newReleaseRow = document.createElement("tr");
     newReleaseRow.classList.add("edit-row", `edit-row-${id}`);
@@ -200,12 +217,13 @@ async function showFormEdit(id) {
     tableBody.insertBefore(genreRow, releaseDateRow.nextSibling);
     tableBody.insertBefore(directorRow, genreRow.nextSibling);
     tableBody.insertBefore(newReleaseRow, directorRow.nextSibling);
+    tableBody.insertBefore(stockRow, newReleaseRow.nextSibling);
 
     let idRow = document.createElement("tr");
     idRow.classList.add("edit-row", `edit-row-${id}`, "IDrowEdit");
     let idCell = document.createElement("td");
     idCell.textContent = id;
-    idCell.setAttribute("rowspan", "8"); 
+    idCell.setAttribute("rowspan", "9"); 
     idRow.appendChild(idCell);
 
     tableBody.insertBefore(idRow, row.nextSibling);
@@ -223,12 +241,13 @@ let editMovie = async (id) => {
         "releaseDate": document.getElementById("inputReleaseDate").value,
         "genre": document.getElementById("selectGenre").value,
         "director": document.getElementById("inputDirector").value,
-        "newRelease": document.getElementById("selectNewRelease").value === "true" ? true : false
+        "newRelease": document.getElementById("selectNewRelease").value === "true" ? true : false,
+        "stock": parseInt(document.getElementById("inputStock").value)
     };
 
     let jsonData = JSON.stringify(rowData);
 
-    //console.log("Sending data to server:", jsonData);
+    console.log("Sending data to server:", jsonData);
 
     const response = await fetch("http://localhost:8089/edit/" + id, {
         method: "PUT",
@@ -252,6 +271,28 @@ let editMovie = async (id) => {
         
 
 let delMovie = async (id) => {
+    let row = document.getElementById(`row-${id}`);
+    let existingConfirmRows = document.querySelectorAll(`.confirm-row-${id}`);
+    if (existingConfirmRows.length) {
+        existingConfirmRows.forEach(row => row.remove());
+        return;
+    }
+
+    let confirmRow = document.createElement("tr");
+    confirmRow.classList.add("confirm-row", `confirm-row-${id}`);
+    let confirmCell = document.createElement("td");
+    confirmCell.colSpan = 8; // Asumiendo que tienes 8 columnas en tu tabla
+    confirmCell.innerHTML = `
+        <div>Estás seguro de borrar la película: <strong>${row.cells[1].textContent}</strong>?</div>
+        <button onclick="confirmDelete(${id})" class="confirm-button">Confirmar</button>
+        <button onclick="cancelDelete(${id})" class="cancel-button">Cancelar</button>
+    `;
+    confirmRow.appendChild(confirmCell);
+
+    row.parentNode.insertBefore(confirmRow, row.nextSibling);
+}
+
+let confirmDelete = async (id) => {
     const request = await fetch("http://localhost:8089/delete/" + id, {
         method: "DELETE",
         headers: {
@@ -259,5 +300,13 @@ let delMovie = async (id) => {
             "Content-Type": "application/json"
         }
     });
-    showFullCatalogue();
+    if (request.ok) {
+        showFullCatalogue(); // Refrescar la tabla para mostrar los cambios
+    } else {
+        alert("Error al intentar eliminar la película");
+    }
+}
+
+let cancelDelete = (id) => {
+    document.querySelectorAll(`.confirm-row-${id}`).forEach(row => row.remove());
 }

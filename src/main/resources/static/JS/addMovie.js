@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('buttonAcpt').addEventListener('click', async function(e) {
-        e.preventDefault(); // Previene el comportamiento por defecto del botón de submit
+        e.preventDefault();
 
         try {
             const movie = {
@@ -9,12 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 releaseDate: document.getElementById('releaseDateInput').value,
                 genre: document.getElementById('genreSelect').value,
                 director: document.getElementById('directorInput').value,
-                newRelease: document.getElementById('newRelease').value === "True"
+                newRelease: document.getElementById('newRelease').value === "True",
+                imgUrl: document.getElementById('imgUrlInput').value,
+                stock: parseInt(document.getElementById('stockInput').value)
             };
 
             const movieJSON = JSON.stringify(movie);
 
-            //console.log(movieJSON); //Guardo el consolelog para revisar como le pasa el JSON dado que he tenido que pelearme muchas veces con ello al hacer envios fallidos
+            console.log(movieJSON); //Guardo el consolelog para revisar como le pasa el JSON dado que he tenido que pelearme muchas veces con ello al hacer envios fallidos
 
             const response = await fetch('http://localhost:8089/movie', {
                 method: 'POST',
@@ -54,18 +56,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-document.getElementById('buttonCncl').addEventListener('click', function(e) {
-    e.preventDefault();
+    document.getElementById('buttonCncl').addEventListener('click', function(e) {
+        e.preventDefault();
 
-    document.getElementById('titleInput').value = '';
-    document.getElementById('descriptionInput').value = '';
-    document.getElementById('releaseDateInput').value = '';
-    document.getElementById('genreSelect').selectedIndex = 0; // Esto asume que el primer valor es el valor por defecto
-    document.getElementById('directorInput').value = '';
-    document.getElementById('newRelease').selectedIndex = 0; // Establece el select al primer valor por defecto
+        document.getElementById('titleInput').value = '';
+        document.getElementById('descriptionInput').value = '';
+        document.getElementById('releaseDateInput').value = '';
+        document.getElementById('genreSelect').selectedIndex = 0;
+        document.getElementById('directorInput').value = '';
+        document.getElementById('newRelease').selectedIndex = 0;
+        document.getElementById('imgUrlInput').value = '';
+        document.getElementById('stockInput').value = 0;
 
-    const messageContainer = document.getElementById('msgShow');
-    messageContainer.innerHTML = '';
-    messageContainer.className = '';
+        const messageContainer = document.getElementById('msgShow');
+        messageContainer.innerHTML = '';
+        messageContainer.className = '';
     });
 });

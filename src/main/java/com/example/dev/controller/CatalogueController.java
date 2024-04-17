@@ -141,19 +141,25 @@ public class CatalogueController {
 	
 	@PutMapping("/edit/{id}")
 	public ResponseEntity<?> editMovie(@PathVariable Integer id, @Valid @RequestBody Movie movieInsert){
-        try {
-        	Movie newMovie = new Movie();
-            
-    		newMovie.setId(id);
-    		newMovie.setTitle(movieInsert.getTitle());
-    		newMovie.setDescription(movieInsert.getDescription());
-    		newMovie.setReleaseDate(movieInsert.getReleaseDate());
-    		newMovie.setGenre(movieInsert.getGenre());
-    		newMovie.setDirector(movieInsert.getDirector());
-    		newMovie.setNewRelease(movieInsert.isNewRelease());
-            Movie updatedMovie = catalogueService.save(newMovie);
+		try {
+	        Optional<Movie> existingMovieOpt = catalogueService.findById(id);
+	        if (!existingMovieOpt.isPresent()) {
+	            return ResponseEntity.notFound().build();
+	        }
 
-            return ResponseEntity.ok(updatedMovie);
+	        Movie existingMovie = existingMovieOpt.get();
+
+	        existingMovie.setTitle(movieInsert.getTitle());
+	        existingMovie.setDescription(movieInsert.getDescription());
+	        existingMovie.setReleaseDate(movieInsert.getReleaseDate());
+	        existingMovie.setGenre(movieInsert.getGenre());
+	        existingMovie.setDirector(movieInsert.getDirector());
+	        existingMovie.setNewRelease(movieInsert.isNewRelease());
+	        existingMovie.setStock(movieInsert.getStock());
+
+	        Movie updatedMovie = catalogueService.save(existingMovie);
+
+	        return ResponseEntity.ok(updatedMovie);
             
         } catch (DataIntegrityViolationException ex) {
             Map<String, Object> response = new HashMap<>();

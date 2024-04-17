@@ -36,6 +36,57 @@ let showFullUsers = async () => {
     document.querySelector("#table tbody").innerHTML = contentTable;
 }
 
+
+
+let delUser = async (id) => {
+    let row = document.getElementById(`row-${id}`);
+    let existingConfirmRows = document.querySelectorAll(`.confirm-row-${id}`);
+    if (existingConfirmRows.length) {
+        existingConfirmRows.forEach(row => row.remove());
+        return;
+    }
+
+    let confirmRow = document.createElement("tr");
+    confirmRow.classList.add("confirm-row", `confirm-row-${id}`);
+    let confirmCell = document.createElement("td");
+    confirmCell.colSpan = 8; // Asumiendo que tienes 8 columnas en tu tabla
+    confirmCell.innerHTML = `
+        <div>Estás seguro de borrar el usuario: <strong>${row.cells[1].textContent}</strong>?</div>
+        <button onclick="confirmDelete(${id})" class="confirm-button">Confirmar</button>
+        <button onclick="cancelDelete(${id})" class="cancel-button">Cancelar</button>
+    `;
+    confirmRow.appendChild(confirmCell);
+
+    row.parentNode.insertBefore(confirmRow, row.nextSibling);
+}
+
+let confirmDelete = async (id) => {
+    const request = await fetch("http://localhost:8089/deleteUser/" + id, {
+        method: "DELETE",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    });
+    
+    if (request.ok) {
+        showFullUsers();
+    } else {
+        alert("Error al intentar eliminar el usuario");
+    }
+}
+
+let cancelDelete = (id) => {
+    document.querySelectorAll(`.confirm-row-${id}`).forEach(row => row.remove());
+}
+
+
+
+
+
+
+
+/*
 let delUser = async (id) => {
     const request = await fetch("http://localhost:8089/deleteUser/" + id, {
         method: "DELETE",
@@ -46,7 +97,7 @@ let delUser = async (id) => {
     });
     showFullUsers();
 }
-
+*/
 async function showUserEdit(id) {
     let tableBody = document.querySelector("#table tbody");
 
@@ -76,7 +127,7 @@ async function showUserEdit(id) {
     let buttonRow = document.createElement("td");
 
     let acceptButton = document.createElement("button");
-    acceptButton.classList.add("ButtonLabels");
+    acceptButton.classList.add("aceptButton");
     acceptButton.textContent = "Modificar cambios";
     acceptButton.addEventListener("click", function() {
         editUser(id);
@@ -84,7 +135,7 @@ async function showUserEdit(id) {
     });
 
     let cancelButton = document.createElement("button");
-    cancelButton.classList.add("ButtonLabels");
+    cancelButton.classList.add("cancelButton");
     cancelButton.textContent = "Cancelar";
     cancelButton.addEventListener("click", function() {
         document.querySelectorAll('.edit-row').forEach(row => row.remove());

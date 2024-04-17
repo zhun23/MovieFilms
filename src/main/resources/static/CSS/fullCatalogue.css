@@ -3,31 +3,60 @@ html {
   margin: 0px;
 }
 
-header #header {
-  position: relative;
-  margin: -10px;
-  width: 100%;
-  height: 160px;
-  overflow: visible;
-  margin-bottom: 15px;
-}
-
-#headbackground{
-  width: 100%;
-  height: 125px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
 #headerlogo {
   margin-top: 5px;
   margin-left: 240px;
   width: 300px;
   height: 165px;
+  margin-top: -143px;
   position: relative;
   z-index: 3;
+}
+
+#header {
+  margin:0 auto;
+  width:100%;
+  background: linear-gradient(to right, rgb(75, 75, 75), black, rgb(145, 145, 145));
+  height: 143px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+#headerImg {
+  width: 100%;
+  height: 140px;
+}
+
+.buttonBack {
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  float: left;
+  margin-top: -120px;
+  margin-left: 20px;
+  width: 80px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 550;
+  color: white;
+  background-color: #858383;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  z-index: 4;
+}
+
+.buttonBack:hover {
+  background-color: #0056b3;
+}
+
+body {
+  margin-top: 190px;
+  margin-left: 40px;
 }
 
 #body {
@@ -95,36 +124,23 @@ thead tr:last-child th {
   width: 450px;
 }
 
-.buttonBack {
-  position: absolute;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  margin-top: 20px;
-  margin-left: 20px;
-  width: 80px;
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: 550;
-  color: white;
-  background-color: #858383;
-  text-align: center;
-  cursor: pointer;
-  text-decoration: none;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-  z-index: 4;
-}
-
-.buttonBack:hover {
-  background-color: #0056b3;
-}
-
 tr.IDrowEdit {
-  background-color: #c7c7c78f;
+  background-color: #858383;
   border-bottom: 2px solid #000;
   font-size: 18px;
   font-weight: 550;
+  color: white;
+}
+
+.IDrowEdit:hover {
+  background-color: #858383;
+}
+tbody {
+  background-color: white;
+}
+
+.edit-row {
+  background-color: #dddddd99;
 }
 
 #table tbody .Labels {
@@ -224,8 +240,54 @@ td:last-child {
 }
 
 .acciones .material-icons {
-    /* margin-right: 20px; */
-    align-items: center;
-    margin-right: 5px;
-    margin-left: 5px;
+  align-items: center;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.confirm-button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  width: 200px;
+  height: 40px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 550;
+  color: white;
+  background-color: #858383;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  vertical-align: middle;
+}
+
+.confirm-button:hover {
+  background-color: #dc2a2a;
+}
+
+.cancel-button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin-left: 12px;
+  margin-bottom: 8px;
+  width: 200px;
+  height: 40px;
+  font-size: 14px;
+  font-weight: 550;
+  color: white;
+  background-color: #858383;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  vertical-align: middle;
+}
+
+.cancel-button:hover {
+  background-color: #2f2f2f;
 }

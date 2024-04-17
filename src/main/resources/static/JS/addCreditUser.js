@@ -1,47 +1,72 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.getElementById('search').addEventListener('click', function(event) {
+    event.preventDefault();
+    const query = document.getElementById('findGlobalUser').value;
 
-    const searchButton = document.getElementById('search');
-    const userInput = document.getElementById('findGlobalUser');
+    if (!query) {
+        console.log("Please enter a search value.");
+        return;
+    }
 
-    searchButton.addEventListener('click', async () => {
-        const userValue = userInput.value;
-        if (!userValue) {
-            //aqui quiero mostrar por el HTML un <p></p> con este mensaje entre medias y en color rojo:
-            // "Por favor, introduce un valor para buscar."
-            alert('Por favor, introduce un valor para buscar.');
-            return;
-        }
+    fetch(`/user/search/${query}`)
+        .then(response => response.ok ? response.json() : Promise.reject(`Error ${response.status}`))
+        .then(data => {
+            const tableContainer = document.getElementById('tableContainer');
+            tableContainer.innerHTML = ''; // Limpiamos cualquier tabla previa
 
-        const urls = [
-            `http://localhost:8089/user/id/${encodeURIComponent(userValue)}`,
-            `http://localhost:8089/user/nickname/${encodeURIComponent(userValue)}`,
-            `http://localhost:8089/user/mail/${encodeURIComponent(userValue)}`,
-            `http://localhost:8089/user/firstname/${encodeURIComponent(userValue)}`,
-            `http://localhost:8089/user/lastname/${encodeURIComponent(userValue)}`
-        ];
+            const table = document.createElement('table');
+            table.setAttribute('id', 'userInfoTable');
 
-        const fetchPromises = urls.map(url =>
-            fetch(url, {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                }
-            }).then(response => response.ok ? response.json() : Promise.reject('Consulta fallida'))
-        );
+            const tableHead = document.createElement('thead');
+            const headRow = document.createElement('tr');
+            ['ID', 'Nombre', 'Apellidos', 'Apodo', 'Email', 'Crédito'].forEach(cell => {
+                const th = document.createElement('th');
+                th.textContent = cell;
+                headRow.appendChild(th);
+            });
+            tableHead.appendChild(headRow);
+            table.appendChild(tableHead);
 
-        Promise.allSettled(fetchPromises).then(results => {
-            const successfulResults = results.filter(result => result.status === 'fulfilled');
+            const tableBody = document.createElement('tbody');
+            data.forEach(item => appendRow(tableBody, item));
+            table.appendChild(tableBody);
 
-            if (successfulResults.length > 0) {
-                successfulResults.forEach(result => {
-                    console.log(result.value);
-                });
-            } else {
-                alert('Usuario no encontrado.');
-            }
-        });
-    });
+            tableContainer.appendChild(table);
+
+            addClickEventToRows();
+        })
+        .catch(error => console.error('Error fetching data:', error));
 });
 
+function appendRow(tableBody, item) {
+    const newRow = tableBody.insertRow(-1);
+    newRow.insertCell(0).textContent = item.id;
+    newRow.insertCell(1).textContent = item.firstName;
+    newRow.insertCell(2).textContent = item.lastName;
+    newRow.insertCell(3).textContent = item.nickname;
+    newRow.insertCell(4).textContent = item.mail;
+    newRow.insertCell(5).textContent = item.credit || '0';
+}
 
+function addClickEventToRows() {
+    const rows = document.getElementById('userInfoTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].addEventListener('click', function() {
+            const cells = this.getElementsByTagName('td');
+            const userDetails = document.getElementById('userDetails');
+            userDetails.innerHTML = `
+                <h3>ID: ${cells[0].textContent}</h3>
+                <p>Nombre: ${cells[1].textContent}</p>
+                <p>Apellidos: ${cells[2].textContent}</p>
+                <p>Apodo: ${cells[3].textContent}</p>
+                <p>Email: ${cells[4].textContent}</p>
+                <p>Crédito: ${cells[5].textContent}</p>
+            `;
+            // Eliminar la tabla
+            const tableContainer = document.getElementById('tableContainer');
+            const table = document.getElementById('userInfoTable');
+            if (table) {
+                tableContainer.removeChild(table);
+            }
+        });
+    }
+}

@@ -54,4 +54,10 @@ public class Movie {
 	
 	@Column(name="new_release")
 	private boolean newRelease;
+	
+	@Column(name = "img_url")
+    private String imgUrl;
+	
+	@Column(name = "stock")
+	private int stock;
 }

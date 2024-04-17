@@ -1,8 +1,11 @@
 package com.example.dev.controller;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +97,63 @@ public class UserController {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No users matching that mail were found in the database");
 	    }
 	}
+	
+	/*
+	@GetMapping("/user/search/{query}")
+    public ResponseEntity<?> searchAll(@PathVariable String query) {
+        Set<User> result = new HashSet<>();
+
+        try {
+            int id = Integer.parseInt(query);
+            userService.findById(id).ifPresent(result::add);
+        } catch (NumberFormatException ex) {
+
+        }
+        String[] parts = query.split("\\s+");
+        
+        for (int i = 0; i < parts.length; i++) {
+            String firstName = String.join(" ", Arrays.copyOfRange(parts, 0, i + 1));
+            String lastName = String.join(" ", Arrays.copyOfRange(parts, i + 1, parts.length));
+            result.addAll(userService.findByFirstNameAndLastName(firstName, lastName));
+        }
+        result.addAll(userService.findUserByNickname(query));
+        result.addAll(userService.findUserByFirstName(query));
+        result.addAll(userService.findUserByLastName(query));
+        result.addAll(userService.findUserByMail(query));
+
+        if (!result.isEmpty()) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No matching users were found in the database");
+        }
+    }
+	*/
+	
+	@GetMapping("/user/search/{query}")
+    public ResponseEntity<?> searchAll(@PathVariable String query) {
+        Set<User> result = new HashSet<>();
+        try {
+            int id = Integer.parseInt(query);
+            userService.findById(id).ifPresent(result::add);
+        } catch (NumberFormatException ex) {
+
+        }
+        String[] parts = query.split("\\s+");
+        if (parts.length > 1) {
+            result.addAll(userService.findByFirstNameAndLastName(parts[0], parts[1]));        	
+        } else {
+        	result.addAll(userService.findByFirstNameContaining(query));
+            result.addAll(userService.findByLastNameContaining(query));
+            result.addAll(userService.findUserByNickname(query));
+            result.addAll(userService.findUserByMail(query));
+        }
+
+        if (!result.isEmpty()) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No matching users were found in the database");
+        }
+    }
 	
 	@PostMapping("/user")
 	public ResponseEntity<?> saveUser(@RequestBody User user){
