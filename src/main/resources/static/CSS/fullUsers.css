@@ -1,5 +1,5 @@
 html {
-  background-color: #f1f1f1;
+  background-color: #dddddd99;
   margin: 0px;
 }
 
@@ -150,6 +150,10 @@ td:last-child {
   font-size: 20px;
 }
 
+.edit-row {
+  background-color: #dddddd99;
+}
+
 tr.IDrowEdit {
   background-color: #858383;
   border-bottom: 2px solid #000;
@@ -160,6 +164,9 @@ tr.IDrowEdit {
 
 .IDrowEdit:hover {
   background-color: #858383;
+}
+tbody {
+  background-color: white;
 }
 
 #table tbody input[type="text"], #table tbody select {

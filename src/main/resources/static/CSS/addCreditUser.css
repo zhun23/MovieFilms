@@ -56,8 +56,7 @@ html {
 }
 
 body {
-  margin-top: 190px;
-  margin-left: 40px;
+  margin-top: 170px;
 }
 
 h2 {
@@ -70,37 +69,137 @@ h2 {
 .alignFind {
   display: flex;
   justify-content: center;
-  align-items: center; /* Alineación vertical centrada */
+  align-items: center;
   width: 100%;
 }
 
 .container {
+  margin-top: -20px;
   display: flex;
   justify-content: center;
   width: 100%;
-  position: relative; /* Importante para el desplazamiento basado en posición */
-  left: -10%; /* Mueve el contenedor un 10% hacia la izquierda */
+  background: linear-gradient(to right, #dddddd99, rgb(221, 221, 221), #dddddd99);
+  left: -10%;
+  height: 52px;
 }
 
-#findGlobalUser {
-  border-radius: 5px;
-  width: 30%;
-  height: 50px;
+#userInfoTable {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
+#userDetails {
+  margin-top: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-align: left;
+  border: 3px solid #000;
+  padding: 20px;
+  background-color: whitesmoke;
+}
+
+#userDetails:empty {
+  display: none;
+}
+
+#positionUserDetails {
+  margin-left: 25%
+}
+
+#userInfoTable th:nth-child(1) {
+  width: 40px;
+  background-color: #858383;
   text-align: center;
-  font-size: 30px;
+}
+
+#userInfoTable th:nth-child(2) {
+  width: 180px;
+  background-color: #858383;
+  text-align: center;
+}
+
+#userInfoTable th:nth-child(3) {
+  width: 240px;
+  background-color: #858383;
+  text-align: center;
+}
+
+#userInfoTable th:nth-child(4) {
+  width: 190px;
+  background-color: #858383;
+  text-align: center;
+}
+
+#userInfoTable th:nth-child(5) {
+  width: 250px;
+  background-color: #858383;
+  text-align: center;
+}
+
+#userInfoTable th:nth-child(6) {
+  width: 80px;
+  background-color: #858383;
+  padding: 4px;
+  text-align: center;
+}
+
+#userInfoTable tr:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+#tableContainer {
+  border-collapse: separate;
+  border-spacing: 0;
+  line-height: 25px;
+  border: 2px solid #858383;
+  width: 50%;
+  margin: 20px auto;
+  border-radius: .15rem;
+  background-color: #dddddd99;
+  text-align: center;
+}
+
+#tableContainer:empty {
+  display: none;
+}
+
+thead tr:first-child {
+  background: #858383;
+  color: #fff;
+  height: 20px;
+}
+
+th {
+  font-weight: 500;
+  height: 20px;
+}
+
+
+#findGlobalUser {
+  border-radius: 1px;
+  width: 45%;
+  height: 35px;
+  text-align: left;
+  font-size: 24px;
+  padding-left: 10px;
 }
 
 #sangriaLat {
-  margin-right: 10px; /* Asegura un espaciado entre el texto y el input */
+  margin-right: 10px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 24px;
+}
+
+form {
+  width: 40%;
 }
 
 #search {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   margin-left: 10px;
   width: 140px;
-  height: 58px;
+  height: 42px;
   font-size: 22px;
   font-weight:600;
   color: white;
@@ -119,9 +218,9 @@ h2 {
 
 #clean {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  margin-left: 10px;
+  margin-left: px;
   width: 140px;
-  height: 58px;
+  height: 42px;
   font-size: 22px;
   font-weight:600;
   color: white;
@@ -138,6 +237,16 @@ h2 {
   background-color: #dc2a2a;
 }
 
+#creditRow {
+  margin-top: -16px;
+}
 
+#searchResult {
+  margin-left: 40%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 22px;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
 
 

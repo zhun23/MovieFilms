@@ -8,8 +8,17 @@ document.getElementById('search').addEventListener('click', function(event) {
     }
 
     fetch(`/user/search/${query}`)
-        .then(response => response.ok ? response.json() : Promise.reject(`Error ${response.status}`))
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else if (response.status === 404) {
+                throw new Error("Usuario no encontrado");
+            } else {
+                throw new Error(`Error ${response.status}`);
+            }
+        })
         .then(data => {
+            // Procesar la respuesta exitosa
             const tableContainer = document.getElementById('tableContainer');
             tableContainer.innerHTML = ''; // Limpiamos cualquier tabla previa
 
@@ -18,7 +27,7 @@ document.getElementById('search').addEventListener('click', function(event) {
 
             const tableHead = document.createElement('thead');
             const headRow = document.createElement('tr');
-            ['ID', 'Nombre', 'Apellidos', 'Apodo', 'Email', 'Crédito'].forEach(cell => {
+            ['#ID', 'Nombre', 'Apellidos', 'Apodo', 'Email', 'Crédito'].forEach(cell => {
                 const th = document.createElement('th');
                 th.textContent = cell;
                 headRow.appendChild(th);
@@ -34,8 +43,16 @@ document.getElementById('search').addEventListener('click', function(event) {
 
             addClickEventToRows();
         })
-        .catch(error => console.error('Error fetching data:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            const errorContainer = document.getElementById('searchResult');
+            errorContainer.innerHTML = `<p>${error.message}</p>`;
+            setTimeout(() => {
+                errorContainer.style.opacity = '0';
+            }, 3000);
+        });
 });
+
 
 function appendRow(tableBody, item) {
     const newRow = tableBody.insertRow(-1);
@@ -59,14 +76,27 @@ function addClickEventToRows() {
                 <p>Apellidos: ${cells[2].textContent}</p>
                 <p>Apodo: ${cells[3].textContent}</p>
                 <p>Email: ${cells[4].textContent}</p>
-                <p>Crédito: ${cells[5].textContent}</p>
+                <div id="creditRow" style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Crédito: </p>
+                    <input type="number" id="creditInput" value="${cells[5].textContent}" readonly style="margin-right: 10px;">
+                    <button id="decrement">-</button>
+                    <button id="increment">+</button>
+                </div>
             `;
-            // Eliminar la tabla
-            const tableContainer = document.getElementById('tableContainer');
-            const table = document.getElementById('userInfoTable');
-            if (table) {
-                tableContainer.removeChild(table);
-            }
+            
+            // Botón para decrementar
+            document.getElementById('decrement').addEventListener('click', function() {
+                const creditInput = document.getElementById('creditInput');
+                const newValue = parseInt(creditInput.value) - 1;
+                creditInput.value = newValue >= 0 ? newValue : 0;
+            });
+            
+            // Botón para incrementar
+            document.getElementById('increment').addEventListener('click', function() {
+                const creditInput = document.getElementById('creditInput');
+                creditInput.value = parseInt(creditInput.value) + 1;
+            });
         });
     }
 }
+

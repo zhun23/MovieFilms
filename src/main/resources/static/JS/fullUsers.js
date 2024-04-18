@@ -80,24 +80,6 @@ let cancelDelete = (id) => {
     document.querySelectorAll(`.confirm-row-${id}`).forEach(row => row.remove());
 }
 
-
-
-
-
-
-
-/*
-let delUser = async (id) => {
-    const request = await fetch("http://localhost:8089/deleteUser/" + id, {
-        method: "DELETE",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
-    });
-    showFullUsers();
-}
-*/
 async function showUserEdit(id) {
     let tableBody = document.querySelector("#table tbody");
 
