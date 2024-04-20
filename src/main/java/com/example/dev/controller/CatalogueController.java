@@ -1,17 +1,14 @@
 package com.example.dev.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,8 +21,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.dev.service.ICatalogueService;
 import com.example.dev.utilities.ConvGenre;
 
-import jakarta.validation.Valid;
-
+import com.example.dev.exceptions.MovieTitleExistsException;
+import com.example.dev.model.ErrorResponse;
 import com.example.dev.model.Genre;
 import com.example.dev.model.Movie;
 
@@ -47,13 +44,13 @@ public class CatalogueController {
 	}
 	
 	@GetMapping("/id/{id}")
-	public ResponseEntity<?> findById(@PathVariable int id){
-		Optional<Movie> movies = catalogueService.findById(id);
-				
-		if (!movies.isEmpty()) {
-	        return ResponseEntity.ok(movies);
+	public ResponseEntity<?> findById(@PathVariable int id) {
+	    Movie movie = catalogueService.findById(id);
+	    
+	    if (movie != null) {
+	        return ResponseEntity.ok(movie);
 	    } else {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No movie matching with that ID were found in the database");
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No movie matching that ID was found in the database");
 	    }
 	}
 	
@@ -120,34 +117,72 @@ public class CatalogueController {
     }
 	
 	@PostMapping("/movie")
-	public ResponseEntity<?> saveMovie(@Valid @RequestBody Movie movie) {
-		try {
+	public ResponseEntity<?> saveMovie(@RequestBody Movie movie) {
+	    List<String> errors = new ArrayList<>();
+	    if (movie.getTitle() == null || movie.getTitle().trim().isEmpty()) {
+	        errors.add("El título no puede estar vacío.");
+	    }
+	    if (movie.getDescription() == null || movie.getDescription().trim().isEmpty()) {
+	        errors.add("La descripción no puede estar vacía.");
+	    }
+	    if (movie.getReleaseDate() == null || movie.getReleaseDate().trim().isEmpty()) {
+	        errors.add("La fecha de lanzamiento no puede estar vacía.");
+	    }
+	    if (movie.getDirector() == null || movie.getDirector().trim().isEmpty()) {
+	        errors.add("El director no puede estar vacío.");
+	    }
+	    if (movie.getImgUrl() == null || movie.getImgUrl().trim().isEmpty()) {
+	        errors.add("La URL de la imagen no puede estar vacía.");
+	    }
+
+	    if (!errors.isEmpty()) {
+	        return ResponseEntity.badRequest().body(new ErrorResponse("Validation Error", String.join(", ", errors)));
+	    }
+
+	    try {
 	        Movie result = catalogueService.save(movie);
 	        URI location = ServletUriComponentsBuilder
 	                .fromCurrentRequest().path("/id/{id}")
 	                .buildAndExpand(result.getId())
 	                .toUri();
 	        Map<String, Object> response = new HashMap<>();
-	        response.put("message", "Movie created successfully");
+	        response.put("message", "Película creada exitosamente");
 	        response.put("id", result.getId());
 	        return ResponseEntity.created(location).body(response);
-	    } catch (DataIntegrityViolationException ex) {
-	        Map<String, Object> response = new HashMap<>();
-	        response.put("error", "Error al crear la película");
-	        response.put("message", "Ya existe una película con ese título");
-	        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+	    } catch (MovieTitleExistsException ex) {
+	        ErrorResponse errorResponse = new ErrorResponse("Conflict", "Ya existe una película con ese título");
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+	    } catch (Exception ex) {
+	        ErrorResponse errorResponse = new ErrorResponse("Internal Server Error", "Se produjo un error mientras se guardaba la película.");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
 	    }
 	}
+
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<?> editMovie(@PathVariable Integer id, @Valid @RequestBody Movie movieInsert){
-		try {
-	        Optional<Movie> existingMovieOpt = catalogueService.findById(id);
-	        if (!existingMovieOpt.isPresent()) {
+	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Movie movieInsert) {
+	    List<String> errors = new ArrayList<>();
+	    if (movieInsert.getTitle() == null || movieInsert.getTitle().trim().isEmpty()) {
+	        errors.add("El título no puede estar vacío.");
+	    }
+	    if (movieInsert.getDescription() == null || movieInsert.getDescription().trim().isEmpty()) {
+	        errors.add("La descripción no puede estar vacía.");
+	    }
+	    if (movieInsert.getReleaseDate() == null || movieInsert.getReleaseDate().trim().isEmpty()) {
+	        errors.add("La fecha de lanzamiento no puede estar vacía.");
+	    }
+	    if (movieInsert.getDirector() == null || movieInsert.getDirector().trim().isEmpty()) {
+	        errors.add("El director no puede estar vacío.");
+	    }
+	    if (errors.size() > 0) {
+	        return ResponseEntity.badRequest().body(new ErrorResponse("Validation Error", String.join(" ", errors)));
+	    }
+
+	    try {
+	        Movie existingMovie = catalogueService.findById(id);
+	        if (existingMovie == null) {
 	            return ResponseEntity.notFound().build();
 	        }
-
-	        Movie existingMovie = existingMovieOpt.get();
 
 	        existingMovie.setTitle(movieInsert.getTitle());
 	        existingMovie.setDescription(movieInsert.getDescription());
@@ -157,30 +192,31 @@ public class CatalogueController {
 	        existingMovie.setNewRelease(movieInsert.isNewRelease());
 	        existingMovie.setStock(movieInsert.getStock());
 
-	        Movie updatedMovie = catalogueService.save(existingMovie);
-
+	        Movie updatedMovie = catalogueService.update(existingMovie);
 	        return ResponseEntity.ok(updatedMovie);
-            
-        } catch (DataIntegrityViolationException ex) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("error", "Error al editar la película");
-            response.put("message", "Datos inválidos o duplicados, por ejemplo, un título que ya existe.");
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
-        }
+	    } catch (MovieTitleExistsException ex) {
+	        ErrorResponse errorResponse = new ErrorResponse("Conflict", "Ya existe una película con ese título");
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+	    } catch (Exception ex) {
+	        ErrorResponse errorResponse = new ErrorResponse("Internal Server Error", "Error interno del servidor");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	    }
 	}
-	
+
+
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable int id) {
-		Optional<Movie> movies = catalogueService.findById(id);
-		
-		if (!movies.isEmpty()) {
-			catalogueService.deleteById(id);
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body("Movie with id: "+ id + " deleted");
-		}else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Can't delete, there are no movies with that id");
-		}
+	    Movie movie = catalogueService.findById(id);
+	    
+	    if (movie != null) {
+	        catalogueService.deleteById(id);
+	        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Movie with id: " + id + " deleted");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Can't delete, there are no movies with that id");
+	    }
 	}
+
 	
 	@DeleteMapping("/deleteTitle/{title}")
 	public ResponseEntity<?> deleteMovieByTitle(@PathVariable String title) {

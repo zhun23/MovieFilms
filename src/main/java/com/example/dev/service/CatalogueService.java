@@ -1,20 +1,84 @@
 package com.example.dev.service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.dev.dao.ICatalogueDao;
+import com.example.dev.dao.CatalogueDao;
 import com.example.dev.model.Genre;
 import com.example.dev.model.Movie;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
+public class CatalogueService implements ICatalogueService {
+
+    private final CatalogueDao catalogueDao;
+
+    @Autowired
+    public CatalogueService(CatalogueDao catalogueDao) {
+        this.catalogueDao = catalogueDao;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Movie> findAll() {
+        return catalogueDao.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Movie findById(int id) {
+        return catalogueDao.findById(id);
+    }
+
+    @Transactional
+    public Movie save(Movie movie) {
+        return catalogueDao.save(movie);
+    }
+
+    @Transactional
+    public void deleteById(int id) {
+        catalogueDao.deleteById(id);
+    }
+
+    @Transactional
+	public List<Movie> findMovieByTitle(String title) {
+		return catalogueDao.findMovieByTitle(title);
+	}
+
+    @Transactional
+	public List<Movie> findMovieByReleaseDate(String releasedate) {
+		return catalogueDao.findMovieByReleaseDate(releasedate);
+	}
+
+    @Transactional
+	public List<Movie> findMovieByGenre(Genre genre) {
+		return catalogueDao.findMovieByGenre(genre);
+	}
+
+    @Transactional
+	public List<Movie> findMovieByDirector(String director) {
+		return catalogueDao.findMovieByDirector(director);
+	}
+
+    @Transactional
+	public List<Movie> findMovieByNewRelease(boolean newrelease) {
+		return catalogueDao.findMovieByNewRelease(newrelease);
+	}
+
+    @Transactional
+	public void deleteMovieByTitle(String title) {
+    	catalogueDao.deleteMovieByTitle(title);
+	}
+    
+    @Transactional
+    public Movie update(Movie movie) {
+        return catalogueDao.update(movie);
+    }
+}
+
+
+/*
 @Service
 public class CatalogueService implements ICatalogueService {
 
@@ -73,5 +137,5 @@ public class CatalogueService implements ICatalogueService {
         query.setParameter("title", title);
         query.executeUpdate();
     }
-	
 }
+*/

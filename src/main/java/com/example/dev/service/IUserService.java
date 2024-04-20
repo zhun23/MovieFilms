@@ -8,16 +8,18 @@ import com.example.dev.model.User;
 public interface IUserService {
 
 	public List<User> findAll();
-	public Optional<User> findById(int id);
+	public User findById(int id);
 	public List<User> findUserByNickname(String nickname);
 	public List<User> findUserByFirstName(String firstName);
 	public List<User> findUserByLastName(String lastName);
 	public List<User> findUserByMail(String mail);
-	public List<User> findByFirstNameAndLastName(String firstName, String lastName);
-	public List<User> findByFirstNameContaining(String firstName);
-	public List<User> findByLastNameContaining(String lastName);
+	//public List<User> findByFirstNameAndLastName(String firstName, String lastName);
+	//public List<User> findByFirstNameContaining(String firstName);
+	//public List<User> findByLastNameContaining(String lastName);
 	public User save(User user);
 	public User register(User user);
 	public void deleteUserById(int id);
+	public User update(User user);
+	//public void deleteUserByNickname(String nickname);
 	public void deleteUserByNickname(String nickname);
 }

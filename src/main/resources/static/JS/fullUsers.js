@@ -232,7 +232,7 @@ let editUser = async (id) => {
         "firstName": document.getElementById("inputFirstName").value,
         "lastName": document.getElementById("inputLastName").value,
         "mail": document.getElementById("inputMail").value,
-        "credit": document.getElementById("inputCredit").value
+        "credit": parseInt(document.getElementById("inputCredit").value)
     };
 
     let jsonData = JSON.stringify(rowData);
@@ -240,17 +240,21 @@ let editUser = async (id) => {
     const response = await fetch("http://localhost:8089/editUser/" + id, {
         method: "PUT",
         headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         },
         body: jsonData
     });
 
     if (response.ok) {
         console.log("Data sent successfully and response received from the server");
-        showFullUsers();
+        showFullUsers(); // Esto debería ejecutarse solo si todo está correcto
     } else {
-        console.error("Error sending data to server");
-        console.error(response.status, response.statusText);
+        const errorData = await response.json();
+        console.log(`Error status: ${response.status}`); // Verificar el código de estado
+        alert(`Error: ${errorData.error}\nMensaje: ${errorData.message}`);
+        // No llamar a showFullUsers aquí, ya que hay un error
     }
 }
+
+

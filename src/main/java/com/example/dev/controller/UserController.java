@@ -1,13 +1,11 @@
 package com.example.dev.controller;
 
 import java.net.URI;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.Map;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -21,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.dev.dao.UserDao;
+import com.example.dev.exceptions.UserEmailExistsException;
+import com.example.dev.exceptions.UserNicknameExistsException;
 import com.example.dev.model.ErrorResponse;
 import com.example.dev.model.User;
 import com.example.dev.service.IUserService;
@@ -44,11 +45,11 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/id/{id}")
-	public ResponseEntity<?> findById(@PathVariable int id){
-		Optional<User> users = userService.findById(id);
-				
-		if (!users.isEmpty()) {
-	        return ResponseEntity.ok(users);
+	public ResponseEntity<?> findById(@PathVariable int id) {
+	    User user = userService.findById(id);
+	    
+	    if (user != null) {
+	        return ResponseEntity.ok(user);
 	    } else {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No user matching with that ID were found in the database");
 	    }
@@ -99,36 +100,7 @@ public class UserController {
 	}
 	
 	/*
-	@GetMapping("/user/search/{query}")
-    public ResponseEntity<?> searchAll(@PathVariable String query) {
-        Set<User> result = new HashSet<>();
-
-        try {
-            int id = Integer.parseInt(query);
-            userService.findById(id).ifPresent(result::add);
-        } catch (NumberFormatException ex) {
-
-        }
-        String[] parts = query.split("\\s+");
-        
-        for (int i = 0; i < parts.length; i++) {
-            String firstName = String.join(" ", Arrays.copyOfRange(parts, 0, i + 1));
-            String lastName = String.join(" ", Arrays.copyOfRange(parts, i + 1, parts.length));
-            result.addAll(userService.findByFirstNameAndLastName(firstName, lastName));
-        }
-        result.addAll(userService.findUserByNickname(query));
-        result.addAll(userService.findUserByFirstName(query));
-        result.addAll(userService.findUserByLastName(query));
-        result.addAll(userService.findUserByMail(query));
-
-        if (!result.isEmpty()) {
-            return ResponseEntity.ok(result);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No matching users were found in the database");
-        }
-    }
-	*/
-	
+	//NO BORRAR - FALTA GESTIONARLO EN EL CONTROLLER!
 	@GetMapping("/user/search/{query}")
     public ResponseEntity<?> searchAll(@PathVariable String query) {
         Set<User> result = new HashSet<>();
@@ -154,16 +126,50 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No matching users were found in the database");
         }
     }
+    */
 	
 	@PostMapping("/user")
-	public ResponseEntity<?> saveUser(@RequestBody User user){
-		User result = userService.save(user);
-		URI location = ServletUriComponentsBuilder
-				.fromCurrentRequest().path("/user/id/{id}")
-				.buildAndExpand(result.getId())
-				.toUri();
-		return ResponseEntity.created(location).build();
+	public ResponseEntity<?> saveUser(@RequestBody User user) {
+	    List<String> errors = new ArrayList<>();
+	    if (user.getNickname() == null || user.getNickname().trim().isEmpty()) {
+	        errors.add("El apodo no puede estar vacío.");
+	    }
+	    if (user.getFirstName() == null || user.getFirstName().trim().isEmpty()) {
+	        errors.add("El nombre no puede estar vacío.");
+	    }
+	    if (user.getLastName() == null || user.getLastName().trim().isEmpty()) {
+	        errors.add("El apellido no puede estar vacío.");
+	    }
+	    if (user.getMail() == null || user.getMail().trim().isEmpty()) {
+	        errors.add("El email no puede estar vacío.");
+	    }
+	    if (user.getCredit() < 0) {
+	        errors.add("El crédito no puede ser negativo.");
+	    }
+
+	    if (!errors.isEmpty()) {
+	        return ResponseEntity.badRequest().body(new ErrorResponse("Validation Error", String.join(", ", errors)));
+	    }
+
+	    try {
+	        User result = userService.save(user);
+	        URI location = ServletUriComponentsBuilder
+	                .fromCurrentRequest().path("/user/id/{id}")
+	                .buildAndExpand(result.getId())
+	                .toUri();
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("message", "User created successfully");
+	        response.put("id", result.getId());
+	        return ResponseEntity.created(location).body(response);
+	    } catch (DataIntegrityViolationException ex) {
+	        ErrorResponse errorResponse = new ErrorResponse("Error al crear el usuario", "Ya existe un usuario con esos datos");
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+	    } catch (Exception ex) {
+	        ErrorResponse errorResponse = new ErrorResponse("Internal Server Error", "Se produjo un error mientras se guardaba el usuario.");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	    }
 	}
+
 	
 	@PostMapping("/regUser")
 	public ResponseEntity<?> regUser(@Valid @RequestBody User user) {
@@ -192,34 +198,33 @@ public class UserController {
 	}
 	
 	@PutMapping("/editUser/{id}")
-	public ResponseEntity<?> editUser(@PathVariable Integer id, @RequestBody User userInsert){
-		
-		User newUser = new User();
-            
-		newUser.setId(id);
-		newUser.setNickname(userInsert.getNickname());
-		newUser.setFirstName(userInsert.getFirstName());
-		newUser.setLastName(userInsert.getLastName());
-		newUser.setMail(userInsert.getMail());
-		//newUser.setPassword(userInsert.getPassword());
-		newUser.setCredit(userInsert.getCredit());
- 
-        User updatedUser = userService.save(newUser);
-            
-        return ResponseEntity.ok(updatedUser);
+	public ResponseEntity<?> editUser(@PathVariable Integer id, @RequestBody User userInsert) {
+	    try {
+	        User updatedUser = userService.update(userInsert);
+	        return ResponseEntity.ok(updatedUser);
+	    } catch (UserEmailExistsException | UserNicknameExistsException ex) {
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("Conflict", ex.getMessage()));
+	    } catch (Exception ex) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("P-500", "Apodo o email ya en uso"));
+	    }
 	}
+
+
+
+
 	
 	@DeleteMapping("/deleteUser/{id}")
 	public ResponseEntity<?> deleteUserById(@PathVariable int id) {
-		Optional<User> users = userService.findById(id);
-		
-		if (!users.isEmpty()) {
-			userService.deleteUserById(id);
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body("User with id: "+ id + " deleted");
-		} else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Can't delete, there are no user with that id");
-		}
+	    User user = userService.findById(id);
+	    
+	    if (user != null) {
+	        userService.deleteUserById(id);
+	        return ResponseEntity.status(HttpStatus.ACCEPTED).body("User with id: " + id + " deleted");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Can't delete, there are no user with that id");
+	    }
 	}
+
 	
 	@DeleteMapping("/deleteUserByNickname/{nickname}")
 	public ResponseEntity<?> deleteUserByNickname(@PathVariable String nickname) {
@@ -227,7 +232,7 @@ public class UserController {
 		
 		if (!users.isEmpty()) {
 			userService.deleteUserByNickname(nickname);
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body("User with id: "+ nickname + " deleted");
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body("User with nickname: "+ nickname + " deleted");
 		} else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Can't delete, there are no user with that nickname");
 		}

@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.example.dev.utilities.References;
-
 import lombok.Data;
 /*
 

@@ -1,82 +1,100 @@
 package com.example.dev.service;
 
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.dev.dao.IUserDao;
+import com.example.dev.dao.UserDao;
+import com.example.dev.exceptions.UserEmailExistsException;
+import com.example.dev.exceptions.UserNicknameExistsException;
 import com.example.dev.model.User;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService implements IUserService {
 
-	@Autowired
-	private IUserDao userDao;
+	private final UserDao userDao;
 	
-	@Override
-	public List<User> findAll() {
-		return userDao.findAll();
+	@Autowired
+	public UserService(UserDao userDao) {
+		this.userDao = userDao;
 	}
 	
-	public Optional<User> findById(int id) {
+	@Transactional(readOnly = true)
+	public List<User> findAll() {
+		return userDao.listUsers();
+	}
+	
+	@Transactional(readOnly = true)
+	public User findById(int id) {
 		return userDao.findById(id);
 	}
 	
+	@Transactional
 	public List<User> findUserByNickname(String nickname) {
 		return userDao.findUserByNickname(nickname);
 	}
 	
+	@Transactional
 	public List<User> findUserByFirstName(String firstname) {
 		return userDao.findUserByFirstName(firstname);
 	}
 	
+	@Transactional
 	public List<User> findUserByLastName(String lastname) {
 		return userDao.findUserByLastName(lastname);
 	}
 	
+	@Transactional
 	public List<User> findUserByMail(String mail) {
 		return userDao.findUserByMail(mail);
 	}
 	
-	public List<User> findByFirstNameAndLastName(String firstName, String lastName) {
-		return userDao.findByFirstNameAndLastName(firstName, lastName);
-	}
-	
-	public List<User> findByFirstNameContaining(String firstName) {
-	    return userDao.findByFirstNameContaining(firstName);
-	}
-	
-	public List<User> findByLastNameContaining(String lastName) {
-	    return userDao.findByLastNameContaining(lastName);
-	}
-	
+	@Transactional
 	public User save(User user) {
-		User savedUser = userDao.save(user);
-		return savedUser;
+		return userDao.save(user);
 	}
 	
+	@Transactional
 	public User register(User user) {
 		User registeredUser = userDao.save(user);
 		return registeredUser;
 	}
 	
+	@Transactional
 	public void deleteUserById(int id) {
-		userDao.deleteById(id);
+		userDao.deleteUserById(id);
 	}
 	
-	@Autowired
-    private EntityManager entityManager;
-
     @Transactional
     public void deleteUserByNickname(String nickname) {
-        Query query = entityManager.createQuery("DELETE FROM User u WHERE u.nickname = :nickname");
-        query.setParameter("nickname", nickname);
-        query.executeUpdate();
+        userDao.deleteUserByNickname(nickname);
+    }
+    
+    @Transactional
+    public User update(User user) throws UserEmailExistsException, UserNicknameExistsException {
+        try {
+            return userDao.update(user);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al actualizar el usuario debido a un error en la base de datos", e);
+        }
     }
 }
+
+	//@Autowired
+	//private EntityManager entityManager;
+	
+	//public List<User> findByFirstNameAndLastName(String firstName, String lastName) {
+	//	return userDao.findByFirstNameAndLastName(firstName, lastName);
+	//}
+	
+	//public List<User> findByFirstNameContaining(String firstName) {
+	//    return userDao.findByFirstNameContaining(firstName);
+	//}
+	
+	//public List<User> findByLastNameContaining(String lastName) {
+	//    return userDao.findByLastNameContaining(lastName);
+	//}

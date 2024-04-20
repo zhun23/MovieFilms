@@ -1,8 +1,42 @@
 package com.example.dev.model;
 
-import lombok.Getter;
-import lombok.Setter;
+public class ErrorResponse {
 
+    private String error;
+    private String message;
+
+
+    public ErrorResponse(String error, String message) {
+        this.error = error;
+        this.message = message;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "ErrorResponse{" +
+               "error='" + error + '\'' +
+               ", message='" + message + '\'' +
+               '}';
+    }
+}
+
+/*
 @Getter
 @Setter
 public class ErrorResponse {
@@ -14,3 +48,4 @@ public class ErrorResponse {
         this.message = message;
     }
 }
+*/

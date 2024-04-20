@@ -125,6 +125,9 @@ async function showFormEdit(id) {
     newReleaseOption2.value = "false";
     newReleaseOption2.textContent = "No";
     newReleaseSelect.appendChild(newReleaseOption2);
+
+    newReleaseSelect.value = movie.newRelease ? "true" : "false";
+
     newReleaseInputCell.appendChild(newReleaseSelect);
     newReleaseRow.appendChild(newReleaseCell);
     newReleaseRow.appendChild(newReleaseInputCell);
@@ -152,7 +155,6 @@ async function showFormEdit(id) {
     let genreInputCell = document.createElement("td");
     let genreSelect = document.createElement("select");
     genreSelect.id = "selectGenre";
-    genreSelect.value = movie.genre;
     let genres = ["Action", "Adventures", "ScienceFiction", "Fantasy", "Crime", "Comedy", "Romance", "Horror", "Drama", "Musical", "Thriller", "Animation", "Kids"];
     genres.forEach(genre => {
         let option = document.createElement("option");
@@ -160,6 +162,9 @@ async function showFormEdit(id) {
         option.textContent = genre;
         genreSelect.appendChild(option);
     });
+
+    genreSelect.value = movie.genre;
+
     genreInputCell.appendChild(genreSelect);
     genreRow.appendChild(genreCell);
     genreRow.appendChild(genreInputCell);
