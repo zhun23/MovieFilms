@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import com.example.dev.utilities.References;
 
 import lombok.Data;
-/*
+
 
 @Table(name=References.CREDITHISTORY_TABLE_NAME)
 @Entity
@@ -40,4 +40,4 @@ public class CreditHistory {
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 }
-*/
+

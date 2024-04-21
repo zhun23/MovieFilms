@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.dev.model.User;
@@ -12,11 +13,17 @@ import com.example.dev.model.User;
 public interface IUserDao extends JpaRepository<User, Integer> {
 	List<User> findUserByNickname(String nickname);
 	
+	@Query("SELECT u FROM User u WHERE u.nickname = :nickname")
+    User findUserByNicknameUnique(@Param("nickname") String nickname);
+	
 	List<User> findUserByFirstName(String firstName);
 	
 	List<User> findUserByLastName(String lastName);
 	
 	List<User> findUserByMail(String mail);
+	
+	@Query("SELECT u FROM User u WHERE u.mail = :mail")
+	User findUserByMailUnique(@Param("mail") String mail);
 	
 	List<User> findByFirstNameContaining(String firstName);
 	

@@ -1,13 +1,12 @@
 package com.example.dev.controller;
 
 import java.net.URI;
-import java.util.Arrays;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -21,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.dev.model.CreditHistory;
 import com.example.dev.model.ErrorResponse;
 import com.example.dev.model.User;
+import com.example.dev.service.CreditHistoryService;
 import com.example.dev.service.IUserService;
 
 import jakarta.validation.Valid;
@@ -30,7 +31,11 @@ import jakarta.validation.Valid;
 @RestController
 public class UserController {
 
-	@Autowired IUserService userService;
+	@Autowired
+	IUserService userService;
+	
+	@Autowired
+	private CreditHistoryService creditHistoryService;
 	
 	@GetMapping("/user/")
 	public ResponseEntity<?> listUsers() {
@@ -192,22 +197,62 @@ public class UserController {
 	}
 	
 	@PutMapping("/editUser/{id}")
-	public ResponseEntity<?> editUser(@PathVariable Integer id, @RequestBody User userInsert){
-		
-		User newUser = new User();
-            
-		newUser.setId(id);
-		newUser.setNickname(userInsert.getNickname());
-		newUser.setFirstName(userInsert.getFirstName());
-		newUser.setLastName(userInsert.getLastName());
-		newUser.setMail(userInsert.getMail());
-		//newUser.setPassword(userInsert.getPassword());
-		newUser.setCredit(userInsert.getCredit());
- 
-        User updatedUser = userService.save(newUser);
-            
-        return ResponseEntity.ok(updatedUser);
+	public ResponseEntity<?> editUser(@PathVariable Integer id, @RequestBody User userInsert) {
+	    if (userService.nicknameExists(userInsert.getNickname(), id)) {
+	        ErrorResponse errorResponse = new ErrorResponse("Conflict", "Nickname '" + userInsert.getNickname() + "' ya está en uso por otro usuario");
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+	    }
+	    if (userService.emailExists(userInsert.getMail(), id)) {
+	        ErrorResponse errorResponse = new ErrorResponse("Conflict", "Mail '" + userInsert.getMail() + "' ya está en uso por otro usuario");
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+	    }
+
+	    try {
+	        User newUser = new User();
+	        newUser.setId(id);
+	        newUser.setNickname(userInsert.getNickname());
+	        newUser.setFirstName(userInsert.getFirstName());
+	        newUser.setLastName(userInsert.getLastName());
+	        newUser.setMail(userInsert.getMail());
+	        newUser.setCredit(userInsert.getCredit());
+
+	        User updatedUser = userService.save(newUser);
+	        return ResponseEntity.ok(updatedUser);
+	    } catch (DataIntegrityViolationException e) {
+	        ErrorResponse errorResponse = new ErrorResponse("Data Integrity Violation", "Cannot update user due to a data integrity issue.");
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+	    } catch (Exception e) {
+	        ErrorResponse errorResponse = new ErrorResponse("Internal Server Error", "An unexpected error occurred.");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	    }
 	}
+	
+	@PutMapping("/creditUser/{id}")
+	public ResponseEntity<?> creditUser(@PathVariable Integer id, @RequestBody User userInsert) {
+	    Optional<User> existingUser = userService.findById(id);
+	    if (!existingUser.isPresent()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Not Found", "User not found."));
+	    }
+
+	    User newUser = existingUser.get();
+	    int originalCredit = newUser.getCredit();
+	    newUser.setCredit(userInsert.getCredit());
+
+	    try {
+	        User updatedUser = userService.save(newUser);
+	        CreditHistory creditHistory = new CreditHistory();
+	        creditHistory.setDate(LocalDate.now());
+	        creditHistory.setAmount(userInsert.getCredit() - originalCredit);
+	        creditHistory.setUser(updatedUser);
+	        creditHistoryService.save(creditHistory);
+
+	        return ResponseEntity.ok(updatedUser);
+	    } catch (Exception e) {
+	        ErrorResponse errorResponse = new ErrorResponse("Internal Server Error", "An unexpected error occurred.");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	    }
+	}
+
 	
 	@DeleteMapping("/deleteUser/{id}")
 	public ResponseEntity<?> deleteUserById(@PathVariable int id) {

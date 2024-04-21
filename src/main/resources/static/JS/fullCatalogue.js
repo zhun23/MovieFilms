@@ -247,8 +247,6 @@ let editMovie = async (id) => {
 
     let jsonData = JSON.stringify(rowData);
 
-    console.log("Sending data to server:", jsonData);
-
     const response = await fetch("http://localhost:8089/edit/" + id, {
         method: "PUT",
         headers: {
@@ -259,12 +257,9 @@ let editMovie = async (id) => {
     });
 
     if (response.ok) {
-        //console.log("Data sent successfully and response received from the server");
         showFullCatalogue();
     } else {
-        //console.error("Error sending data to server");
         const errorData = await response.json();
-        //console.error(`Error: ${errorData.error}, Message: ${errorData.message}`);
         alert(`Error: ${errorData.error}\nMensaje: ${errorData.message}`);
     }
 }
@@ -301,7 +296,7 @@ let confirmDelete = async (id) => {
         }
     });
     if (request.ok) {
-        showFullCatalogue(); // Refrescar la tabla para mostrar los cambios
+        showFullCatalogue();
     } else {
         alert("Error al intentar eliminar la película");
     }

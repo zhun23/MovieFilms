@@ -111,9 +111,14 @@ async function showUserEdit(id) {
     let acceptButton = document.createElement("button");
     acceptButton.classList.add("aceptButton");
     acceptButton.textContent = "Modificar cambios";
-    acceptButton.addEventListener("click", function() {
-        editUser(id);
-        document.querySelectorAll('.edit-row').forEach(row => row.remove());
+    acceptButton.addEventListener("click", async function() {
+        try {
+            await editUser(id);
+            document.querySelectorAll('.edit-row').forEach(row => row.remove());
+        } catch (error) {
+            console.error("Failed to edit user", error);
+            alert("Failed to edit user: " + error.message);
+        }
     });
 
     let cancelButton = document.createElement("button");
@@ -240,17 +245,19 @@ let editUser = async (id) => {
     const response = await fetch("http://localhost:8089/editUser/" + id, {
         method: "PUT",
         headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         },
         body: jsonData
     });
 
-    if (response.ok) {
-        console.log("Data sent successfully and response received from the server");
-        showFullUsers();
+    if (!response.ok) {
+        const data = await response.json();
+        console.error("Error sending data to server: ", data.message);
+        throw new Error(data.message);
     } else {
-        console.error("Error sending data to server");
-        console.error(response.status, response.statusText);
+        showFullUsers();
     }
-}
+
+    return await response.json();
+};

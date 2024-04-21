@@ -20,4 +20,6 @@ public interface IUserService {
 	public User register(User user);
 	public void deleteUserById(int id);
 	public void deleteUserByNickname(String nickname);
+	boolean nicknameExists(String nickname, Integer id);
+	public boolean emailExists(String email, Integer id);
 }

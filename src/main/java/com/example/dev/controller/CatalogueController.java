@@ -164,7 +164,7 @@ public class CatalogueController {
         } catch (DataIntegrityViolationException ex) {
             Map<String, Object> response = new HashMap<>();
             response.put("error", "Error al editar la película");
-            response.put("message", "Datos inválidos o duplicados, por ejemplo, un título que ya existe.");
+            response.put("message", "El título que ya existe.");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
 	}

@@ -79,4 +79,22 @@ public class UserService implements IUserService {
         query.setParameter("nickname", nickname);
         query.executeUpdate();
     }
+    
+    @Override
+    public boolean nicknameExists(String nickname, Integer id) {
+        User user = userDao.findUserByNicknameUnique(nickname);
+        if (user != null) {
+            return user.getId() != id;
+        }
+        return false;
+    }
+    
+    public boolean emailExists(String email, Integer id) {
+        User user = userDao.findUserByMailUnique(email);
+        if (user != null) {
+            return user.getId() != id;
+        }
+        return false;
+    }
+
 }
