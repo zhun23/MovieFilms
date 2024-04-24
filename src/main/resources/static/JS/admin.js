@@ -23,3 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "addCreditUser.html";
     });
 });
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("button22").addEventListener("click", function() {
+        window.location.href = "globalCreditHistory.html";
+    });
+});

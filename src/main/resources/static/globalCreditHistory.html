@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/globalCreditHistory.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Historial de crédito de los usuarios</title>
+</head>
+<header>
+    <div id="header">
+        <img src="img/201.png" id="headerImg" alt="fondo header">
+        <a href="/admin.html" class="buttonBack"><- Atrás</a>
+        <img src="img/115.png" id="headerlogo" alt="LOGO de la página web MovieFilms">
+    </div>
+</header>
+<body>
+    <h2 id="historialSaldo">Historial saldo usuarios</h2>
+    <div class="containerOfDivs">
+        <div class="container">
+            <div class="alignFind">
+                <p id="sangriaLat">Buscar Usuario por ID:</p>
+                <form action="">
+                    <input id="findGlobalUser" type="text">
+                    <div id="workButtons">
+                        <button id="search" type="submit">Buscar</button>
+                        <button id="clean" type="button">Limpiar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="tablecontainer">
+            <table id="table">
+                <thead>
+                    <tr>
+                      <th colspan="8" id="thTitle">HISTORIAL CRÉDITO</th>
+                    </tr>
+                    <tr>
+                      <th>ID</th>
+                      <th class="allignTable">User ID</th>
+                      <th class="allignTable">Apodo</th>
+                      <th class="allignTable">Fecha/Hora</th>
+                      <th class="allignTable">Acción</th>
+                      <th class="allignTable">Importe</th>
+                      <th class="allignTable">Total</th>
+                      <th class="allignTable" id="accions">Acciones</th>
+                    </tr>
+                  </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="JS/globalCreditHistory.js"></script>
+</body>
+</html>

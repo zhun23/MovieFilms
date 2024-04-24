@@ -276,7 +276,7 @@ let delMovie = async (id) => {
     let confirmRow = document.createElement("tr");
     confirmRow.classList.add("confirm-row", `confirm-row-${id}`);
     let confirmCell = document.createElement("td");
-    confirmCell.colSpan = 8; // Asumiendo que tienes 8 columnas en tu tabla
+    confirmCell.colSpan = 8;
     confirmCell.innerHTML = `
         <div>Estás seguro de borrar la película: <strong>${row.cells[1].textContent}</strong>?</div>
         <button onclick="confirmDelete(${id})" class="confirm-button">Confirmar</button>

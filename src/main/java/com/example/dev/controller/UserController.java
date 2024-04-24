@@ -1,7 +1,8 @@
 package com.example.dev.controller;
 
 import java.net.URI;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +52,7 @@ public class UserController {
 	@GetMapping("/user/id/{id}")
 	public ResponseEntity<?> findById(@PathVariable int id){
 		Optional<User> users = userService.findById(id);
-				
+		
 		if (!users.isEmpty()) {
 	        return ResponseEntity.ok(users);
 	    } else {
@@ -227,6 +228,7 @@ public class UserController {
 	    }
 	}
 	
+	
 	@PutMapping("/creditUser/{id}")
 	public ResponseEntity<?> creditUser(@PathVariable Integer id, @RequestBody User userInsert) {
 	    Optional<User> existingUser = userService.findById(id);
@@ -241,9 +243,13 @@ public class UserController {
 	    try {
 	        User updatedUser = userService.save(newUser);
 	        CreditHistory creditHistory = new CreditHistory();
-	        creditHistory.setDate(LocalDate.now());
+	        creditHistory.setDate(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
 	        creditHistory.setAmount(userInsert.getCredit() - originalCredit);
 	        creditHistory.setUser(updatedUser);
+	        creditHistory.setNickname(updatedUser.getNickname());
+	        creditHistory.setTotalCredit(updatedUser.getCredit());
+	        creditHistory.setRecharge("Recarga");
+
 	        creditHistoryService.save(creditHistory);
 
 	        return ResponseEntity.ok(updatedUser);
@@ -253,6 +259,7 @@ public class UserController {
 	    }
 	}
 
+	
 	
 	@DeleteMapping("/deleteUser/{id}")
 	public ResponseEntity<?> deleteUserById(@PathVariable int id) {

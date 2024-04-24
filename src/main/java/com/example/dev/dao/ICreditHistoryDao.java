@@ -9,3 +9,4 @@ import com.example.dev.model.CreditHistory;
 public interface ICreditHistoryDao extends JpaRepository<CreditHistory, Integer> {
 
 }
+

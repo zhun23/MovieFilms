@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const userDetails = document.getElementById('userDetails');
     const searchResult = document.getElementById('searchResult');
 
+    cleanButton.addEventListener('click', function() {
+        window.location.reload();
+    });
+
     searchButton.addEventListener('click', function(event) {
         event.preventDefault();
         const query = inputField.value.trim();
@@ -34,13 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error:', error);
                 searchResult.innerHTML = `<p>${error.message}</p>`;
             });
-    });
-
-    cleanButton.addEventListener('click', function() {
-        inputField.value = '';
-        tableContainer.innerHTML = '';
-        userDetails.innerHTML = '';
-        searchResult.innerHTML = '';
     });
 
     function createTable(data) {
@@ -127,7 +124,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateCredit(userId, newCredit) {
         const updatedInfo = { credit: newCredit };
-        console.log('Sending this JSON to server:', JSON.stringify(updatedInfo));
 
         fetch(`/creditUser/${userId}`, {
             method: 'PUT',
@@ -141,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(updatedUser => {
-            console.log('Credit updated', updatedUser);
             alert('Crédito actualizado exitosamente');
             userDetails.innerHTML = `<div>
                 <h1>Crédito actualizado a: ${updatedUser.credit}</h1>
