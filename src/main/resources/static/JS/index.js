@@ -1,6 +1,7 @@
-const myCarouselElement = document.querySelector('#carouselExampleInterval')
-
-const carousel = new bootstrap.Carousel(myCarouselElement, {
-  interval: 2000,
-  touch: false
-})
+$(function() {
+    $("li").click(function(e) {
+      e.preventDefault();
+      $("li").removeClass("active");
+      $(this).addClass("active");
+    });
+});

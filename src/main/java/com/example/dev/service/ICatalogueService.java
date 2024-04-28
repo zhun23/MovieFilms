@@ -3,12 +3,15 @@ package com.example.dev.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.example.dev.model.Genre;
 import com.example.dev.model.Movie;
 
 public interface ICatalogueService {
 
-	public List<Movie> findAll();
+	public Page<Movie> findAll(Pageable pageable);
 	public Optional<Movie> findById(int id);
 	public List<Movie> findMovieByTitle(String title);
 	public List<Movie> findMovieByReleaseDate(String releasedate);

@@ -3,11 +3,14 @@ package com.example.dev.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.example.dev.model.User;
 
 public interface IUserService {
-
-	public List<User> findAll();
+	public Page<User> findAll(Pageable pageable);
+	//public List<User> findAll();
 	public Optional<User> findById(int id);
 	public List<User> findUserByNickname(String nickname);
 	public List<User> findUserByFirstName(String firstName);

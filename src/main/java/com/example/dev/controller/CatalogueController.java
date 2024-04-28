@@ -8,6 +8,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,14 +37,20 @@ public class CatalogueController {
 	private ICatalogueService catalogueService;
 	
 	@GetMapping("/list")
-	public ResponseEntity<?> listMovies() {
-		List<Movie> movies = catalogueService.findAll();
-		
-		if (!movies.isEmpty()) {
-			return ResponseEntity.ok(movies);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: There's no movies in the database");
-		}
+	public ResponseEntity<?> listMovies(@PageableDefault(size = 24) Pageable pageable) {
+	    Page<Movie> movies = catalogueService.findAll(pageable);
+	    
+	    if (movies.hasContent()) {
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("movies", movies.getContent());
+	        response.put("currentPage", movies.getNumber());
+	        response.put("totalItems", movies.getTotalElements());
+	        response.put("totalPages", movies.getTotalPages());
+	        
+	        return ResponseEntity.ok(response);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: There's no movies in the database");
+	    }
 	}
 	
 	@GetMapping("/id/{id}")

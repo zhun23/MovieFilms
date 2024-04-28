@@ -3,13 +3,18 @@ package com.example.dev.controller;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,16 +43,22 @@ public class UserController {
 	@Autowired
 	private CreditHistoryService creditHistoryService;
 	
-	@GetMapping("/user/")
-	public ResponseEntity<?> listUsers() {
-		List<User> users = userService.findAll();
-		
-		if (!users.isEmpty()) {
-			return ResponseEntity.ok(users);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: There's no users in the database");
-		}
-	}
+	@GetMapping("/user")
+    public ResponseEntity<?> listUsers(@PageableDefault(size = 24) Pageable pageable) {
+        Page<User> users = userService.findAll(pageable);
+
+        if (users.hasContent()) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("users", users.getContent());
+            response.put("currentPage", users.getNumber());
+            response.put("totalItems", users.getTotalElements());
+            response.put("totalPages", users.getTotalPages());
+
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: There's no users in the database");
+        }
+    }
 	
 	@GetMapping("/user/id/{id}")
 	public ResponseEntity<?> findById(@PathVariable int id){
@@ -249,6 +260,7 @@ public class UserController {
 	        creditHistory.setNickname(updatedUser.getNickname());
 	        creditHistory.setTotalCredit(updatedUser.getCredit());
 	        creditHistory.setRecharge("Recarga");
+	        creditHistory.setRent(0);
 
 	        creditHistoryService.save(creditHistory);
 

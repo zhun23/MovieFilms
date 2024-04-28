@@ -15,6 +15,7 @@ public class CreditHistoryDto {
     private int amount;
     private int totalCredit;
     private String recharge;
+    private int rent;
 
     public CreditHistoryDto(CreditHistory creditHistory) {
         this.id = creditHistory.getId();
@@ -24,5 +25,6 @@ public class CreditHistoryDto {
         this.amount = creditHistory.getAmount();
         this.totalCredit = creditHistory.getTotalCredit();
         this.recharge = creditHistory.getRecharge();
+        this.rent = creditHistory.getRent();
     }
 }

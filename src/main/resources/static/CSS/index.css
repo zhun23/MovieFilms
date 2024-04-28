@@ -1,10 +1,9 @@
 html {
-    background-color: #f1f1f1;
+    background-color: #dddddd99;
     margin: 0px;
-}
-
-#headerlogo {
-    float: left;
+  }
+  
+  #headerlogo {
     margin-top: 5px;
     margin-left: 240px;
     width: 300px;
@@ -12,9 +11,9 @@ html {
     margin-top: -143px;
     position: relative;
     z-index: 3;
-}
-
-#header {
+  }
+  
+  #header {
     margin:0 auto;
     width:100%;
     background: linear-gradient(to right, rgb(75, 75, 75), black, rgb(145, 145, 145));
@@ -23,23 +22,22 @@ html {
     top: 0;
     left: 0;
     z-index: 0;
-}
-
-#headerImg {
+  }
+  
+  #headerImg {
     width: 100%;
     height: 140px;
-}
+  }
 
-body {
+#body {
     margin-top: 190px;
-    margin-left: 40px;
+    margin-left: 0px;
 }
 
 #header form {
     float: right; 
     margin-right: 30px; 
     height: 40px; 
-    padding-top: 8px;
     position: relative;
     margin-top: -135px;
 }
@@ -80,12 +78,9 @@ body {
 }
 
 #buttonAdmin {
+    display: flex;
     position: relative;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    float: right;
-    margin-top: -30px;
-    margin-left: 20px;
-    margin-right: 40px;
     width: 120px;
     padding: 10px 20px;
     font-size: 16px;
@@ -104,3 +99,13 @@ body {
 .buttonAdmin:hover {
     background-color: #0056b3;
 }
+
+body {
+    height: 100%;
+}
+
+.side-nav {
+    margin-top: 143px;
+    height: 500px;
+}
+

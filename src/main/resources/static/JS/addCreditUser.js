@@ -137,6 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(updatedUser => {
+            console.log('Received updated user data:', updatedUser);
             alert('Crédito actualizado exitosamente');
             userDetails.innerHTML = `<div>
                 <h1>Crédito actualizado a: ${updatedUser.credit}</h1>

@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.dev.dao.ICreditHistoryDao;
@@ -24,7 +28,22 @@ public class CreditHistoryDtoService implements ICreditHistoryDtoService {
             .collect(Collectors.toList());
     }
 	
+	public Page<CreditHistoryDto> findAllReversed(Pageable pageable) {
+        Pageable reversedPageable = PageRequest.of(
+            pageable.getPageNumber(), 
+            pageable.getPageSize(), 
+            Sort.by("id").descending()
+        );
+        Page<CreditHistory> creditHistories = creditHistoryDao.findAll(reversedPageable);
+        return creditHistories.map(this::convertToDto);
+    }
+	
 	private CreditHistoryDto convertToDto(CreditHistory creditHistory) {
         return new CreditHistoryDto(creditHistory);
+    }
+	
+	public Page<CreditHistoryDto> findByUserIdOrderByIdDesc(int userId, Pageable pageable) {
+        return creditHistoryDao.findByUserIdOrderByIdDesc(userId, pageable)
+                                     .map(this::convertToDto);
     }
 }

@@ -1,42 +1,97 @@
-window.onload = function(){
-    showFullCatalogue();
+let currentPage = 0;
+let totalPages = 1;
+
+document.addEventListener('DOMContentLoaded', function() {
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
+
+    if (nextBtn && prevBtn) {
+        nextBtn.addEventListener("click", nextPage);
+        prevBtn.addEventListener("click", prevPage);
+    } else {
+        console.error("Los botones de paginación no se encontraron en el DOM.");
+    }
+
+    showFullCatalogue(currentPage);
+});
+
+async function showFullCatalogue(page) {
+    togglePaginationButtons(false);  // Desactiva los botones mientras carga
+    const size = 24;
+    const url = `http://localhost:8089/list?page=${page}&size=${size}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("Error al obtener los datos");
+        }
+
+        const data = await response.json();
+        console.log("Datos recibidos:", data);
+        console.log("Total de páginas:", data.totalPages);
+
+        // Asegúrate de usar 'data.movies' para acceder a las películas
+        updateTable(data.movies || []);
+        totalPages = data.totalPages || 1;
+        document.getElementById('page-info').textContent = `Página ${page + 1} de ${totalPages}`;
+        currentPage = page;  // Actualiza currentPage solo después de cargar los datos con éxito
+    } catch (error) {
+        console.error("Error en la solicitud:", error.message);
+        alert("Error al cargar los datos. Por favor, inténtalo de nuevo más tarde.");
+    } finally {
+        togglePaginationButtons(true);  // Reactiva los botones una vez cargados los datos
+    }
 }
 
-let showFullCatalogue = async () => {
-    const request = await fetch("http://localhost:8089/list", {
-        method: "GET",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
-    });
+function togglePaginationButtons(enable) {
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    nextBtn.disabled = !enable;
+    prevBtn.disabled = !enable;
+}
 
-    const movies = await request.json();
-
-    let contentTable = "";
-
-    for (let movie of movies) {
-        let newReleaseTrad = movie.newRelease ? "Sí" : "";
-
-        let contentRow = `<tr id="row-${movie.id}">
+function updateTable(movies) {
+    const tableBody = document.querySelector("#table tbody");
+    let tableHTML = "";
+    movies.forEach(movie => {
+        let newReleaseTrad = movie.newRelease ? "Sí" : "No";
+        tableHTML += `<tr id="row-${movie.id}">
             <td id="valor0">${movie.id}</td>
             <td>${movie.title}</td>
             <td id="releaseDateAllign">${movie.releaseDate}</td>
             <td>${movie.genre}</td>
             <td>${movie.director}</td>
             <td id="newReleaseAllign">${newReleaseTrad}</td>
-            <td>${movie.stock}</td>
+            <td id="allignStock">${movie.stock}</td>
             <td class="acciones">
                 <i onClick="showFormEdit(${movie.id})" class="material-icons button edit">edit</i>
                 <i onClick="delMovie(${movie.id})" class="material-icons button delete">delete</i>
             </td>
         </tr>`;
-
-        contentTable += contentRow;
-    }
-
-    document.querySelector("#table tbody").innerHTML = contentTable;
+    });
+    tableBody.innerHTML = tableHTML;
 }
+
+function nextPage() {
+    let newPage = currentPage + 1;
+    if (newPage < totalPages) {
+        console.log("Cambiando a la página:", newPage + 1);
+        showFullCatalogue(newPage);
+    }
+}
+
+function prevPage() {
+    let newPage = currentPage - 1;
+    if (newPage >= 0) {
+        console.log("Cambiando a la página:", newPage + 1);
+        showFullCatalogue(newPage);
+    }
+}
+
+
+
+
+
 
 async function showFormEdit(id) {
     let tableBody = document.querySelector("#table tbody");
@@ -257,7 +312,7 @@ let editMovie = async (id) => {
     });
 
     if (response.ok) {
-        showFullCatalogue();
+        showFullCatalogue(currentPage);
     } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.error}\nMensaje: ${errorData.message}`);
@@ -296,7 +351,7 @@ let confirmDelete = async (id) => {
         }
     });
     if (request.ok) {
-        showFullCatalogue();
+        showFullCatalogue(currentPage);
     } else {
         alert("Error al intentar eliminar la película");
     }

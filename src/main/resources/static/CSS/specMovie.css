@@ -108,15 +108,15 @@ body {
 
 
 .movie-image {
-  max-width: 300px; /* Ajusta según sea necesario */
+  max-width: 300px;
   height: auto;
 }
 
 .movie-image-container {
-  border: 3px solid black; /* Borde del marco */
+  border: 3px solid black;
   display: flex;
   padding: 1px;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0; /* Color de fondo, opcional */
+  background-color: #f0f0f0;
 }

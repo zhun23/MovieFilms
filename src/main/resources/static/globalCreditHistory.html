@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/globalCreditHistory.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
     <title>Historial de crédito de los usuarios</title>
 </head>
 <header>
@@ -15,13 +15,12 @@
     </div>
 </header>
 <body>
-    <h2 id="historialSaldo">Historial saldo usuarios</h2>
     <div class="containerOfDivs">
         <div class="container">
             <div class="alignFind">
                 <p id="sangriaLat">Buscar Usuario por ID:</p>
-                <form action="">
-                    <input id="findGlobalUser" type="text">
+                <form id="searchForm">
+                    <input id="findGlobalUser" type="text" required="true">
                     <div id="workButtons">
                         <button id="search" type="submit">Buscar</button>
                         <button id="clean" type="button">Limpiar</button>
@@ -33,7 +32,7 @@
             <table id="table">
                 <thead>
                     <tr>
-                      <th colspan="8" id="thTitle">HISTORIAL CRÉDITO</th>
+                      <th colspan="8" id="thTitle">HISTORIAL CRÉDITO COMPLETO</th>
                     </tr>
                     <tr>
                       <th>ID</th>
@@ -41,14 +40,20 @@
                       <th class="allignTable">Apodo</th>
                       <th class="allignTable">Fecha/Hora</th>
                       <th class="allignTable">Acción</th>
+                      <th class="allignTable">Alquiler</th>
                       <th class="allignTable">Importe</th>
                       <th class="allignTable">Total</th>
-                      <th class="allignTable" id="accions">Acciones</th>
+                      <!--<th class="allignTable" id="accions">Acciones</th>-->
                     </tr>
                   </thead>
                 <tbody>
 
                 </tbody>
+                <div id="paginationControl">
+                    <button id="prevBtn" onclick="prevPage()"><</button>
+                    <span id="page-info">Página 1</span>
+                    <button id="nextBtn" onclick="nextPage()">></button>
+                  </div>
             </table>
         </div>
     </div>

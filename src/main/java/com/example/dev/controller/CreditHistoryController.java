@@ -1,20 +1,21 @@
 package com.example.dev.controller;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dev.dto.CreditHistoryDto;
-import com.example.dev.model.CreditHistory;
-import com.example.dev.service.CreditHistoryDtoService;
 import com.example.dev.service.ICreditHistoryDtoService;
-import com.example.dev.service.ICreditHistoryService;
 
 @RestController
 public class CreditHistoryController {
@@ -22,13 +23,36 @@ public class CreditHistoryController {
 	@Autowired
 	private ICreditHistoryDtoService creditHistoryDtoService;
 
-    @GetMapping("/history")
-    public ResponseEntity<?> listCredit() {
-        List<CreditHistoryDto> creditHistoryDTOs = creditHistoryDtoService.findAll();
-        if (!creditHistoryDTOs.isEmpty()) {
-            return ResponseEntity.ok(creditHistoryDTOs);
+	@GetMapping("/history")
+    public ResponseEntity<?> listCredit(@PageableDefault(size = 24) Pageable pageable) {
+        Page<CreditHistoryDto> creditHistoryDtos = creditHistoryDtoService.findAllReversed(pageable);
+
+        if (creditHistoryDtos.hasContent()) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("creditHistories", creditHistoryDtos.getContent());
+            response.put("currentPage", creditHistoryDtos.getNumber());
+            response.put("totalItems", creditHistoryDtos.getTotalElements());
+            response.put("totalPages", creditHistoryDtos.getTotalPages());
+
+            return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: There's no credit history in the database");
         }
     }
+    
+	@GetMapping("/creditHistory/id/{userId}")
+	public ResponseEntity<?> findCreditHistoryByUserId(@PathVariable int userId, @PageableDefault(size = 24) Pageable pageable) {
+	    Page<CreditHistoryDto> creditHistoryDtos = creditHistoryDtoService.findByUserIdOrderByIdDesc(userId, pageable);
+	    if (creditHistoryDtos.hasContent()) {
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("creditHistories", creditHistoryDtos.getContent());
+	        response.put("currentPage", creditHistoryDtos.getNumber());
+	        response.put("totalItems", creditHistoryDtos.getTotalElements());
+	        response.put("totalPages", creditHistoryDtos.getTotalPages());
+
+	        return ResponseEntity.ok(response);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró un historial de crédito que coincida con ese ID de usuario en la base de datos");
+	    }
+	}
 }

@@ -1,9 +1,13 @@
-window.onload = function(){
-    showFullUsers();
+let currentPage = 0;  // Página actual inicializada en 0
+let totalPages = 1;   // Total de páginas inicializada en 1
+
+window.onload = function() {
+    showFullUsers(currentPage);
 }
 
-let showFullUsers = async () => {
-    const request = await fetch("http://localhost:8089/user/", {
+let showFullUsers = async (page) => {
+    const url = `http://localhost:8089/user?page=${page}&size=24`;
+    const request = await fetch(url, {
         method: "GET",
         headers: {
             "Accept": "application/json",
@@ -11,12 +15,18 @@ let showFullUsers = async () => {
         }
     });
 
-    const users = await request.json();
+    if (!request.ok) {
+        console.error("Error al obtener los datos");
+        return;
+    }
+
+    const data = await request.json();
+
+    totalPages = data.totalPages;  // Actualiza el número total de páginas
+    updatePageInfo(currentPage + 1, totalPages);  // Actualiza la información de la página
 
     let contentTable = "";
-
-    for (let user of users) {
-
+    for (let user of data.users) {
         let contentRow = `<tr id="row-${user.id}">
             <td>${user.id}</td>
             <td>${user.nickname}</td>
@@ -34,6 +44,24 @@ let showFullUsers = async () => {
     }
 
     document.querySelector("#table tbody").innerHTML = contentTable;
+}
+
+function nextPage() {
+    if (currentPage < totalPages - 1) {
+        currentPage++;
+        showFullUsers(currentPage);
+    }
+}
+
+function prevPage() {
+    if (currentPage > 0) {
+        currentPage--;
+        showFullUsers(currentPage);
+    }
+}
+
+function updatePageInfo(current, total) {
+    document.getElementById('page-info').textContent = `Página ${current} de ${total}`;
 }
 
 
@@ -70,7 +98,7 @@ let confirmDelete = async (id) => {
     });
     
     if (request.ok) {
-        showFullUsers();
+        showFullUsers(currentPage);
     } else {
         alert("Error al intentar eliminar el usuario");
     }
@@ -256,7 +284,7 @@ let editUser = async (id) => {
         console.error("Error sending data to server: ", data.message);
         throw new Error(data.message);
     } else {
-        showFullUsers();
+        showFullUsers(currentPage);
     }
 
     return await response.json();
