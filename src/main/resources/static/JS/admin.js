@@ -1,30 +1,29 @@
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("button11").addEventListener("click", function() {
-        window.location.href = "specMovie.html";
-    });
+document.getElementById("button11").addEventListener("click", function() {
+    const href = this.getAttribute("href");
+    window.location.href = href;
 });
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("button10").addEventListener("click", function() {
-        window.location.href = "fullCatalogue.html";
-    });
+
+document.getElementById("button10").addEventListener("click", function() {
+    const href = this.getAttribute("href");
+    window.location.href = href;
 });
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("button12").addEventListener("click", function() {
-        window.location.href = "addMovie.html";
-    });
+
+document.getElementById("button12").addEventListener("click", function() {
+    const href = this.getAttribute("href");
+    window.location.href = href;
 });
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("button20").addEventListener("click", function() {
-        window.location.href = "fullUsers.html";
-    });
+
+document.getElementById("button20").addEventListener("click", function() {
+    const href = this.getAttribute("href");
+    window.location.href = href;
 });
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("button21").addEventListener("click", function() {
-        window.location.href = "addCreditUser.html";
-    });
+
+document.getElementById("button21").addEventListener("click", function() {
+    const href = this.getAttribute("href");
+    window.location.href = href;
 });
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("button22").addEventListener("click", function() {
-        window.location.href = "globalCreditHistory.html";
-    });
+
+document.getElementById("button22").addEventListener("click", function() {
+    const href = this.getAttribute("href");
+    window.location.href = href;
 });

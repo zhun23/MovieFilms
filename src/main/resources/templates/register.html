@@ -9,7 +9,7 @@
 <header>
 	<div id="header">
 		<img src="img/201.png" id="headerImg" alt="fondo header">
-		<a href="/index.html" class="buttonBack"><- Atrás</a>
+		<a href="/index" class="buttonBack"><- Atrás</a>
 		<img src="img/115.png" id="headerlogo" alt="LOGO de la página web MovieFilms">
 	</div>
 </header>
@@ -19,6 +19,19 @@
         <div class="container">
 
     <!--EN FRONT SOLO COMPRUEBO QUE LOS CAMPOS CONTENGAN DATOS MEDIANTE EL REQUIRED-->
+    <form id="register" action="/user/regUser" method="post">
+        <input type="text" name="nickname" id= "nickname" placeholder="Apodo" required="required">
+        <input type="text" name="firstName" id= "firstName" placeholder="Nombre" required= "required">
+        <input type="text" name="lastName" id= "lastName" placeholder="Apellidos" required= "required">
+        <input type="email" name="mail" id= "regmail" placeholder="Correo electrónico" required= "required">
+        <input type="password" name="pass" id="regpass" placeholder="Contraseña" required= "required">
+        <p id="infopass">Al menos ocho caracteres, incluyendo mayúsculas, minúsculas y números</p>
+        <input type="password" name="password" id="password" placeholder="Repite la contraseña" required= "required">
+        <input type="checkbox" name="accept" id="check" required><label for="check"><span style="color:black">Al marcar aceptas el </span>
+            <span style="color: tomato">tratamiento de datos</span></label>
+       <input type="submit" id="registerButton" value="Registrarse" />
+    </form>
+    <!--
 <ul>
     <li><p id="datreg">REGISTRARSE</p><form class="registro"></li>
     <li><input type="text" name="nickname" id= "nickname" placeholder="Apodo" required= "required"></li>
@@ -29,9 +42,9 @@
     <li><p id="infopass">Al menos ocho caracteres, incluyendo mayúsculas, minúsculas y números</p></li>
     <li><input type="password" name="password" id="password" placeholder="Repite la contraseña" required= "required"></li>
     <li><input type="checkbox" name="accept" id="check" required><label for="check"><span style="color:black">Al marcar aceptas el </span><span style="color: tomato">tratamiento de datos</span></label></li>
-    <li><button type="submit" name="submit" id="registerButton">Registrarse</button></li>
-</ul> 
-</form>
+    <li><button type="button" name="submit" id="registerButton" onclick="callEndpoint()">Registrarse</button>
+    </li>
+</ul>-->
         </div>
     </main>
 </div>

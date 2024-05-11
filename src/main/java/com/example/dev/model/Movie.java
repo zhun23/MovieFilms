@@ -1,7 +1,5 @@
 package com.example.dev.model;
 
-
-
 import com.example.dev.utilities.References;
 
 import jakarta.persistence.Column;

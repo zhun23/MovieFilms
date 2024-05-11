@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        fetch(`/user/search/${query}`)
+        fetch(`user/user/search/${query}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -62,9 +62,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function appendRow(tableBody, item) {
         const newRow = tableBody.insertRow(-1);
-        newRow.insertCell(0).textContent = item.id;
-        newRow.insertCell(1).textContent = item.firstName;
-        newRow.insertCell(2).textContent = item.lastName;
+        newRow.insertCell(0).textContent = item.userid;
+        newRow.insertCell(1).textContent = item.firstname;
+        newRow.insertCell(2).textContent = item.lastname;
         newRow.insertCell(3).textContent = item.nickname;
         newRow.insertCell(4).textContent = item.mail;
         newRow.insertCell(5).textContent = item.credit || '0';
@@ -125,7 +125,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateCredit(userId, newCredit) {
         const updatedInfo = { credit: newCredit };
 
-        fetch(`/creditUser/${userId}`, {
+        console.log('Request JSON:', updatedInfo);
+
+        fetch(`user/creditUser/${userId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

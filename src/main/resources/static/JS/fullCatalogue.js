@@ -16,32 +16,42 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function showFullCatalogue(page) {
-    togglePaginationButtons(false);  // Desactiva los botones mientras carga
+    togglePaginationButtons(false);
     const size = 24;
-    const url = `http://localhost:8089/list?page=${page}&size=${size}`;
+    const url = `http://localhost:8090/list?page=${page}&size=${size}`;
 
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error("Error al obtener los datos");
+            if (response.status === 404 && page > 0) {
+                showFullCatalogue(page - 1);
+                return;
+            } else {
+                throw new Error("Error al obtener los datos: " + response.statusText);
+            }
         }
 
         const data = await response.json();
         console.log("Datos recibidos:", data);
         console.log("Total de páginas:", data.totalPages);
 
-        // Asegúrate de usar 'data.movies' para acceder a las películas
+        if (data.movies.length === 0 && page > 0) {
+            showFullCatalogue(page - 1);
+            return;
+        }
+
         updateTable(data.movies || []);
         totalPages = data.totalPages || 1;
         document.getElementById('page-info').textContent = `Página ${page + 1} de ${totalPages}`;
-        currentPage = page;  // Actualiza currentPage solo después de cargar los datos con éxito
+        currentPage = page;
     } catch (error) {
         console.error("Error en la solicitud:", error.message);
         alert("Error al cargar los datos. Por favor, inténtalo de nuevo más tarde.");
     } finally {
-        togglePaginationButtons(true);  // Reactiva los botones una vez cargados los datos
+        togglePaginationButtons(true);
     }
 }
+
 
 function togglePaginationButtons(enable) {
     const nextBtn = document.getElementById("nextBtn");
@@ -106,7 +116,7 @@ async function showFormEdit(id) {
     let row = document.getElementById(`row-${id}`);
 
     try {
-        const response = await fetch(`http://localhost:8089/id/${id}`);
+        const response = await fetch(`http://localhost:8090/id/${id}`);
         if (!response.ok) {
             throw new Error(`Error al obtener los datos: ${response.statusText}`);
         }
@@ -302,7 +312,7 @@ let editMovie = async (id) => {
 
     let jsonData = JSON.stringify(rowData);
 
-    const response = await fetch("http://localhost:8089/edit/" + id, {
+    const response = await fetch("http://localhost:8090/edit/" + id, {
         method: "PUT",
         headers: {
             "Accept": "application/json",
@@ -343,7 +353,7 @@ let delMovie = async (id) => {
 }
 
 let confirmDelete = async (id) => {
-    const request = await fetch("http://localhost:8089/delete/" + id, {
+    const request = await fetch("http://localhost:8090/delete/" + id, {
         method: "DELETE",
         headers: {
             "Accept": "application/json",

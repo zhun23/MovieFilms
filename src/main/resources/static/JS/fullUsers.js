@@ -6,45 +6,66 @@ window.onload = function() {
 }
 
 let showFullUsers = async (page) => {
-    const url = `http://localhost:8089/user?page=${page}&size=24`;
-    const request = await fetch(url, {
-        method: "GET",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+    const url = `http://localhost:8090/user/listuser?page=${page}&size=24`;
+    try {
+        const request = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        });
+
+        // Primero chequeamos el estado de la respuesta
+        if (!request.ok) {
+            if (request.status === 404 && page > 0) {
+                // Intenta cargar la página anterior si la respuesta es 404 y no estamos en la primera página
+                showFullUsers(page - 1);
+                return;
+            } else {
+                throw new Error("Error al obtener los datos: " + request.statusText);
+            }
         }
-    });
 
-    if (!request.ok) {
-        console.error("Error al obtener los datos");
-        return;
+        const data = await request.json();
+
+        if (data.users.length === 0 && page > 0) {
+            // Si no hay usuarios en la página actual y no es la primera página, carga la página anterior
+            showFullUsers(page - 1);
+            return;
+        }
+
+        totalPages = data.totalPages;  // Actualiza el número total de páginas
+        currentPage = page;  // Asegúrate de actualizar la página actual correctamente
+        updatePageInfo(currentPage + 1, totalPages);  // Actualiza la información de la página
+
+        let contentTable = "";
+        for (let user of data.users) {
+            let contentRow = `<tr id="row-${user.userid}">
+                <td>${user.userid}</td>
+                <td>${user.nickname}</td>
+                <td>${user.firstname}</td>
+                <td>${user.lastname}</td>
+                <td>${user.mail}</td>
+                <td id="showCredit">${user.credit}</td>
+                <td class="acciones">
+                    <i onClick="showUserEdit(${user.userid})" class="material-icons button edit">edit</i>
+                    <i onClick="delUser(${user.userid})" class="material-icons button delete">delete</i>
+                </td>
+            </tr>`;
+
+            contentTable += contentRow;
+        }
+
+        document.querySelector("#table tbody").innerHTML = contentTable;
+    } catch (error) {
+        console.error(error);
+        // Aquí maneja el error, posiblemente ajustando la UI o mostrando un mensaje.
     }
-
-    const data = await request.json();
-
-    totalPages = data.totalPages;  // Actualiza el número total de páginas
-    updatePageInfo(currentPage + 1, totalPages);  // Actualiza la información de la página
-
-    let contentTable = "";
-    for (let user of data.users) {
-        let contentRow = `<tr id="row-${user.id}">
-            <td>${user.id}</td>
-            <td>${user.nickname}</td>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
-            <td>${user.mail}</td>
-            <td id="showCredit">${user.credit}</td>
-            <td class="acciones">
-                <i onClick="showUserEdit(${user.id})" class="material-icons button edit">edit</i>
-                <i onClick="delUser(${user.id})" class="material-icons button delete">delete</i>
-            </td>
-        </tr>`;
-
-        contentTable += contentRow;
-    }
-
-    document.querySelector("#table tbody").innerHTML = contentTable;
 }
+
+
+
 
 function nextPage() {
     if (currentPage < totalPages - 1) {
@@ -66,30 +87,31 @@ function updatePageInfo(current, total) {
 
 
 
-let delUser = async (id) => {
-    let row = document.getElementById(`row-${id}`);
-    let existingConfirmRows = document.querySelectorAll(`.confirm-row-${id}`);
+let delUser = async (userid) => {
+    console.log("Valor de userid:", userid);
+    let row = document.getElementById(`row-${userid}`);
+    let existingConfirmRows = document.querySelectorAll(`.confirm-row-${userid}`);
     if (existingConfirmRows.length) {
         existingConfirmRows.forEach(row => row.remove());
         return;
     }
 
     let confirmRow = document.createElement("tr");
-    confirmRow.classList.add("confirm-row", `confirm-row-${id}`);
+    confirmRow.classList.add("confirm-row", `confirm-row-${userid}`);
     let confirmCell = document.createElement("td");
     confirmCell.colSpan = 8; // Asumiendo que tienes 8 columnas en tu tabla
     confirmCell.innerHTML = `
         <div>Estás seguro de borrar el usuario: <strong>${row.cells[1].textContent}</strong>?</div>
-        <button onclick="confirmDelete(${id})" class="confirm-button">Confirmar</button>
-        <button onclick="cancelDelete(${id})" class="cancel-button">Cancelar</button>
+        <button onclick="confirmDelete(${userid})" class="confirm-button">Confirmar</button>
+        <button onclick="cancelDelete(${userid})" class="cancel-button">Cancelar</button>
     `;
     confirmRow.appendChild(confirmCell);
 
     row.parentNode.insertBefore(confirmRow, row.nextSibling);
 }
 
-let confirmDelete = async (id) => {
-    const request = await fetch("http://localhost:8089/deleteUser/" + id, {
+let confirmDelete = async (userid) => {
+    const request = await fetch("http://localhost:8090/user/deleteUser/" + userid, {
         method: "DELETE",
         headers: {
             "Accept": "application/json",
@@ -104,31 +126,31 @@ let confirmDelete = async (id) => {
     }
 }
 
-let cancelDelete = (id) => {
-    document.querySelectorAll(`.confirm-row-${id}`).forEach(row => row.remove());
+let cancelDelete = (userid) => {
+    document.querySelectorAll(`.confirm-row-${userid}`).forEach(row => row.remove());
 }
 
-async function showUserEdit(id) {
+async function showUserEdit(userid) {
     let tableBody = document.querySelector("#table tbody");
 
 
-    let existingEditRows = document.querySelectorAll(`.edit-row-${id}`);
+    let existingEditRows = document.querySelectorAll(`.edit-row-${userid}`);
     if (existingEditRows.length) {
         existingEditRows.forEach(row => row.remove());
         return;
     }
 
-    let row = document.getElementById(`row-${id}`);
+    let row = document.getElementById(`row-${userid}`);
 
     try {
-        const response = await fetch(`http://localhost:8089/user/id/${id}`);
+        const response = await fetch(`http://localhost:8090/user/user/userid/${userid}`);
         if (!response.ok) {
             throw new Error(`Error al obtener los datos: ${response.statusText}`);
         }
         const user = await response.json();
 
     let buttonsRow = document.createElement("tr");
-    buttonsRow.classList.add("edit-row", `edit-row-${id}`);
+    buttonsRow.classList.add("edit-row", `edit-row-${userid}`);
 
     let buttonsCell = document.createElement("td");
     buttonsCell.className = "ButtonLabelsTable";
@@ -141,7 +163,7 @@ async function showUserEdit(id) {
     acceptButton.textContent = "Modificar cambios";
     acceptButton.addEventListener("click", async function() {
         try {
-            await editUser(id);
+            await editUser(userid);
             document.querySelectorAll('.edit-row').forEach(row => row.remove());
         } catch (error) {
             console.error("Failed to edit user", error);
@@ -164,7 +186,7 @@ async function showUserEdit(id) {
     tableBody.insertBefore(buttonsRow, row.nextSibling);
 
     let creditRow = document.createElement("tr");
-    creditRow.classList.add("edit-row", `edit-row-${id}`);
+    creditRow.classList.add("edit-row", `edit-row-${userid}`);
     let creditCell = document.createElement("td");
     creditCell.classList.add("Labels");
     creditCell.textContent = "Saldo";
@@ -179,7 +201,7 @@ async function showUserEdit(id) {
     creditRow.appendChild(creditInputCell);
 
     let mailRow = document.createElement("tr");
-    mailRow.classList.add("edit-row", `edit-row-${id}`);
+    mailRow.classList.add("edit-row", `edit-row-${userid}`);
     let mailCell = document.createElement("td");
     mailCell.classList.add("Labels");
     mailCell.textContent = "Correo electrónico";
@@ -194,7 +216,7 @@ async function showUserEdit(id) {
     mailRow.appendChild(mailInputCell);
 
     let lastNameRow = document.createElement("tr");
-    lastNameRow.classList.add("edit-row", `edit-row-${id}`);
+    lastNameRow.classList.add("edit-row", `edit-row-${userid}`);
     let lastNameCell = document.createElement("td");
     lastNameCell.classList.add("Labels");
     lastNameCell.textContent = "Apellidos";
@@ -203,13 +225,13 @@ async function showUserEdit(id) {
     lastNameInput.classList.add("inputCustomLastName");
     lastNameInput.type = "text";
     lastNameInput.id = "inputLastName";
-    lastNameInput.value = user.lastName;
+    lastNameInput.value = user.lastname;
     lastNameInputCell.appendChild(lastNameInput);
     lastNameRow.appendChild(lastNameCell);
     lastNameRow.appendChild(lastNameInputCell);
 
     let firstNameRow = document.createElement("tr");
-    firstNameRow.classList.add("edit-row", `edit-row-${id}`);
+    firstNameRow.classList.add("edit-row", `edit-row-${userid}`);
     let firstNameCell = document.createElement("td");
     firstNameCell.classList.add("Labels");
     firstNameCell.textContent = "Nombre";
@@ -218,14 +240,14 @@ async function showUserEdit(id) {
     firstNameInput.classList.add("inputCustomFirstName");
     firstNameInput.type = "text";
     firstNameInput.id = "inputFirstName";
-    firstNameInput.value = user.firstName;
+    firstNameInput.value = user.firstname;
     firstNameInputCell.appendChild(firstNameInput);
     firstNameRow.appendChild(firstNameCell);
     firstNameRow.appendChild(firstNameInputCell);
 
 
     let nicknameRow = document.createElement("tr");
-    nicknameRow.classList.add("edit-row", `edit-row-${id}`);
+    nicknameRow.classList.add("edit-row", `edit-row-${userid}`);
     let nicknameCell = document.createElement("td");
     nicknameCell.classList.add("Labels");
     nicknameCell.textContent = "Apodo";
@@ -246,9 +268,9 @@ async function showUserEdit(id) {
     tableBody.insertBefore(creditRow, mailRow.nextSibling);
 
     let idRow = document.createElement("tr");
-    idRow.classList.add("edit-row", `edit-row-${id}`, "IDrowEdit");
+    idRow.classList.add("edit-row", `edit-row-${userid}`, "IDrowEdit");
     let idCell = document.createElement("td");
-    idCell.textContent = id;
+    idCell.textContent = userid;
     idCell.setAttribute("rowspan", "7"); 
     idRow.appendChild(idCell);
 
@@ -259,7 +281,7 @@ async function showUserEdit(id) {
     }
 }
 
-let editUser = async (id) => {
+let editUser = async (userid) => {
     let rowData = {
         "nickname": document.getElementById("inputNickname").value,
         "firstName": document.getElementById("inputFirstName").value,
@@ -268,9 +290,11 @@ let editUser = async (id) => {
         "credit": document.getElementById("inputCredit").value
     };
 
+    console.log("JSON data sent to server:", rowData);
+
     let jsonData = JSON.stringify(rowData);
 
-    const response = await fetch("http://localhost:8089/editUser/" + id, {
+    const response = await fetch("http://localhost:8090/user/editUser/" + userid, {
         method: "PUT",
         headers: {
             "Accept": "application/json",

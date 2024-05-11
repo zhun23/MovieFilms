@@ -13,8 +13,7 @@ window.onload = function() {
 
 function showFullHistory(page = 0) {
     togglePaginationButtons(false, 'history');
-    const size = 24;
-    const url = `http://localhost:8089/history?page=${page}&size=${size}`;
+    const url = `http://localhost:8090/history?page=${page}&size=24`;
 
     fetch(url).then(response => {
         if (!response.ok) {
@@ -69,8 +68,8 @@ function updateTable(creditHistories, type) {
         }
 
         let contentRow = `<tr class="${rowClass}">
-            <td>${history.id}</td>
-            <td class="allignTable">${history.userId}</td>
+            <td>${history.historyid}</td>
+            <td class="allignTable">${history.userid}</td>
             <td class="allignTable">${history.userNickname}</td>
             <td class="allignTable">${formattedDate}</td>
             <td class="allignTable">${history.recharge}</td>
@@ -110,13 +109,30 @@ document.addEventListener('DOMContentLoaded', function() {
     searchForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const userId = findGlobalUser.value;
-        document.getElementById('thTitle').textContent = 'HISTORIAL CRÉDITO USUARIO';
-        loadUserCreditHistory(userId, 0);
+
+        fetch(`/user/user/userid/${userId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('No se pudo obtener la información del usuario');
+                }
+                return response.json();
+            })
+            .then(userData => {
+                const userName = userData.nickname.toUpperCase();
+                document.getElementById('thTitle').textContent = `HISTORIAL CRÉDITO DE @${userName}`;
+
+                loadUserCreditHistory(userId, 0);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al cargar la información del usuario. Por favor, inténtalo de nuevo más tarde.');
+            });
     });
 
     document.getElementById('clean').addEventListener('click', function() {
         findGlobalUser.value = '';
-        currentUserId = null;  // Resetea el ID del usuario cuando se limpia la búsqueda
+        currentUserId = null;
+        document.getElementById('thTitle').textContent = "HISTORIAL GLOBAL DE CRÉDITO DE USUARIOS";
         showFullHistory(0);
     });
 });

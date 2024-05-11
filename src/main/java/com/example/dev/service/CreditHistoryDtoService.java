@@ -32,7 +32,7 @@ public class CreditHistoryDtoService implements ICreditHistoryDtoService {
         Pageable reversedPageable = PageRequest.of(
             pageable.getPageNumber(), 
             pageable.getPageSize(), 
-            Sort.by("id").descending()
+            Sort.by("historyid").descending()
         );
         Page<CreditHistory> creditHistories = creditHistoryDao.findAll(reversedPageable);
         return creditHistories.map(this::convertToDto);
@@ -42,8 +42,8 @@ public class CreditHistoryDtoService implements ICreditHistoryDtoService {
         return new CreditHistoryDto(creditHistory);
     }
 	
-	public Page<CreditHistoryDto> findByUserIdOrderByIdDesc(int userId, Pageable pageable) {
-        return creditHistoryDao.findByUserIdOrderByIdDesc(userId, pageable)
+	public Page<CreditHistoryDto> findByUserCtUseridOrderByHistoryidDesc(int userid, Pageable pageable) {
+        return creditHistoryDao.findByUserCtUseridOrderByHistoryidDesc(userid, pageable)
                                      .map(this::convertToDto);
     }
 }

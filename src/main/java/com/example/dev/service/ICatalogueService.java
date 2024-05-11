@@ -14,7 +14,7 @@ public interface ICatalogueService {
 	public Page<Movie> findAll(Pageable pageable);
 	public Optional<Movie> findById(int id);
 	public List<Movie> findMovieByTitle(String title);
-	public List<Movie> findMovieByReleaseDate(String releasedate);
+	//public List<Movie> findMovieByReleaseDate(String releasedate);
 	public List<Movie> findMovieByGenre(Genre genre);
 	public List<Movie> findMovieByDirector(String director);
 	public List<Movie> findMovieByNewRelease(boolean newrelease);

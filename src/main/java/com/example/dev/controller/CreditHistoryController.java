@@ -41,8 +41,8 @@ public class CreditHistoryController {
     }
     
 	@GetMapping("/creditHistory/id/{userId}")
-	public ResponseEntity<?> findCreditHistoryByUserId(@PathVariable int userId, @PageableDefault(size = 24) Pageable pageable) {
-	    Page<CreditHistoryDto> creditHistoryDtos = creditHistoryDtoService.findByUserIdOrderByIdDesc(userId, pageable);
+	public ResponseEntity<?> findCreditHistoryByUserCtId(@PathVariable int userId, @PageableDefault(size = 24) Pageable pageable) {
+	    Page<CreditHistoryDto> creditHistoryDtos = creditHistoryDtoService.findByUserCtUseridOrderByHistoryidDesc(userId, pageable);
 	    if (creditHistoryDtos.hasContent()) {
 	        Map<String, Object> response = new HashMap<>();
 	        response.put("creditHistories", creditHistoryDtos.getContent());

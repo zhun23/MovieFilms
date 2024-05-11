@@ -24,8 +24,8 @@ public class CreditHistory {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="creditid")
-	private int id;
+	@Column(name="historyid")
+	private int historyid;
 	
 	
 	@NotNull(message = "La fecha de recarga no puede estar vacía")
@@ -37,11 +37,11 @@ public class CreditHistory {
 	private int amount;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", referencedColumnName = "userid")
-	private User user;
+	@JoinColumn(name = "userid", referencedColumnName = "userid")
+	private UserCt userCt;
 	
-	@Column(name="nickname")
-	private String nickname;
+	@Column(name="usernickname")
+	private String usernickname;
 	
 	@NotNull(message = "El crédito total no puede estar vacío")
     @Column(name = "totalcredit")

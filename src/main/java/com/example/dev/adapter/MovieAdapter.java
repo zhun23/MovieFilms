@@ -9,18 +9,18 @@ import com.example.dev.model.Movie;
 @Component
 public class MovieAdapter {
 
-	public MovieDto adaptertDto(Movie movie) {
-		MovieDto movieDto = new MovieDto();
-		
-		movieDto.setId(movie.getId());
-		movieDto.setTitle(movie.getTitle());
-		movieDto.setDescription(movie.getDescription());
-		movieDto.setReleaseDate(movie.getReleaseDate());
-		movieDto.setGenre(movie.getGenre());
-		movieDto.setDirector(movie.getDirector());
-		movieDto.setNewRelease(movie.isNewRelease());
-		
-		return movieDto;
-	}
+//	public MovieDto adaptertDto(Movie movie) {
+//		MovieDto movieDto = new MovieDto();
+//		
+//		movieDto.setId(movie.getId());
+//		movieDto.setTitle(movie.getTitle());
+//		movieDto.setDescription(movie.getDescription());
+//		movieDto.setReleaseDate(movie.getReleaseDate());
+//		movieDto.setGenre(movie.getGenre());
+//		movieDto.setDirector(movie.getDirector());
+//		movieDto.setNewRelease(movie.isNewRelease());
+//		
+//		return movieDto;
+//	}
 	
 }

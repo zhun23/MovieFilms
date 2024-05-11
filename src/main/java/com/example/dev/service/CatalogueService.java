@@ -39,11 +39,13 @@ public class CatalogueService implements ICatalogueService {
 		return catalogueDao.findMovieByTitle(title);
 	}
 	
-	public List<Movie> findMovieByReleaseDate(String releasedate) {
-		return catalogueDao.findAll().stream()
+	/*
+	 * public List<Movie> findMovieByReleaseDate(String releasedate) {
+	 	return catalogueDao.findAll().stream()
                 .filter(movie -> movie.getReleaseDate().endsWith(releasedate))
                 .collect(Collectors.toList());
 	}
+	*/
 	
 	public List<Movie> findMovieByGenre(Genre genre) {
 		return catalogueDao.findMovieByGenre(genre);

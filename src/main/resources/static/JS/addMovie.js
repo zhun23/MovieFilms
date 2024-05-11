@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log(movieJSON); //Guardo el consolelog para revisar como le pasa el JSON dado que he tenido que pelearme muchas veces con ello al hacer envios fallidos
 
-            const response = await fetch('http://localhost:8089/movie', {
+            const response = await fetch('http://localhost:8090/movie', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

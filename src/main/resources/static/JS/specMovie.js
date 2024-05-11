@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
         e.preventDefault();
         const id = document.getElementById('movieId').value;
         if (id) {
-            fetch(`http://localhost:8089/id/${id}`)
+            fetch(`http://localhost:8090/id/${id}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('No se encontró ninguna película con ese ID');

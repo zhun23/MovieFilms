@@ -59,9 +59,10 @@ function createMovieCards(data) {
 }
 
 // Hacer la solicitud HTTP para obtener los datos de las películas
-fetch('http://localhost:8089/newRelease/true')
+fetch('http://localhost:8090/newRelease/true')
     .then(response => response.json())
     .then(data => {
         createMovieCards(data); // Crear y mostrar las tarjetas de película
-    })
-    .cat
+    });
+
+   

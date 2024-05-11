@@ -16,9 +16,8 @@ public interface ICreditHistoryDao extends JpaRepository<CreditHistory, Integer>
 
 	//Page<CreditHistory> findByUserId(int userId, Pageable pageable);
 	
-	Page<CreditHistory> findByUserIdOrderByIdDesc(int userId, Pageable pageable);
+	Page<CreditHistory> findByUserCtUseridOrderByHistoryidDesc(int userid, Pageable pageable);
 	
-	List<CreditHistory> findAllByOrderByIdDesc(Pageable pageable);
-
+	List<CreditHistory> findAllByOrderByHistoryidDesc(Pageable pageable);
 }
 

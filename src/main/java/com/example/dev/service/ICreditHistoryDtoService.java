@@ -14,5 +14,7 @@ public interface ICreditHistoryDtoService {
 	
 	public Page<CreditHistoryDto> findAllReversed(Pageable pageable);
 	
-	public Page<CreditHistoryDto> findByUserIdOrderByIdDesc(int userId, Pageable pageable);
+	//public Page<CreditHistoryDto> findByUserUseridOrderByHistoryidDesc(int userid, Pageable pageable);
+
+	public Page<CreditHistoryDto> findByUserCtUseridOrderByHistoryidDesc(int userId, Pageable pageable);
 }

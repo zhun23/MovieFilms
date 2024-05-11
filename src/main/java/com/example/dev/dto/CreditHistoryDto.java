@@ -8,9 +8,9 @@ import lombok.Data;
 
 @Data
 public class CreditHistoryDto {
-	private int id;
+	private int historyid;
 	private String userNickname;
-	private int userId;
+	private int userid;
     private LocalDateTime date;
     private int amount;
     private int totalCredit;
@@ -18,9 +18,9 @@ public class CreditHistoryDto {
     private int rent;
 
     public CreditHistoryDto(CreditHistory creditHistory) {
-        this.id = creditHistory.getId();
-        this.userNickname = creditHistory.getUser().getNickname();
-        this.userId = creditHistory.getUser().getId();
+        this.historyid = creditHistory.getHistoryid();
+        this.userNickname = creditHistory.getUserCt().getNickname();
+        this.userid = creditHistory.getUserCt().getUserid();
         this.date = creditHistory.getDate();
         this.amount = creditHistory.getAmount();
         this.totalCredit = creditHistory.getTotalCredit();
