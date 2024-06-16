@@ -4,20 +4,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.JoinColumn;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.dev.utilities.References;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Table(name=References.USER_TABLE_NAME)
@@ -27,8 +30,8 @@ public class UserCt implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userid;
-	
-	@Column(name = "nickname")
+
+	@Column(name = "nickname", unique = true)
 	private String nickname;
 
 	@Column(name = "firstname")
@@ -37,31 +40,42 @@ public class UserCt implements UserDetails {
 	@Column(name = "lastname")
 	private String lastname;
 
-	@Column(name= "mail")
+	@Column(name= "mail", unique = true)
 	private String mail;
-	
+
 	@Column(name= "password")
 	private String password;
-	
+
 	@Column(name= "credit")
 	private Integer credit;
-	
+
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "rolid")
 	private Rol rol;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private MoviesCart cart;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Address address;
+
+    @OneToMany(mappedBy = "userCt", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CreditHistory> creditHistories;
 
 	public UserCt() {
 		this.rol = new Rol("User");
 	}
 
-	public int getUserid() {
+	public Integer getUserid() {
 		return userid;
 	}
 
-	public void setUserid(int userid) {
+	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
-	
+
 	public String getNickname() {
 		return nickname;
 	}
@@ -85,7 +99,7 @@ public class UserCt implements UserDetails {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	
+
 	public String getMail() {
 		return mail;
 	}
@@ -102,12 +116,12 @@ public class UserCt implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public int getCredit() {
+
+	public Integer getCredit() {
 		return credit;
 	}
 
-	public void setCredit(int credit) {
+	public void setCredit(Integer credit) {
 		this.credit = credit;
 	}
 
@@ -154,4 +168,19 @@ public class UserCt implements UserDetails {
 		return true;
 	}
 
+	public MoviesCart getCart() {
+		return cart;
+	}
+
+	public void setCart(MoviesCart cart) {
+		this.cart = cart;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 }

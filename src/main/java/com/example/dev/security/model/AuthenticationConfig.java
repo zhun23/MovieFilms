@@ -14,18 +14,18 @@ import com.example.dev.dao.IUserCtDao;
 
 @Configuration
 public class AuthenticationConfig {
-	
+
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-		// Aquí estamos introduciendo el ProviderManager
+		// Aquí inyecto el ProviderManager
 		return authenticationConfiguration.getAuthenticationManager();
 	}
-	
+
 	@Bean
 	public UserDetailsService userDetailsService(IUserCtDao userDao) {
 		return (nickname) -> userDao.findByNickname(nickname);
 	}
-	
+
 	@Bean
 	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();

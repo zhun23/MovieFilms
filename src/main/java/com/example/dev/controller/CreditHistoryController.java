@@ -1,7 +1,6 @@
 package com.example.dev.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class CreditHistoryController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: There's no credit history in the database");
         }
     }
-    
+
 	@GetMapping("/creditHistory/id/{userId}")
 	public ResponseEntity<?> findCreditHistoryByUserCtId(@PathVariable int userId, @PageableDefault(size = 24) Pageable pageable) {
 	    Page<CreditHistoryDto> creditHistoryDtos = creditHistoryDtoService.findByUserCtUseridOrderByHistoryidDesc(userId, pageable);
@@ -52,7 +51,7 @@ public class CreditHistoryController {
 
 	        return ResponseEntity.ok(response);
 	    } else {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró un historial de crédito que coincida con ese ID de usuario en la base de datos");
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: There's no credit history found with this ID user in the database");
 	    }
 	}
 }

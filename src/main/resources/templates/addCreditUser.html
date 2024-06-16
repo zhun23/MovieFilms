@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:insert="~{/fragments/head-fragment.html}" />
     <link rel="stylesheet" href="CSS/addCreditUser.css" />
     <title>Añadir saldo</title>
 </head>
-<header>
-    <div id="header">
-        <img src="img/201.png" id="headerImg" alt="fondo header">
-        <a href="/admin" class="buttonBack"><- Atrás</a>
-        <img src="img/115.png" id="headerlogo" alt="LOGO de la página web MovieFilms">
-    </div>
-</header>
+
 <body>
-    <h2 id="aniadirSaldo">Añadir saldo</h2>
-    <div class="container">
-        <div class="alignFind">
-            <p id="sangriaLat">Buscar Usuario:</p>
-            <form action="">
-                <input id="findGlobalUser" type="text">
-                <div id="workButtons">
-                    <button id="search" type="submit">Buscar</button>
-                    <button id="clean" type="button">Limpiar</button>
-                </div>
-            </form>
+    <th:block th:insert="~{/fragments/header.html :: admin-header-backbutton}" />
+    <div id="body">
+        <h2 id="aniadirSaldo">Añadir saldo</h2>
+        <div class="container">
+            <div class="alignFind">
+                <p id="sangriaLat">Buscar Usuario:</p>
+                <form action="">
+                    <input id="findGlobalUser" type="text">
+                    <div id="workButtons">
+                        <button id="search" type="submit">Buscar</button>
+                        <button id="clean" type="button">Limpiar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="searchResult"></div>
+        <div id="tableContainer"></div>
+        <div id="positionUserDetails">
+            <div id="userDetails"></div>
+        </div>
+
         </div>
     </div>
-    <div id="searchResult"></div>
-    <div id="tableContainer"></div>
-    <div id="positionUserDetails">
-        <div id="userDetails"></div>
-    </div>
-    <script src="JS/addCreditUser.js"></script>
 </body>
+
+<script src="JS/addCreditUser.js"></script>
+
 </html>

@@ -15,13 +15,13 @@ public enum Genre {
 	Thriller("Suspense"),
 	Animation("Animación"),
 	Kids("Infantil");
-	
+
 	private final String genre;
-	
+
 	private Genre(String genre) {
 		this.genre = genre;
 	}
-	
+
 	public String getGenre() {
 		return genre;
 	}

@@ -60,11 +60,20 @@ function updateTable(creditHistories, type) {
     const tableBody = document.querySelector("#table tbody");
     let tableHTML = "";
     creditHistories.forEach(history => {
-        let rowClass = history.amount < 0 ? 'redRow' : history.recharge === 'Recarga' ? 'greenRow' : '';
+        const buyTranslate = history.buy ? 'Si' : 'No';
+
+        let rowClass = history.amount > 0 && !history.buy ? 'greenRow' :
+               history.amount < 0 && !history.buy ? 'redRow' :
+               history.amount < 0 && history.buy ? 'purpleRow' : '';
+        
         let formattedDate = formatDate(history.date);
 
-        if (history.amount < 0) {
-            history.recharge = "Ajuste";
+        if (history.amount > 0 && !history.buy) {
+            history.action = "Recarga";
+        } else if (history.amount < 0 && !history.buy) {
+            history.action = "Ajuste";
+        } else if (history.amount < 0 && history.buy) {
+            history.action = "Compra";
         }
 
         let contentRow = `<tr class="${rowClass}">
@@ -72,8 +81,8 @@ function updateTable(creditHistories, type) {
             <td class="allignTable">${history.userid}</td>
             <td class="allignTable">${history.userNickname}</td>
             <td class="allignTable">${formattedDate}</td>
-            <td class="allignTable">${history.recharge}</td>
-            <td class="allignTable">${history.rent}</td>
+            <td class="allignTable">${history.action}</td>
+            <td class="allignTable">${buyTranslate}</td>
             <td class="allignTable">${history.amount}</td>
             <td class="allignTable">${history.totalCredit}</td>
         </tr>`;
@@ -110,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         const userId = findGlobalUser.value;
 
-        fetch(`/user/user/userid/${userId}`)
+        fetch(`/api/user/user/userid/${userId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('No se pudo obtener la información del usuario');

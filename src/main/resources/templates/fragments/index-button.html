@@ -1,0 +1,10 @@
+<!-- <a th:fragment="backbutton" th:href="@{/index}" th:append="${styles}" >Ir al índice</a> -->
+<a th:fragment="backbutton" th:href="@{/index}" class="buttonBack"><- Atrás</a>
+
+<div th:fragment="loginbox" class="loginbox">
+    <a th:href="@{/login}" class="loginreq">   Login   </a>
+    <a th:href="@{/register}" class="registerreq">Registrarse</a>
+</div>
+
+<!-- <h1 th:fragment="usernameshow" th:text="${username}"></h1> -->
+<a th:href="@{/logout}">Logout</a>

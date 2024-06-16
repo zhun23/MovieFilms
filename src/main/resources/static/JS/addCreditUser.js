@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        fetch(`user/user/search/${query}`)
+        fetch(`http://localhost:8090/api/user/searchu/${query}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .then(data => {
+                console.log('Data received:', data);
                 tableContainer.innerHTML = ''; 
                 createTable(data);
                 addClickEventToRows();
@@ -41,22 +42,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function createTable(data) {
+        // Limpia el contenedor de la tabla antes de crear una nueva
+        tableContainer.innerHTML = '';
+    
         const table = document.createElement('table');
         table.setAttribute('id', 'userInfoTable');
+        
         const tableHead = document.createElement('thead');
         const headRow = document.createElement('tr');
-        ['#ID', 'Nombre', 'Apellidos', 'Apodo', 'Email', 'Crédito'].forEach(cell => {
+        const headers = ['#ID', 'Nombre', 'Apellidos', 'Apodo', 'Email', 'Crédito'];
+    
+        // Crear las celdas del encabezado
+        headers.forEach(header => {
             const th = document.createElement('th');
-            th.textContent = cell;
+            th.textContent = header;
             headRow.appendChild(th);
         });
+    
+        // Asegúrate de agregar solo una fila de encabezado
         tableHead.appendChild(headRow);
         table.appendChild(tableHead);
-
+    
         const tableBody = document.createElement('tbody');
         data.forEach(item => appendRow(tableBody, item));
         table.appendChild(tableBody);
-
+    
         tableContainer.appendChild(table);
     }
 
@@ -127,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log('Request JSON:', updatedInfo);
 
-        fetch(`user/creditUser/${userId}`, {
+        fetch(`/api/user/creditUser/${userId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

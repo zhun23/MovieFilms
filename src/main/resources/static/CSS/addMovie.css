@@ -1,9 +1,9 @@
 html {
     background-color: #f1f1f1;
     margin: 0px;
-  }
+}
   
-  #headerlogo {
+#headerlogo {
     margin-top: 5px;
     margin-left: 240px;
     width: 300px;
@@ -11,9 +11,9 @@ html {
     margin-top: -143px;
     position: relative;
     z-index: 3;
-  }
+}
   
-  #header {
+#header {
     margin:0 auto;
     width:100%;
     background: linear-gradient(to right, rgb(75, 75, 75), black, rgb(145, 145, 145));
@@ -22,14 +22,14 @@ html {
     top: 0;
     left: 0;
     z-index: 0;
-  }
+}
   
-  #headerImg {
+#headerImg {
     width: 100%;
     height: 140px;
-  }
+}
   
-  .buttonBack {
+.buttonBack {
     position: relative;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     float: left;
@@ -48,21 +48,22 @@ html {
     border-radius: 5px;
     transition: background-color 0.3s;
     z-index: 4;
-  }
+}
   
-  .buttonBack:hover {
+.buttonBack:hover {
     background-color: #0056b3;
-  }
+}
 
-  #descriptionInput {
+#descriptionInput {
+    padding-left: 10px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     height: 100%;
-  }
+}
 
-  body {
+#body {
     margin-top: 190px;
     margin-left: 20px;
-  }
+}
 
 .cellButtons {
     text-align: center;
@@ -121,6 +122,7 @@ body {
 
 #thTitle {
     font-size: 20px;
+    text-align: center;
   }
 
 #imgSpace {
@@ -150,8 +152,8 @@ thead tr:first-child {
 
 th:first-child,
 td:first-child {
-  padding: 0 15px 0 5px;
-  text-align: center;
+  padding: 0 15px 0 45px;
+  text-align: left;
 }
 
 th {
@@ -188,38 +190,51 @@ thead tr:last-child th {
 }
 
 #titleInput {
+    padding-left: 10px;
     width: 280px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     height: 24px;
 }
 
 #genreSelect {
+    padding-left: 10px;
     height: 28px;
 }
 
 #newRelease {
+    padding-left: 10px;
     height: 28px;
 }
 
 #directorInput {
+    padding-left: 10px;
     width: 280px;
     height: 24px;
 }
 
 #releaseDateInput {
+    padding-left: 10px;
     width: 80px;
     height: 22px;
 }
 
 #imgUrlInput {
+    padding-left: 10px;
     width: 280px;
     height: 22px;
 }
 
 #stockInput {
-    width: 80px;
+    padding-left: 10px;
+    width: 70px;
     height: 22px;
     margin-bottom: 10px;
+}
+
+#priceInput {
+    padding-left: 10px;
+    width: 90px;
+    height: 22px;
 }
 
 table tr td #releaseDateInput2 {

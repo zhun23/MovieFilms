@@ -6,7 +6,7 @@ window.onload = function() {
 }
 
 let showFullUsers = async (page) => {
-    const url = `http://localhost:8090/user/listuser?page=${page}&size=24`;
+    const url = `http://localhost:8090/api/user/listuser?page=${page}&size=24`;
     try {
         const request = await fetch(url, {
             method: "GET",
@@ -60,7 +60,6 @@ let showFullUsers = async (page) => {
         document.querySelector("#table tbody").innerHTML = contentTable;
     } catch (error) {
         console.error(error);
-        // Aquí maneja el error, posiblemente ajustando la UI o mostrando un mensaje.
     }
 }
 
@@ -111,7 +110,7 @@ let delUser = async (userid) => {
 }
 
 let confirmDelete = async (userid) => {
-    const request = await fetch("http://localhost:8090/user/deleteUser/" + userid, {
+    const request = await fetch("http://localhost:8090/api/user/deleteUser/" + userid, {
         method: "DELETE",
         headers: {
             "Accept": "application/json",
@@ -143,7 +142,7 @@ async function showUserEdit(userid) {
     let row = document.getElementById(`row-${userid}`);
 
     try {
-        const response = await fetch(`http://localhost:8090/user/user/userid/${userid}`);
+        const response = await fetch(`http://localhost:8090/api/user/user/userid/${userid}`);
         if (!response.ok) {
             throw new Error(`Error al obtener los datos: ${response.statusText}`);
         }
@@ -284,8 +283,8 @@ async function showUserEdit(userid) {
 let editUser = async (userid) => {
     let rowData = {
         "nickname": document.getElementById("inputNickname").value,
-        "firstName": document.getElementById("inputFirstName").value,
-        "lastName": document.getElementById("inputLastName").value,
+        "firstname": document.getElementById("inputFirstName").value,
+        "lastname": document.getElementById("inputLastName").value,
         "mail": document.getElementById("inputMail").value,
         "credit": document.getElementById("inputCredit").value
     };
@@ -294,7 +293,7 @@ let editUser = async (userid) => {
 
     let jsonData = JSON.stringify(rowData);
 
-    const response = await fetch("http://localhost:8090/user/editUser/" + userid, {
+    const response = await fetch("http://localhost:8090/api/user/editUser/" + userid, {
         method: "PUT",
         headers: {
             "Accept": "application/json",

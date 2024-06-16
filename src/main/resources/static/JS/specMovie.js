@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <p><strong>Género:</strong> ${data.genre}</p>
                                 <p><strong>Director:</strong> ${data.director}</p>
                                 <p><strong>Novedad:</strong> ${data.newRelease ? 'Sí' : 'No'}</p>
+                                <p><strong>Precio:</strong> ${data.price}</p>
                                 <p><strong>Stock:</strong> ${data.stock}</p>
                             </div>
                         </div>

@@ -1,0 +1,342 @@
+html {
+  background-color: #dddddd99;
+  margin: 0px;
+}
+  
+#headerlogo {
+  margin-top: 5px;
+  margin-left: 240px;
+  width: 300px;
+  height: 165px;
+  margin-top: -143px;
+  position: relative;
+  z-index: 3;
+}
+  
+#header {
+  margin:0 auto;
+  width:100%;
+  background: linear-gradient(to right, rgb(75, 75, 75), black, rgb(145, 145, 145));
+  height: 143px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+  
+#headerImg {
+  width: 100%;
+  height: 140px;
+}
+  
+.buttonBack {
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  float: left;
+  margin-top: -120px;
+  margin-left: 20px;
+  width: 80px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 550;
+  color: white;
+  background-color: #858383;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  z-index: 4;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+  
+.buttonBack:hover {
+  background-color: #0056b3;
+}
+
+body {
+  margin-top: 170px;
+  margin-left: 20px;
+}
+
+#title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin-left: 40%;
+  margin-bottom: -70px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.loginbox {
+  position: absolute;
+  top: 50px;
+  right: 70px;
+  z-index: 4;
+}
+
+.userdetails {
+  position: absolute;
+  top: 0px;
+  right: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 4;
+}
+
+#cart-icon {
+  position: absolute;
+  top: 85px;
+  right: 80px;
+  color: #0000EE;
+  cursor: pointer;
+  z-index: 4;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#cart-icon:hover {
+  color: #0366d0;
+}
+
+#cart-icon2 {
+  position: absolute;
+  top: 32px;
+  right: 20px;
+  color: red;
+  z-index: 4;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#cart-icon2a:hover {
+  color: rgb(255, 0, 0);
+}
+
+.username {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 42px;
+  font-weight: 650;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: right;
+  display: block;
+  text-decoration: none;
+  color: black;
+  z-index: 4;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.loginreq {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 550;
+  background: #506169; 
+  color: #fff;
+  cursor: pointer;
+  margin-right: 10px;
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+  
+.loginreq:hover {
+  background-color: #0056b3;
+}
+  
+.registerreq {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
+  height: 35px;
+  font-size: 20px;
+  font-weight: 550;
+  background: #506169;
+  color: #fff;
+  cursor: pointer;
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+  
+.registerreq:hover {
+  background-color: #0056b3;
+}
+
+.totalDetails {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 100px;
+}
+
+#userDetails {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  padding-left: 20px;
+  padding-bottom: 20px;
+  width: 30%;
+  margin-right: 40px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 35%;
+}
+
+#addresses {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+
+.editsButtons {
+  margin-bottom: 15px;
+  padding-top: 10px;
+  padding-right: 5px;
+}
+
+.buttons-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#editButton {
+  font-size: 30px;
+  color: #444444;
+}
+
+#editButton:hover {
+  color: #0a79df;
+}
+
+#deleteButton {
+  font-size: 30px;
+  color: #444444;
+}
+
+#deleteButton:hover {
+  color: red;
+}
+
+#button2 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin-top: 20px;
+  width: 200px;
+  height: 50px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 550;
+  color: white;
+  background-color: #858383;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  vertical-align: middle;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+#button2:hover {
+  background-color: #0056b3;
+}
+
+#button3 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  width: 200px;
+  height: 50px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 550;
+  color: white;
+  background-color: #858383;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  vertical-align: middle;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+#button3:hover {
+  background-color: #0056b3;
+}
+
+#addAddress {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin-top: 0px;
+  width: 200px;
+  height: 50px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 550;
+  color: white;
+  background-color: #858383;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  vertical-align: middle;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  margin-right: 30px;
+}
+
+#addAddress:hover {
+  background-color: #0056b3;
+}
+
+#manageButtonsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 18px;
+  margin-right: 40px;
+}
+
+
+
+
+#footerMargin {
+  margin-top: 60px;
+}
+
+.footer-container {
+  position: fixed;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: white;
+  font-size: 16px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to right, #9FACAF, #506169);
+  line-height: 5px;
+  padding: 0;
+}
+
+.footer-container p {
+  padding-left: 40%;
+}

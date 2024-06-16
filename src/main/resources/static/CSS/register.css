@@ -1,9 +1,9 @@
 html {
     background-color: #f1f1f1;
     margin: 0px;
-  }
+}
   
-  #headerlogo {
+#headerlogo {
     margin-top: 5px;
     margin-left: 240px;
     width: 300px;
@@ -11,9 +11,9 @@ html {
     margin-top: -143px;
     position: relative;
     z-index: 3;
-  }
+}
   
-  #header {
+#header {
     margin:0 auto;
     width:100%;
     background: linear-gradient(to right, rgb(75, 75, 75), black, rgb(145, 145, 145));
@@ -22,14 +22,14 @@ html {
     top: 0;
     left: 0;
     z-index: 0;
-  }
+}
   
-  #headerImg {
+#headerImg {
     width: 100%;
     height: 140px;
-  }
+}
   
-  .buttonBack {
+.buttonBack {
     position: relative;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     float: left;
@@ -48,28 +48,33 @@ html {
     border-radius: 5px;
     transition: background-color 0.3s;
     z-index: 4;
-  }
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
   
-  .buttonBack:hover {
+.buttonBack:hover {
     background-color: #0056b3;
-  }
-  
-  body {
-    margin-top: 190px;
-    margin-left: 40px;
-  }
+}
 
+#titlebody {
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/*
 #datreg{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 2rem;
     font-weight: bold;
     margin-top: -20px;
 }
+*/
 
 html {
     background-color: #f1f1f1;
 }
 
+/*
 .registro ul{
     list-style: none;
 }
@@ -87,6 +92,7 @@ html {
     font-family:Verdana;
     font-weight: bold;
     margin-bottom: 10px;
+    margin-right: 15px;
     height: 40px;
     width: 220px;
     padding-left: 20px;
@@ -101,39 +107,41 @@ html {
     padding-left: 20px;
 }
 
+#complete-name {
+    display: flex;
+}
+
 #regmail {
     font-family:Verdana;
     font-weight: bold;
-    margin-bottom: 10px;
     height: 40px;
-    width: 220px;
+    width: 300px;
     padding-left: 20px;
 }
 
 #regpass {
     font-family:Verdana;
     font-weight: bold;
-    margin-bottom: 10px;
     height: 40px;
-    width: 220px;
+    width: 200px;
     padding-left: 20px;
+    margin-right: 20px;
 }
 
 #password {
     font-family:Verdana;
     font-weight: bold;
     margin-bottom: 20px;
-    margin-top: 7px;
     height: 40px;
-    width: 220px;
+    width: 200px;
     padding-left: 20px;
 }
 
-#check{
-    width: 20px;
-    height: 20px;
-    margin-bottom: 35px;
+#Twopasswords {
+    display: flex;
 }
+
+
 
 #registerButton {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -150,6 +158,7 @@ html {
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 #registerButton:disabled {
@@ -164,14 +173,26 @@ html {
 
 #formStyle {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    width: 100%;
+    width: 60%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+*/
+body {
+    margin-top: 160px;
 }
 
-.container {
-    text-align: center;
+/*
+#container {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 40%;
     margin: auto;
-    width: 90%;
-    max-width: 600px;
+    padding-bottom: 20px;
 }
 
 ul {
@@ -190,7 +211,7 @@ input[type="password"] {
 }
 
 input[type="submit"] {
-    background-color: tomato; /* O el color que prefieras */
+    background-color: tomato;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -205,21 +226,174 @@ input[type="submit"]:hover {
     margin: auto;
     width: 100%;
 }
+*/
+
+.contentAdd {
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 40%;
+    flex-direction: column;
+}
+  
+#submitAddress {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    width: 180px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 550;
+    color: white;
+    background-color: #858383;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+#check {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 20px;
+}
+
+#check-flex {
+    margin-top: 10px;
+    display: flex;
+}
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+#infopass {
+    margin: 0px;
+}
+
+  #container {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f1f1f1;
+    padding: 20px;
+    padding-top: 0px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 32%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+#nickname{
+    width: 300px;
+}
+
+  #firstName {
+    width: 300px;
+  }
+
+#lastName {
+    width: 300px;
+}
+
+#regmail {
+    width: 300px;
+}
+
+#regpass {
+    width: 300px;
+}
+
+#password {
+    width: 300px;
+}
+  
+  .form-group {
+    margin-bottom: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 0px;
+    font-weight: bold;
+    color: #000000;
+  }
+  
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  #submitButtonAlign {
+    text-align: center;
+  }
+  
+  #submitAddress {
+    background-color: #858383;
+    color: white;
+    margin-top: 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  #submitAddress:hover {
+    background-color: #0056b3;
+  }
 
 .footer {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .createdUser{
-    font-size: 25px;
+    font-size: 22px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: green;
+    text-align: center;
 }
 
 .errorUser {
-    font-size: 25px;
+    font-size: 20px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: red;
+    text-align: center;
+}
+
+.createdUser.parpa {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.errorUser.parpa {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+ul {
+    margin: 0px;
+}
+
+li {
+    list-style-type: none;
 }
 
 .parpa{  
@@ -250,3 +424,29 @@ input[type="submit"]:hover {
     50% { opacity: 0.0; }
     100% { opacity: 1.0; }
 }
+
+#messageContainer {
+    margin-top: 0px;
+}
+
+#footerMargin {
+    margin-top: 60px;
+  }
+
+.footer-container {
+    position: fixed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: white;
+    font-size: 16px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to right, #9FACAF, #506169);
+    line-height: 5px;
+    padding: 0;
+  }
+  
+  .footer-container p {
+    text-align: center;
+  }

@@ -72,6 +72,7 @@ function updateTable(movies) {
             <td>${movie.genre}</td>
             <td>${movie.director}</td>
             <td id="newReleaseAllign">${newReleaseTrad}</td>
+            <td id="allignprice">${movie.price}</td>
             <td id="allignStock">${movie.stock}</td>
             <td class="acciones">
                 <i onClick="showFormEdit(${movie.id})" class="material-icons button edit">edit</i>
@@ -172,6 +173,21 @@ async function showFormEdit(id) {
     stockInputCell.appendChild(stockInput);
     stockRow.appendChild(stockCell);
     stockRow.appendChild(stockInputCell);
+
+    let priceRow = document.createElement("tr");
+    priceRow.classList.add("edit-row", `edit-row-${id}`);
+    let priceCell = document.createElement("td");
+    priceCell.classList.add("Labels");
+    priceCell.textContent = "Precio";
+    let priceInputCell = document.createElement("td");
+    let priceInput = document.createElement("input");
+    priceInput.type = "text";
+    priceInput.id = "inputPrice";
+    priceInput.value = movie.price;
+    priceInput.required = true;
+    priceInputCell.appendChild(priceInput);
+    priceRow.appendChild(priceCell);
+    priceRow.appendChild(priceInputCell);
 
     let newReleaseRow = document.createElement("tr");
     newReleaseRow.classList.add("edit-row", `edit-row-${id}`);
@@ -282,13 +298,14 @@ async function showFormEdit(id) {
     tableBody.insertBefore(genreRow, releaseDateRow.nextSibling);
     tableBody.insertBefore(directorRow, genreRow.nextSibling);
     tableBody.insertBefore(newReleaseRow, directorRow.nextSibling);
-    tableBody.insertBefore(stockRow, newReleaseRow.nextSibling);
+    tableBody.insertBefore(priceRow, newReleaseRow.nextSibling);
+    tableBody.insertBefore(stockRow, priceRow.nextSibling);
 
     let idRow = document.createElement("tr");
     idRow.classList.add("edit-row", `edit-row-${id}`, "IDrowEdit");
     let idCell = document.createElement("td");
     idCell.textContent = id;
-    idCell.setAttribute("rowspan", "9"); 
+    idCell.setAttribute("rowspan", "10"); 
     idRow.appendChild(idCell);
 
     tableBody.insertBefore(idRow, row.nextSibling);
@@ -307,6 +324,7 @@ let editMovie = async (id) => {
         "genre": document.getElementById("selectGenre").value,
         "director": document.getElementById("inputDirector").value,
         "newRelease": document.getElementById("selectNewRelease").value === "true" ? true : false,
+        "price": document.getElementById("inputPrice").value,
         "stock": parseInt(document.getElementById("inputStock").value)
     };
 
@@ -341,7 +359,7 @@ let delMovie = async (id) => {
     let confirmRow = document.createElement("tr");
     confirmRow.classList.add("confirm-row", `confirm-row-${id}`);
     let confirmCell = document.createElement("td");
-    confirmCell.colSpan = 8;
+    confirmCell.colSpan = 9;
     confirmCell.innerHTML = `
         <div>Estás seguro de borrar la película: <strong>${row.cells[1].textContent}</strong>?</div>
         <button onclick="confirmDelete(${id})" class="confirm-button">Confirmar</button>

@@ -11,8 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 director: document.getElementById('directorInput').value,
                 newRelease: document.getElementById('newRelease').value === "True",
                 imgUrl: document.getElementById('imgUrlInput').value,
-                stock: parseInt(document.getElementById('stockInput').value)
-            };
+                price: document.getElementById('priceInput').value,
+                stock: parseInt(document.getElementById('stockInput').value
+            )};
 
             const movieJSON = JSON.stringify(movie);
 

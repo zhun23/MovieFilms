@@ -54,12 +54,9 @@ html {
   background-color: #0056b3;
 }
 
-body {
+#body {
   margin-top: 170px;
   margin-left: 40px;
-}
-
-#body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: #333;
 }
@@ -85,6 +82,10 @@ table {
 }
 
 #allignStock {
+  text-align: center;
+}
+
+#allignprice {
   text-align: center;
 }
   

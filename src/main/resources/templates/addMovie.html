@@ -1,89 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:insert="~{/fragments/head-fragment.html}" />
     <link rel="stylesheet" href="CSS/addMovie.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Añadir Película</title>
 </head>
-<header>
-	<div id="header">
-		<img src="img/201.png" id="headerImg" alt="fondo header">
-		<a href="/admin" class="buttonBack"><- Atrás</a>
-		<img src="img/115.png" id="headerlogo" alt="LOGO de la página web MovieFilms">
-	</div>
-</header>
 <body>
-    <table id="tableAddMovie">
-        <thead>
-            <tr>
-                <th colspan="2" id="thTitle">AÑADIR PELÍCULA</th>
-            </tr>
-            <tr>
-                <!--<td>Insertar carátula de la película</td>-->
-                <td>Título:</td>
-                <td><input type="text" id="titleInput" placeholder="Título de la película"></td>
-            </tr>
-            <tr id="vertical">
-                <!--<td id="imgSpace" >Carátula de la película</td>-->
-                <td id="descriptionAlign">Descripción:</td>
-                <td><textarea name="description" id="descriptionInput" rows="10" cols="50" placeholder="Añade la descripción de la película"></textarea></td>
-            </tr>
-            <tr>
-                <!--<td></td>-->
-                <td>Fecha de lanzamiento:</td>
-                <td id="releaseDateInput2"><input type="text" id="releaseDateInput" name="releaseDateInput" class="compact-margin" placeholder="01-01-1889"></td>
-            </tr>
-            <tr>
-                <!--<td></td>-->
-                <td>Género:</td>
-                <td>
-                    <select id="genreSelect" name="genre" class="compact-margin">
-                    <option value="Action">Action</option>
-                    <option value="Adventures">Adventures</option>
-                    <option value="ScienceFiction">Science Fiction</option>
-                    <option value="Fantasy">Fantasy</option>
-                    <option value="Crime">Crime</option>
-                    <option value="Comedy">Comedy</option>
-                    <option value="Romance">Romance</option>
-                    <option value="Horror">Horror</option>
-                    <option value="Drama">Drama</option>
-                    <option value="Musical">Musical</option>
-                    <option value="Thriller">Thriller</option>
-                    <option value="Animation">Animation</option>
-                    <option value="Kids">Kids</option>
-                  </select>
-                </td>
-            </tr>
-            <tr>
-                <!--<td></td>-->
-                <td>Director:</td>
-                <td><input type="text" id="directorInput" class="compact-margin" placeholder="Director de la película"></td>
-            </tr>
-            <tr>
-                <!--<td><i class="material-icons button upload">upload</i></td>-->
-                <td>Novedad:</td>
-                <td><select id="newRelease" name="newRelease">
-                    <option value="True">Sí</option>
-                    <option value="False">No</option>      
-                  </select></td>
-            </tr>
-            <tr><!--<td>Insertar carátula de la película</td>-->
-                <td>URL de la imagen:</td>
-                <td><input type="text" id="imgUrlInput" placeholder="Ruta de la imagen"></td>
-            </tr>
-            <tr><!--<td>Insertar carátula de la película</td>-->
-                <td>Stock:</td>
-                <td><input type="text" id="stockInput" placeholder="Stock"></td>
-            </tr>
-        </thead>
-    </table>
-    <div class="cellButtons">
-        <button id="buttonAcpt" class="buttonAcept" type="submit">Añadir</button>
-        <button id="buttonCncl" class="buttonDelete" type="submit">Limpiar</button>
+    <th:block th:insert="~{/fragments/header.html :: admin-header-backbutton}" />
+    <div id="body">
+        <table id="tableAddMovie">
+            <thead>
+                <tr>
+                    <th colspan="2" id="thTitle">AÑADIR PELÍCULA</th>
+                </tr>
+                <tr>
+                    <td>Título:</td>
+                    <td><input type="text" id="titleInput" placeholder="Título de la película"></td>
+                </tr>
+                <tr id="vertical">
+                    <td>Descripción:</td>
+                    <td><textarea name="description" id="descriptionInput" rows="10" cols="50" placeholder="Añade la descripción de la película"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="allignFirstColumn">Fecha de lanzamiento:</td>
+                    <td id="releaseDateInput2"><input type="text" id="releaseDateInput" name="releaseDateInput" class="compact-margin" placeholder="01-01-1889"></td>
+                </tr>
+                <tr>
+                    <td>Género:</td>
+                    <td>
+                        <select id="genreSelect" name="genre" class="compact-margin">
+                            <option value="Action">Action</option>
+                            <option value="Adventures">Adventures</option>
+                            <option value="ScienceFiction">Science Fiction</option>
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Crime">Crime</option>
+                            <option value="Comedy">Comedy</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Horror">Horror</option>
+                            <option value="Drama">Drama</option>
+                            <option value="Musical">Musical</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Animation">Animation</option>
+                            <option value="Kids">Kids</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Director:</td>
+                    <td><input type="text" id="directorInput" class="compact-margin" placeholder="Director de la película"></td>
+                </tr>
+                <tr>
+                    <td>Novedad:</td>
+                    <td>
+                        <select id="newRelease" name="newRelease">
+                            <option value="True">Sí</option>
+                            <option value="False">No</option>      
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>URL de la imagen:</td>
+                    <td><input type="text" id="imgUrlInput" placeholder="Ruta de la imagen"></td>
+                </tr>
+                <tr>
+                    <td>Precio:</td>
+                    <td><input type="text" id="priceInput" placeholder="Precio"></td>
+                </tr>
+                <tr>
+                    <td>Stock:</td>
+                    <td><input type="text" id="stockInput" placeholder="Stock"></td>
+                </tr>
+            </thead>
+        </table>
+        <div class="cellButtons">
+            <button id="buttonAcpt" class="buttonAcept" type="submit">Añadir</button>
+            <button id="buttonCncl" class="buttonDelete" type="submit">Limpiar</button>
+        </div>
+        <div id="msgShow"></div>
+    
+        </div>
     </div>
-    <div id="msgShow"></div>
-    <script src="JS/addMovie.js"></script>
 </body>
+<script src="JS/addMovie.js"></script>
 </html>

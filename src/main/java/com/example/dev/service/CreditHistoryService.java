@@ -8,11 +8,12 @@ import com.example.dev.model.CreditHistory;
 
 @Service
 public class CreditHistoryService implements ICreditHistoryService {
-	
+
 	@Autowired
     private ICreditHistoryDao creditHistoryDao;
 
-    public CreditHistory save(CreditHistory creditHistory) {
+    @Override
+	public CreditHistory save(CreditHistory creditHistory) {
         return creditHistoryDao.save(creditHistory);
     }
 }

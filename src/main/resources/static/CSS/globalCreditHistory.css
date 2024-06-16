@@ -254,6 +254,10 @@ thead tr:last-child th {
   background-color: #bdebbd;
 }
 
+.purpleRow {
+  background-color: rgb(255, 169, 255);
+}
+
 .redRow {
-  background-color: #ffcccc;
+  background-color: #ffc488;
 }

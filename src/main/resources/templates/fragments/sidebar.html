@@ -1,0 +1,157 @@
+<th:block th:fragment="sidebarFragment">
+<head>
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" />
+</head>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+           <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+              <li id="firstElementSidebar">
+                <a id="firstElement" href="/fullNewRelease"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Novedades</a>
+              </li>
+              <li class="active">
+               <a><span class="fa-stack fa-lg pull-left"></span> Buscar película</a>
+               <ul id="searchByTitleDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
+                  <form th:action="@{/titleResults}" method="post">
+                     <li>
+                        <input id="inputSearchStyle" name="titleQuery" class="movieSearch" minlength="3" required />
+                     </li>
+                     <li>
+                         <input id="searchButtonByTitle" type="submit" value="Buscar" />
+                     </li>
+                 </form>
+               </ul>
+            </li>
+              <li>
+                 <a id="genereRow" class="fa-stack fa-lg pull-left">Género</a>
+                 <ul class="nav-pills nav-stacked" style="list-style-type:none;">
+                    <li><a class="genreSubSelect" th:href="@{/adventures}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Aventuras</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/action}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Acción</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/scienceFiction}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Ciencia Ficción</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/fantasy}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Fantasía</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/crime}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Crimen</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/comedy}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Comedia</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/romance}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Romance</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/horror}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Terror</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/drama}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Drama</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/musical}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Musical</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/thriller}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Suspense</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/animation}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Animación</a></li>
+                    <li><a class="genreSubSelect" th:href="@{/kids}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Infantil</a></li>
+                 </ul>
+              </li>
+              <li>
+                <a href="/mostRateds"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Mejor valoradas</a>
+             </li>
+              <li class="active">
+                <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span> Director</a>
+                <ul id ="searchByDirectorDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
+                  <form th:action="@{/directorResults}" method="post">
+                     <li>
+                        <input id="inputSearchStyle" name="directorQuery" class="movieSearch" minlength="3" required />
+                     </li>
+                     <li>
+                        <input id="searchButtonByDirector" type="submit" value="Buscar">
+                     </li>  
+                  </form>
+                </ul>
+             </li>
+             <li class="active">
+                <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span> Año de lanzamiento</a>
+                <ul id ="searchByYearDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
+                  <form th:action="@{/yearResults}" method="post">
+                     <li>
+                        <input id="inputSearchStyle" name="yearQuery" class="movieSearch" minlength="3" required />
+                     </li>
+                     <li>
+                        <input id="searchButtonByYear" type="submit" value="Buscar">
+                     </li>  
+                  </form>
+                </ul>
+             </li>
+           </ul>
+        </div>
+     </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/sidebar.js}"></script>
+</th:block>
+
+
+
+<th:block th:fragment="sidebarFragmentGenre">
+<head>
+    <link rel="stylesheet" th:href="@{/css/sidebarGenre.css}" />
+</head>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+           <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+              <li id="firstElementSidebar">
+                <a href="/fullNewRelease"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Novedades</a>
+              </li>
+              <li>
+               <a><span class="fa-stack fa-lg pull-left"></span> Buscar película</a>
+               <ul id="searchByTitleDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
+                  <form th:action="@{/titleResults}" method="post">
+                     <li>
+                         <input id="inputSearchStyle" name="titleQuery" class="movieSearch" />
+                     </li>
+                     <li>
+                         <input id="searchButtonByTitle" type="submit" value="Buscar" />
+                     </li>
+                 </form>
+               </ul>
+            </li>
+              <li class="active">
+                 <a id="genereRow" class="fa-stack fa-lg pull-left active">Género</a>
+                 <ul class="nav-pills nav-stacked expanded" style="list-style-type:none;">
+                  <li><a class="genreSubSelect" th:href="@{/adventures}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Aventuras</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/action}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Acción</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/scienceFiction}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Ciencia Ficción</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/fantasy}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Fantasía</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/crime}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Crimen</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/comedy}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Comedia</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/romance}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Romance</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/horror}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Terror</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/drama}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Drama</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/musical}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Musical</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/thriller}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Suspense</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/animation}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Animación</a></li>
+                  <li><a class="genreSubSelect" th:href="@{/kids}"><span class="genreSubSelectText fa-stack fa-lg pull-left"></span>Infantil</a></li>
+                 </ul>
+              </li>
+              <li>
+               <a href="/mostRateds"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Mejor valoradas</a>
+             </li>
+              <li class="active">
+                <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span> Director</a>
+                <ul id ="searchByDirectorDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
+                  <form th:action="@{/directorResults}" method="post">
+                     <li>
+                        <input id="inputSearchStyle" name="directorQuery" class="movieSearch" minlength="3" required />
+                     </li>
+                     <li>
+                        <input id="searchButtonByDirector" type="submit" value="Buscar">
+                     </li>  
+                  </form>
+                </ul>
+             </li>
+             <li class="active">
+                <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span> Año de lanzamiento</a>
+                <ul id ="searchByYearDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
+                  <form th:action="@{/yearResults}" method="post">
+                     <li>
+                        <input id="inputSearchStyle" name="yearQuery" class="movieSearch" minlength="3" required />
+                     </li>
+                     <li>
+                        <input id="searchButtonByYear" type="submit" value="Buscar">
+                     </li>  
+                  </form>
+                </ul>
+             </li>
+           </ul>
+        </div>
+     </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/sidebar.js}"></script>
+</th:block>

@@ -1,43 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <th:block th:insert="~{/fragments/head-fragment.html}" />
   <link rel="stylesheet" href="CSS/fullUsers.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <title>Usuarios Registrados</title>
 </head>
-<header>
-	<div id="header">
-		<img src="img/201.png" id="headerImg" alt="fondo header">
-		<a href="/admin" class="buttonBack"><- Atrás</a>
-		<img src="img/115.png" id="headerlogo" alt="LOGO de la página web MovieFilms">
-	</div>
-</header>
 <body>
-  <table id="table">
-    <thead>
-      <tr>
-        <th colspan="7" id="thTitle">USUARIOS REGISTRADOS</th>
-      </tr>
-      <tr>
-        <th># ID</th>
-        <th>Apodo</th>
-        <th>Nombre</th>
-        <th>Apellidos</th>
-        <th>Email</th>
-        <th>Saldo disponible</th>
-        <th id="accions">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
+  <th:block th:insert="~{/fragments/header.html :: admin-header-backbutton}" />
+  <div id="body">
+    <table id="table">
+      <thead>
+        <tr>
+          <th colspan="7" id="thTitle">USUARIOS REGISTRADOS</th>
+        </tr>
+        <tr>
+          <th># ID</th>
+          <th>Apodo</th>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th>Saldo disponible</th>
+          <th id="accions">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
 
-    </tbody>
-    <div id="paginationControl">
-      <button id="prevBtn" onclick="prevPage()"><</button>
-      <span id="page-info">Página 1</span>
-      <button id="nextBtn" onclick="nextPage()">></button>
-    </div>
-  </table>
-  <script src="JS/fullUsers.js"></script>
+      </tbody>
+      <div id="paginationControl">
+        <button id="prevBtn" onclick="prevPage()"><</button>
+        <span id="page-info">Página 1</span>
+        <button id="nextBtn" onclick="nextPage()">></button>
+      </div>
+    </table>
+  </div>  
 </body>
+<script src="JS/fullUsers.js"></script>

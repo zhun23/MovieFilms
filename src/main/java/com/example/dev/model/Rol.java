@@ -1,21 +1,27 @@
 package com.example.dev.model;
 
+import com.example.dev.utilities.References;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-import jakarta.persistence.Column;
-
+@Table(name=References.ROL_TABLE_NAME)
 @Entity
 public class Rol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer rolid;
-    
+
     @Column(name = "rolname")
     private String rolname;
+
+    //@OneToMany(mappedBy = "rol", fetch = FetchType.LAZY)
+    //private java.util.List<UserCt> usuarios;
 
     public Rol() {
     }
@@ -24,7 +30,7 @@ public class Rol {
         this.rolname = rolname;
     }
 
-    public int getRolid() {
+    public Integer getRolid() {
         return rolid;
     }
 

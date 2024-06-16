@@ -12,12 +12,13 @@ import com.example.dev.model.CreditHistory;
 @Repository
 public interface ICreditHistoryDao extends JpaRepository<CreditHistory, Integer> {
 
+	@Override
 	Page<CreditHistory> findAll(Pageable pageable);
 
 	//Page<CreditHistory> findByUserId(int userId, Pageable pageable);
-	
+
 	Page<CreditHistory> findByUserCtUseridOrderByHistoryidDesc(int userid, Pageable pageable);
-	
+
 	List<CreditHistory> findAllByOrderByHistoryidDesc(Pageable pageable);
 }
 

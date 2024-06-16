@@ -1,61 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:insert="~{/fragments/head-fragment.html}" />
     <link rel="stylesheet" href="CSS/globalCreditHistory.css" />
     <title>Historial de crédito de los usuarios</title>
 </head>
-<header>
-    <div id="header">
-        <img src="img/201.png" id="headerImg" alt="fondo header">
-        <a href="/admin" class="buttonBack"><- Atrás</a>
-        <img src="img/115.png" id="headerlogo" alt="LOGO de la página web MovieFilms">
-    </div>
-</header>
+
 <body>
-    <div class="containerOfDivs">
-        <div class="container">
-            <div class="alignFind">
-                <p id="sangriaLat">Buscar Usuario por ID:</p>
-                <form id="searchForm">
-                    <input id="findGlobalUser" type="text" required="true">
-                    <div id="workButtons">
-                        <button id="search" type="submit">Buscar</button>
-                        <button id="clean" type="button">Limpiar</button>
-                    </div>
-                </form>
+    <th:block th:insert="~{/fragments/header.html :: admin-header-backbutton}" />
+    <div id="body">
+        <div class="containerOfDivs">
+            <div class="container">
+                <div class="alignFind">
+                    <p id="sangriaLat">Buscar Usuario por ID:</p>
+                    <form id="searchForm">
+                        <input id="findGlobalUser" type="text" required="true">
+                        <div id="workButtons">
+                            <button id="search" type="submit">Buscar</button>
+                            <button id="clean" type="button">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="tablecontainer">
+                <table id="table">
+                    <thead>
+                        <tr>
+                          <th colspan="8" id="thTitle">HISTORIAL GLOBAL DE CRÉDITO DE USUARIOS</th>
+                        </tr>
+                        <tr>
+                          <th>History ID</th>
+                          <th class="allignTable">User ID</th>
+                          <th class="allignTable">Apodo</th>
+                          <th class="allignTable">Fecha/Hora</th>
+                          <th class="allignTable">Acción</th>
+                          <th class="allignTable">Compra</th>
+                          <th class="allignTable">Importe</th>
+                          <th class="allignTable">Total</th>
+                        </tr>
+                      </thead>
+                    <tbody>
+
+                    </tbody>
+                    <div id="paginationControl">
+                        <button id="prevBtn" onclick="prevPage()"><</button>
+                        <span id="page-info">Página 1</span>
+                        <button id="nextBtn" onclick="nextPage()">></button>
+                      </div>
+                </table>
             </div>
         </div>
-        <div id="tablecontainer">
-            <table id="table">
-                <thead>
-                    <tr>
-                      <th colspan="8" id="thTitle">HISTORIAL GLOBAL DE CRÉDITO DE USUARIOS</th>
-                    </tr>
-                    <tr>
-                      <th>History ID</th>
-                      <th class="allignTable">User ID</th>
-                      <th class="allignTable">Apodo</th>
-                      <th class="allignTable">Fecha/Hora</th>
-                      <th class="allignTable">Acción</th>
-                      <th class="allignTable">Alquiler</th>
-                      <th class="allignTable">Importe</th>
-                      <th class="allignTable">Total</th>
-                      <!--<th class="allignTable" id="accions">Acciones</th>-->
-                    </tr>
-                  </thead>
-                <tbody>
-
-                </tbody>
-                <div id="paginationControl">
-                    <button id="prevBtn" onclick="prevPage()"><</button>
-                    <span id="page-info">Página 1</span>
-                    <button id="nextBtn" onclick="nextPage()">></button>
-                  </div>
-            </table>
-        </div>
     </div>
-    <script src="JS/globalCreditHistory.js"></script>
 </body>
+
+<script src="JS/globalCreditHistory.js"></script>
+
 </html>

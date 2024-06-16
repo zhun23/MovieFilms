@@ -1,111 +1,194 @@
 html {
-    background-color: #dddddd99;
-    margin: 0px;
-  }
+  background-color: #dddddd99;
+  margin: 0px;
+}
   
-  #headerlogo {
-    margin-top: 5px;
-    margin-left: 240px;
-    width: 300px;
-    height: 165px;
-    margin-top: -143px;
-    position: relative;
-    z-index: 3;
-  }
+#headerlogo {
+  margin-top: 5px;
+  margin-left: 240px;
+  width: 300px;
+  height: 165px;
+  margin-top: -143px;
+  position: relative;
+  z-index: 3;
+}
   
-  #header {
-    margin:0 auto;
-    width:100%;
-    background: linear-gradient(to right, rgb(75, 75, 75), black, rgb(145, 145, 145));
-    height: 143px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-  }
+#header {
+  margin:0 auto;
+  width:100%;
+  background: linear-gradient(to right, rgb(75, 75, 75), black, rgb(145, 145, 145));
+  height: 143px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
   
-  #headerImg {
-    width: 100%;
-    height: 140px;
-  }
+#headerImg {
+  width: 100%;
+  height: 140px;
+}
 
 #body {
-    margin-top: 190px;
-    margin-left: 0px;
+  margin-top: 190px;
+  margin-left: 0px;
 }
 
-#header form {
-    float: right; 
-    margin-right: 30px; 
-    height: 40px; 
-    position: relative;
-    margin-top: -135px;
+.loginbox {
+  position: absolute;
+  top: 50px;
+  right: 70px;
+}
+  
+.userdetails {
+  position: absolute;
+  top: 0px;
+  right: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+  
+#cart-icon {
+  position: absolute;
+  top: 85px;
+  right: 80px;
+  color: #0000EE;
+  cursor: pointer;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+  
+#cart-icon:hover {
+  color: #0366d0;
+}
+  
+#cart-icon2 {
+  position: absolute;
+  top: 32px;
+  right: 20px;
+  color: red;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+}
+  
+#cart-icon2a:hover {
+  color: rgb(255, 0, 0);
+}
+  
+.username {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 42px;
+  font-weight: 650;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: right;
+  display: block;
+  text-decoration: none;
+  color: black;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+  
+.loginreq {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 550;
+  background: #506169; 
+  color: #fff;
+  cursor: pointer;
+  margin-right: 10px;
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+  
+.loginreq:hover {
+  background-color: #0056b3;
+}
+  
+.registerreq {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
+  height: 35px;
+  font-size: 20px;
+  font-weight: 550;
+  background: #506169;
+  color: #fff;
+  cursor: pointer;
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+  
+.registerreq:hover {
+  background-color: #0056b3;
 }
 
-#header form input {
-    display: flex;
-    width: 190px;
-    border: 1px solid #eee;
-    padding: 5px 0 3px 20px;
-    margin-bottom: 4px;
-    margin-left: 10px;
+.buttonAdmin {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  width: 120px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 550;
+  color: white;
+  background-color: #f83434;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  z-index: 4;
 }
 
-#header form .submit {
-    margin-left: 65px;
-    margin-top: 8px;
-    text-align: center;
-    height: 27px;
-    width: 100px;
-    font-size: 15px;
-    background: #f83434; 
-    color: #fff;
-    border: 2px solid #000000;    
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 2px;
-    padding-left: 27px;
-}
-
-#header form a {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: inherit;
-    text-decoration: none;
-}
-
-#register {
-    margin-left: 18px;
-}
-
-#buttonAdmin {
-    display: flex;
-    position: relative;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    width: 120px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 550;
-    color: white;
-    background-color: #f83434;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    z-index: 4;
+.adminContainer {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
 }
   
 .buttonAdmin:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 body {
-    height: 100%;
+  height: 100%;
 }
 
 .side-nav {
-    margin-top: 143px;
-    height: 500px;
+  margin-top: 160px;
+  height: 500px;
 }
 
+.footer-container {
+  position: fixed;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: white;
+  font-size: 16px;
+  bottom: 0;
+  left: 0;
+  margin-left: 250px;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to right, #9FACAF, #506169);
+  line-height: 5px;
+  padding: 0;
+}
+
+.footer-container p {
+  padding-left: 33%;
+}

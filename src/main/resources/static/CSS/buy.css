@@ -1,0 +1,521 @@
+html {
+  background-color: #dddddd99;
+  margin: 0px;
+  height: 100%;
+}
+  
+#headerlogo {
+  margin-top: 5px;
+  margin-left: 240px;
+  width: 300px;
+  height: 165px;
+  margin-top: -143px;
+  position: relative;
+  z-index: 3;
+}
+  
+#header {
+  margin:0 auto;
+  width:100%;
+  background: linear-gradient(to right, rgb(75, 75, 75), black, rgb(145, 145, 145));
+  height: 143px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+  
+#headerImg {
+  width: 100%;
+  height: 140px;
+}
+
+  .buttonBack {
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  float: left;
+  margin-top: -120px;
+  margin-left: 20px;
+  width: 120px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 550;
+  color: white;
+  background-color: #858383;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  z-index: 4;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+  
+.buttonBack:hover {
+  background-color: #0056b3;
+}
+
+#body {
+  margin-top: 160px;
+  margin-left: 280px;
+}
+
+#title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin-left: 29%;
+  margin-bottom: -70px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.sidebarLeft {
+  background-color: #506169;
+  position: fixed;
+  top: 0px;
+  margin-top: 0px;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  z-index: 0;
+}
+  
+.loginbox {
+  position: absolute;
+  top: 50px;
+  right: 70px;
+  z-index: 4;
+}
+  
+.userdetails {
+  position: absolute;
+  top: 0px;
+  right: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 4;
+ }
+  
+#cart-icon {
+  position: absolute;
+  top: 85px;
+  right: 80px;
+  color: #0000EE;
+  cursor: pointer;
+  z-index: 4;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+  
+#cart-icon:hover {
+  color: #0366d0;
+}
+  
+#cart-icon2 {
+  position: absolute;
+  top: 32px;
+  right: 20px;
+  color: red;
+  z-index: 4;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+}
+  
+#cart-icon2a:hover {
+  color: rgb(255, 0, 0);
+}
+  
+.username {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 42px;
+  font-weight: 650;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: right;
+  display: block;
+  text-decoration: none;
+  color: black;
+  z-index: 4;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+  
+.loginreq {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 550;
+  background: #506169; 
+  color: #fff;
+  cursor: pointer;
+  margin-right: 10px;
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+    
+.loginreq:hover {
+  background-color: #0056b3;
+}
+    
+.registerreq {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
+  height: 35px;
+  font-size: 20px;
+  font-weight: 550;
+  background: #506169;
+  color: #fff;
+  cursor: pointer;
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+    
+.registerreq:hover {
+  background-color: #0056b3;
+}
+
+.columns {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  display: flex;
+  margin-top: 90px;
+}
+
+.column {
+  flex-basis: 48%;
+}
+
+#articlesColumn {
+  flex-basis: 450px;
+}
+
+#articlesDetail,
+#addressDetail {
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+}
+
+#deliveryAmountDetail {
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 1);
+  margin-bottom: 20px;
+}
+
+.articles-list {
+  margin-left: 30px;
+}
+
+.article-title {
+  display: inline-block;
+  width: 250px;
+  margin-right: 10px;
+  margin-left: 20px;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+#addressColumn {
+  margin-left: 30px;
+  flex-basis: 500px;
+}
+
+.article-quantity {
+  display: inline-block;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+.address-title {
+  margin-left: 20px;
+}
+
+.address-detail {
+  margin-left: 30px;
+}
+
+.no-address {
+  margin-left: 14px;
+}
+
+#deliveryColumn {
+  margin-left: 30px;
+  flex-basis: 500px;
+}
+
+.delivery-amount-title {
+  margin: auto;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  font-size: 32px;
+  margin-top: 20px;
+  margin-bottom: 9px;
+}
+
+.totalItems {
+  margin-left: 30px;
+  margin-bottom: 0px;
+  font-size: 18px;
+}
+
+
+.register-button {
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  width: 150px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 150px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 550;
+  color: white;
+  background-color: #858383;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  z-index: 4;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.delivery-amount {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.titlesDelivery, .valuesDelivery {
+  display: flex;
+  flex-direction: column;
+}
+
+.titlesDelivery {
+  text-align: right;
+  margin-right: 30px;
+}
+
+.valuesDelivery {
+  text-align: left;
+}
+
+.register-button:hover {
+  background-color: #0056b3;
+}
+
+.totalOrderAmountTitle {
+  font-size: 22px;
+}
+
+.totalOrderAmountValue {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.payButton {
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  width: 180px;
+  height: 50px;
+  margin-top: 35px;
+  margin-bottom: 20px;
+  margin-left: 150px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 550;
+  color: white;
+  background-color: #858383;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  z-index: 4;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+
+
+
+
+.titlePay {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.imagesContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.radio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fit-image {
+  width: 105px;
+  height: 55px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.labelInputDiv {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.labelInput1 {
+  font-size: 16px;
+  margin: 0;
+  font-weight: bold;
+  color: #555;
+}
+
+.valueInputDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.valueInput1 {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.valueInput1:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0,123,255,0.25);
+  outline: none;
+}
+
+.dataDiv {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+}
+
+.submitDiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.submitButton {
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 550;
+  color: white;
+  margin-top: 20px;
+  background-color: #0056b3;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+  z-index: 4;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.submitButton:hover {
+  background-color: #00b618;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+
+.paymentDiv {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  position: fixed;
+  width: 35%;
+  height: 85%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(212, 212, 212);
+  padding: 20px;
+  z-index: 4;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+
+
+
+
+.payButton:hover {
+  background-color: #0056b3;
+}
+
+.footer-container {
+  position: fixed;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: white;
+  font-size: 16px;
+  bottom: 0;
+  left: 0;
+  padding-top: 40px;
+  margin-left: 250px;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to right, #9FACAF, #506169);
+  line-height: 5px;
+  padding: 0;
+}
+  
+.footer-container p {
+  padding-left: 33%;
+}
