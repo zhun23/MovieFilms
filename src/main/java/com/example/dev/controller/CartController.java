@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.dev.dao.IMoviesCartDao;
+import com.example.dev.dao.IUserCtDao;
 import com.example.dev.dto.CartDetailDto;
 import com.example.dev.dto.MovieOrderDto;
 import com.example.dev.dto.MoviesCartDTO;
@@ -31,10 +33,16 @@ public class CartController {
 	private IMoviesCartService moviesCartService;
 
 	private IUserCtService userCtService;
+	
+	private IUserCtDao userCtDao;
+	
+	private IMoviesCartDao moviesCartDao;
 
-	public CartController(IMoviesCartService moviesCartService, IUserCtService userCtService) {
+	public CartController(IMoviesCartService moviesCartService, IUserCtService userCtService, IUserCtDao userCtDao, IMoviesCartDao moviesCartDao) {
 		this.moviesCartService = moviesCartService;
 		this.userCtService = userCtService;
+		this.userCtDao = userCtDao;
+		this.moviesCartDao = moviesCartDao;
 	}
 
 	@GetMapping("/getCarts/{userid}")
@@ -115,4 +123,6 @@ public class CartController {
 
 	    return ResponseEntity.ok("Catalogue deleted from cart successfully.");
 	}
+	
+	
 }

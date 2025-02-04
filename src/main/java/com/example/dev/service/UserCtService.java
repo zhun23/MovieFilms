@@ -133,17 +133,6 @@ public class UserCtService implements IUserCtService {
         return userCtDao.existsByMail(mail);
     }
 
-//	public UserCt save(UserCt userCt) {
-//	    Rol rol = new Rol();
-//	    rol.setRolid(2);
-//	    userCt.setRol(rol);
-//	    userCt.setCredit(0);
-//	    String encodedPass = this.encoder.encode(userCt.getPassword());
-//	    userCt.setPassword(encodedPass);
-//		UserCt savedUser = userCtDao.save(userCt);
-//		return savedUser;
-//	}
-
     @Override
 	public UserCt save(UserCt userCt) {
 	    Rol rol = new Rol();
@@ -270,5 +259,9 @@ public class UserCtService implements IUserCtService {
 	        throw new NoSuchElementException("Usuario no encontrado");
 	    }
 	    return users.get(0).getUserid();
+	}
+
+	public UserCt findUserNickname(String nickname) {
+		return userCtDao.findByNickname(nickname);
 	}
 }

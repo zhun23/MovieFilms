@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <th:block th:insert="~{/fragments/head-fragment.html}" />
-    <link rel="stylesheet" th:href="@{/css/mostRateds.css}" />
+    <link rel="stylesheet" th:href="@{/css/newReleaseInc.css}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Roboto:wght@300&display=swap" rel="stylesheet">
@@ -15,22 +15,22 @@
         <th:block th:insert="~{/fragments/sidebar.html :: sidebarFragment}" />
     </div>
 
-    <!--div class="sidebarRight">
-        
-    </div-->
-    
+    <div id="loginbox-container"></div>
+
     <div id="body">
-        <h1 id="title">Películas mejor valoradas</h1>
-        <div id="loginbox-container">
-
-        </div>
-        <main id="main-container">
-            <div id="construction">
-                <img th:src="@{/images/underconstruction.png}" id="constructionImg" alt="Imagen de página en construcción">
-        </main>
-    </div>
-
-    
+        <h1 id="title">Próximos lanzamientos</h1>
+        <table id="table">
+            <thead>
+              <tr>
+                <th id="titleCol">Título</th>
+                <th id="DateCol">Fecha Lanzamiento</th>
+              </tr>
+            </thead>
+            <tbody>
+      
+            </tbody>
+          </table>
+	</div>
 
 </body>
 <th:block th:insert="~{/fragments/footer.html :: main-footer}" />
@@ -38,5 +38,5 @@
     var username = /*[[${username}]]*/ '';
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="js/mostRateds.js"></script>
+<script th:src="@{/js/newReleaseInc.js}"></script>
 </html>

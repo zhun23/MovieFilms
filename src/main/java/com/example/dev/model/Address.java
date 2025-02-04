@@ -47,12 +47,6 @@ public class Address {
 	@Column(nullable = true)
 	private Countries country;
 
-//	@ElementCollection
-//	@CollectionTable(name = "address_detail",
-//			joinColumns = @JoinColumn(name = "addressid"),
-//			foreignKey  = @ForeignKey(name = "FK_address_detail_addressid"))
-//	private List<AddressDetail> addressDetail;
-
 	public Address() {
 		super();
 	}
@@ -121,11 +115,4 @@ public class Address {
 		this.country = country;
 	}
 
-//	public List<AddressDetail> getAddressDetail() {
-//		return addressDetail;
-//	}
-//
-//	public void setAddressDetail(List<AddressDetail> addressDetail) {
-//		this.addressDetail = addressDetail;
-//	}
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+  <th:block th:insert="~{/fragments/head-fragment.html}" />
+  <link rel="stylesheet" href="CSS/adminNewRelease.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>Catálogo completo</title>
+</head>
+<body>
+  <th:block th:insert="~{/fragments/header.html :: admin-header-backbutton}" />
+  <div id="body">
+  
+  <div id="container1">
+    <div class="buttonDiv">
+      <button id="button1" class="buttonAdd">Añadir</button>
+    </div>
+
+    <div id="inputsDiv">
+
+    </div>
+  </div>
+
+    <table id="table">
+      <thead>
+        <tr>
+          <th colspan="4" id="thTitle">LISTADO PRÓXIMOS LANZAMIENTOS</th>
+        </tr>
+        <tr id="firstChild">
+          <th>#</th>
+          <th>Título</th>
+          <th>Fecha Lanzamiento</th>
+          <th id="accions">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+  <script src="js/adminNewRelease.js"></script>
+</body>

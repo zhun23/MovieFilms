@@ -149,24 +149,28 @@ public class HtmlController {
 		return "fullUsers";
 	}
 
-	@GetMapping("/globalCreditHistory")
-	public String globalCreditHistory() {
-		return "globalCreditHistory";
-	}
-
 	@GetMapping("/addMovie")
 	public String addMovie() {
 		return "addMovie";
 	}
 
-	@GetMapping("/addCreditUser")
-	public String addCreditUser() {
-		return "addCreditUser";
-	}
-
 	@GetMapping("/fullCatalogue")
     public String fullCatalogue() {
         return "fullCatalogue";
+    }
+	
+	@GetMapping("/buyManagement")
+    public String buyManagement() {
+        return "buyManagement";
+    }
+	@GetMapping("/moviesStock")
+    public String moviesStock() {
+        return "moviesStock";
+    }
+	
+	@GetMapping("/adminNewRelease")
+    public String adminNewRelease() {
+        return "adminNewRelease";
     }
 
 	@GetMapping("favicon.ico")
@@ -194,9 +198,13 @@ public class HtmlController {
 		return "yearResults";
 	}
 
-	@GetMapping("/mostRateds")
-	public String mostRateds() {
-		return "mostRateds";
+	@GetMapping("/newReleaseInc")
+	public String newReleaseInc(HttpSession session, Model model) {
+		String username = (String) session.getAttribute("username");
+	    if (username != null) {
+	        model.addAttribute("username", username);
+	    }
+		return "newReleaseInc";
 	}
 
 	@PostMapping("/titleResults")

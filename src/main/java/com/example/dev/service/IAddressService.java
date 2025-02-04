@@ -12,9 +12,4 @@ public interface IAddressService {
 
 	public Optional<Address> getAddressById(Integer id);
 
-//	Address getAddressByUserId(Integer userId);
-
-//	public void addAddress(String nickname, Address address);
-
-//	public boolean hasAddresses(Integer userId);
 }

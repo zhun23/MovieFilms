@@ -68,14 +68,4 @@ public interface IUserCtDao extends JpaRepository<UserCt, Integer> {
 			""")
 	List<UserCt> findWithParameters(@Param("params") UserParameters params);
 
-//	@Query(value = """ HAY QUE MODIFICAR EL HQL POR MYSQL
-//			SELECT u FROM UserCt u
-//			WHERE
-//				(:#{#params.userid}   IS NULL OR u.userid = :#{#params.userid})
-//			AND (:#{#params.nickname} IS NULL OR :#{#params.nickname} = ''   OR u.nickname  LIKE %:#{#params.nickname}%)
-//			AND (:#{#params.firstname} IS NULL OR :#{#params.firstname} = '' OR u.firstname LIKE %:#{#params.firstname}%)
-//			AND (:#{#params.lastname} IS NULL OR :#{#params.lastname} = ''   OR u.lastname  LIKE %:#{#params.lastname}%)
-//			AND (:#{#params.mail} 	  IS NULL OR :#{#params.mail} = ''       OR u.mail      LIKE %:#{#params.mail}%)
-//			""", nativeQuery = true)
-//	List<UserCt> findWithParameters(@Param("params") UserParameters params);
 }

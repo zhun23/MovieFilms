@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+  <th:block th:insert="~{/fragments/head-fragment.html}" />
+  <link rel="stylesheet" href="CSS/buyManagement.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>Gestión de ventas</title>
+</head>
+<body>
+    <th:block th:insert="~{/fragments/header.html :: admin-header-backbutton}" />
+    <div id="body">
+        <table id="table">
+            <thead>
+              <tr>
+                <th colspan="9" id="thTitle">TOTAL DE VENTAS</th>
+              </tr>
+              <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Dirección</th>
+                <th>Localidad</th>
+                <th>Código postal</th>
+                <th>Provincia</th>
+                <th id="allignprice">Gastos de envío</th>
+                <th id="allignStock">Total</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+      
+            </tbody>
+            <div id="paginationControl">
+              <button id="prevBtn" onclick="prevPage()"><</button>
+              <span id="page-info">Página 1</span>
+              <button id="nextBtn" onclick="nextPage()">></button>
+            </div>
+        </table>
+    </div>
+    <script src="js/buyManagement.js"></script>
+</body>

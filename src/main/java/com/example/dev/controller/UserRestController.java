@@ -1,8 +1,6 @@
 package com.example.dev.controller;
 
 import java.net.URI;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -28,13 +26,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.dev.dao.IMoviesCartDao;
 import com.example.dev.dto.UserDto;
-import com.example.dev.model.CreditHistory;
-import com.example.dev.model.ErrorResponse;
+import com.example.dev.model.MoviesCart;
 import com.example.dev.model.UserCt;
 import com.example.dev.model.UserParameters;
 import com.example.dev.model.mapper.UserMapper;
-import com.example.dev.service.CreditHistoryService;
 import com.example.dev.service.IUserCtService;
 
 @RestController
@@ -45,7 +42,7 @@ public class UserRestController {
 	private IUserCtService userCtService;
 
 	@Autowired
-	private CreditHistoryService creditHistoryService;
+	private IMoviesCartDao moviesCartDao;
 
 	@GetMapping("/listuser")
     public ResponseEntity<?> listUsers(@PageableDefault(size = 24) Pageable pageable) {
@@ -224,43 +221,43 @@ public class UserRestController {
 		return ResponseEntity.ok(userUpdated);
 	}
 
-	@PutMapping("/creditUser/{id}")
-	public ResponseEntity<?> creditUser(@PathVariable Integer id, @RequestBody UserCt userInsert) {
-	    Optional<UserCt> existingUser = userCtService.findByUserid(id);
-	    if (!existingUser.isPresent()) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Not Found", "User not found."));
-	    }
-
-	    UserCt newUser = existingUser.get();
-	    int originalCredit = newUser.getCredit();
-	    newUser.setCredit(userInsert.getCredit());
-
-	    try {
-	    	UserCt updatedUser = userCtService.save(newUser);
-	    	CreditHistory creditHistory = new CreditHistory();
-	    	creditHistory.setDate(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-	    	int amount = userInsert.getCredit() - originalCredit;
-	    	creditHistory.setAmount(amount);
-	    	creditHistory.setUserCt(updatedUser);
-	    	creditHistory.setUsernickname(updatedUser.getNickname());
-	    	creditHistory.setTotalCredit(updatedUser.getCredit());
-
-	    	if (amount > 0) {
-	    	    creditHistory.setAction("Recarga");
-	    	    creditHistory.setBuy(false);
-	    	} else {
-	    	    creditHistory.setAction("Ajuste");
-	    	    creditHistory.setBuy(false);
-	    	}
-
-	    	creditHistoryService.save(creditHistory);
-
-	        return ResponseEntity.ok(updatedUser);
-	    } catch (Exception e) {
-	        ErrorResponse errorResponse = new ErrorResponse("Internal Server Error", "An unexpected error occurred.");
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-	    }
-	}
+//	@PutMapping("/creditUser/{id}")
+//	public ResponseEntity<?> creditUser(@PathVariable Integer id, @RequestBody UserCt userInsert) {
+//	    Optional<UserCt> existingUser = userCtService.findByUserid(id);
+//	    if (!existingUser.isPresent()) {
+//	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Not Found", "User not found."));
+//	    }
+//
+//	    UserCt newUser = existingUser.get();
+//	    int originalCredit = newUser.getCredit();
+//	    newUser.setCredit(userInsert.getCredit());
+//
+//	    try {
+//	    	UserCt updatedUser = userCtService.save(newUser);
+//	    	CreditHistory creditHistory = new CreditHistory();
+//	    	creditHistory.setDate(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+//	    	int amount = userInsert.getCredit() - originalCredit;
+//	    	creditHistory.setAmount(amount);
+//	    	creditHistory.setUserCt(updatedUser);
+//	    	creditHistory.setUsernickname(updatedUser.getNickname());
+//	    	creditHistory.setTotalCredit(updatedUser.getCredit());
+//
+//	    	if (amount > 0) {
+//	    	    creditHistory.setAction("Recarga");
+//	    	    creditHistory.setBuy(false);
+//	    	} else {
+//	    	    creditHistory.setAction("Ajuste");
+//	    	    creditHistory.setBuy(false);
+//	    	}
+//
+//	    	creditHistoryService.save(creditHistory);
+//
+//	        return ResponseEntity.ok(updatedUser);
+//	    } catch (Exception e) {
+//	        ErrorResponse errorResponse = new ErrorResponse("Internal Server Error", "An unexpected error occurred.");
+//	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+//	    }
+//	}
 
 	@DeleteMapping("/deleteUser/{id}")
 	public ResponseEntity<?> deleteUserById(@PathVariable Integer id) {
@@ -286,4 +283,24 @@ public class UserRestController {
 		}
 	}
 
+	@PutMapping("/emptyCart/{nickname}")
+    public ResponseEntity<String> emptyCart(@PathVariable String nickname) {
+        UserCt user = userCtService.findUserNickname(nickname);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+
+        MoviesCart moviesCart = moviesCartDao.findByUser(user);
+
+        if (moviesCart == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cart not found");
+        }
+
+        moviesCart.getCartDetails().clear();
+
+        moviesCartDao.save(moviesCart);
+
+        return ResponseEntity.ok("Cart emptied successfully");
+    }
 }

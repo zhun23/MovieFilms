@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const userDetails = createUserDetails(username);
         document.body.appendChild(userDetails);
 
-        // Check if user is admin and only show cartIcon if not admin
         checkIfAdmin(username, function(isAdmin) {
             if (!isAdmin) {
                 const cartIcon = createCartIcon();

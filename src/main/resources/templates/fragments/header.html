@@ -1,38 +1,48 @@
-<header th:fragment="main-header-index">
+<header th:fragment="main-header-index"><!--será el header para la página principal-->
     <div id="header">
-        <img th:src="@{/images/201.png}" id="headerImg" alt="fondo header">
-        <img th:src="@{/images/115.png}" id="headerlogo" alt="LOGO de la página web MovieFilms">
+        <img th:src="@{/images/201.png}" id="headerImg" alt="fondo header"><!--fondo del header-->
+        <a th:href="@{/index}"><!--si se pulsa en el logo recarga el index-->
+            <img th:src="@{/images/115.png}" id="headerlogo" alt="LOGO de la página web MovieFilms"><!--logo MovieFilms-->
+        </a>
     </div>
 </header>
 
-<header th:fragment="header-backbutton">
+<header th:fragment="header-backbutton"><!--será el header que tendrá el botón atrás, se usará a partir del index-->
     <div id="header">
-        <img th:src="@{/images/201.png}" id="headerImg" alt="fondo header">
-        <a th:href="@{/index}" class="buttonBack"><- Atrás</a>
-        <img th:src="@{/images/115.png}" id="headerlogo" alt="LOGO de la página web MovieFilms">
+        <img th:src="@{/images/201.png}" id="headerImg" alt="fondo header"><!--fondo del header-->
+        <a th:href="@{/index}" class="buttonBack"><- Atrás</a><!--botón para ir hacia atrás-->
+        <a th:href="@{/index}"><!--si se pulsa en el logo redirije a index-->
+            <img th:src="@{/images/115.png}" id="headerlogo" alt="LOGO de la página web MovieFilms"><!--logo MovieFilms-->
+        </a>
     </div>
 </header>
 
 <header th:fragment="admin-header-indexbutton">
     <div id="header">
-        <img th:src="@{/images/201.png}" id="headerImg" alt="fondo header">
-        <a th:href="@{/index}" class="buttonBack"><- Atrás</a>
-        <img th:src="@{/images/115.png}" id="headerlogo" alt="LOGO de la página web MovieFilms">
+        <img th:src="@{/images/201.png}" id="headerImg" alt="fondo header"><!--fondo del header-->
+        <a th:href="@{/index}" class="buttonBack"><- Atrás</a><!--botón para ir hacia atrás-->
+        <a th:href="@{/index}"><!--si se pulsa en el logo redirije a index-->
+            <img th:src="@{/images/115.png}" id="headerlogo" alt="LOGO de la página web MovieFilms"><!--logo MovieFilms-->
+        </a>
     </div>
 </header>
 
 <header th:fragment="admin-header-backbutton">
     <div id="header">
-        <img th:src="@{/images/201.png}" id="headerImg" alt="fondo header">
-        <a th:href="@{/admin}" class="buttonBack"><- Atrás</a>
-        <img th:src="@{/images/115.png}" id="headerlogo" alt="LOGO de la página web MovieFilms">
+        <img th:src="@{/images/201.png}" id="headerImg" alt="fondo header"><!--fondo del header-->
+        <a th:href="@{/admin}" class="buttonBack"><- Atrás</a><!--botón para ir hacia atrás-->
+        <a th:href="@{/index}"><!--si se pulsa en el logo redirije a index-->
+            <img th:src="@{/images/115.png}" id="headerlogo" alt="LOGO de la página web MovieFilms"><!--logo MovieFilms-->
+        </a>
     </div>
 </header>
 
 <header th:fragment="header-backbuttonPreviusURL">
     <div id="header">
-        <img th:src="@{/images/201.png}" id="headerImg" alt="fondo header">
-        <button id="backButton" class="buttonBack"> <- Atrás</button>
-        <img th:src="@{/images/115.png}" id="headerlogo" alt="LOGO de la página web MovieFilms">
+        <img th:src="@{/images/201.png}" id="headerImg" alt="fondo header"><!--fondo del header-->
+        <button id="backButton" class="buttonBack"> <- Atrás</button><!--botón para ir hacia atrás-->
+        <a th:href="@{/index}"><!--si se pulsa en el logo redirije a index-->
+            <img th:src="@{/images/115.png}" id="headerlogo" alt="LOGO de la página web MovieFilms"><!--logo MovieFilms-->
+        </a>
     </div>
 </header>

@@ -24,16 +24,6 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-//	TRABAJANDO EN EDITARLO DE OTRA MANERA
-//	@PostMapping("/regUser")
-//	public ModelAndView ss(UserCt userCt) {
-//		ModelAndView mAV = new ModelAndView("/login");
-//
-//		this.userCtService.save(userCt);
-//
-//		return mAV;
-//	}
-
 	@PostMapping("/regUser")
 	public ModelAndView ss(@Valid CreateUserDto createUserDto, BindingResult bindingResult) {
 		if (!bindingResult.getAllErrors().isEmpty()) {
@@ -50,27 +40,4 @@ public class UserController {
 
 	    return mAV;
 	}
-
-//	@PostMapping("/regUser")
-//	public ModelAndView ss(@Valid CreateUserDto createUserDto, BindingResult bindingResult) {
-//	    if (!bindingResult.getAllErrors().isEmpty()) {
-//	        ModelAndView mAV = new ModelAndView("register");
-//	        if (bindingResult.getFieldError("nickname") != null) {
-//	            mAV.addObject("error", "error2");
-//	        } else {
-//	            mAV.addObject("error", "error1");
-//	        }
-//	        return mAV;
-//	    }
-//
-//	    // Mapear a UserCt
-//	    UserCt userToCreate = createUserDto.toEntity();
-//	    UserCt createdUser = this.userCtService.save(userToCreate);
-//
-//	    ModelAndView mAV = new ModelAndView("register");
-//
-//	    mAV.addObject("created", createdUser.getUserid() != null);
-//
-//	    return mAV;
-//	}
 }

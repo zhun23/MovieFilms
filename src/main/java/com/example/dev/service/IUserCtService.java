@@ -37,4 +37,5 @@ public interface IUserCtService {
 	public UserCt update(UserCt userToUpdate);
 	public boolean isUserCtAdmin(String nickname);
 	public Integer getUserIdByNickname(String nickname);
+	public UserCt findUserNickname(String nickname);
 }

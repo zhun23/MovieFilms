@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <head>
   <th:block th:insert="~{/fragments/head-fragment.html}" />
-  <link rel="stylesheet" href="CSS/fullCatalogue.css" />
+  <link rel="stylesheet" href="CSS/fullCatalogue.css" /><!--CSS vinculado a este HTML-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <title>Catálogo completo</title>
+  <title>Catálogo completo</title><!--Título del HTML en la ventana-->
 </head>
 <body>
-  <th:block th:insert="~{/fragments/header.html :: admin-header-backbutton}" />
+  <th:block th:insert="~{/fragments/header.html :: admin-header-backbutton}" /><!--importación del header del fragment header-->
   <div id="body">
-    <table id="table">
+    <table id="table"><!--apertura de la tabla-->
       <thead>
         <tr>
-          <th colspan="9" id="thTitle">CATÁLOGO COMPLETO</th>
+          <th colspan="9" id="thTitle">CATÁLOGO COMPLETO</th><!--Título de la web HTML en el front en la tabla-->
         </tr>
         <tr>
-          <th># ID</th>
-          <th>Título</th>
-          <th>Fecha Lanzamiento</th>
-          <th>Género</th>
-          <th>Director</th>
-          <th>Novedad</th>
-          <th id="allignprice">Precio</th>
-          <th id="allignStock">Stock</th>
-          <th id="accions">Acciones</th>
+          <th># ID</th><!--Columna de la tabla donde se muestra el ID de las películas-->
+          <th>Título</th><!--Columna de la tabla donde se muestra el Título de las películas-->
+          <th>Fecha Lanzamiento</th><!--Columna de la tabla donde se muestra la Fecha Lanzamiento de las películas-->
+          <th>Género</th><!--Columna de la tabla donde se muestra el Género de las películas-->
+          <th>Director</th><!--Columna de la tabla donde se muestra el Director de las películas-->
+          <th>Novedad</th><!--Columna de la tabla donde se muestra la Novedad (boolean) de las películas-->
+          <th id="allignprice">Precio</th><!--Columna de la tabla donde se muestra el Precio de las películas-->
+          <th id="allignStock">Stock</th><!--Columna de la tabla donde se muestra el Stock de las películas-->
+          <th id="accions">Acciones</th><!--Columna de la tabla donde se muestran los iconos de acciones de editar y borrar-->
         </tr>
       </thead>
-      <tbody>
+      <tbody><!--tabla que va a rellenar el JS adjunto a este HTML-->
 
       </tbody>
       <div id="paginationControl">
-        <button id="prevBtn" onclick="prevPage()"><</button>
-        <span id="page-info">Página 1</span>
-        <button id="nextBtn" onclick="nextPage()">></button>
+        <button id="prevBtn" onclick="prevPage()"><</button><!--botón de paginación atrás-->
+        <span id="page-info">Página 1</span><!--espacio donde se muestra la página actual de la paginación-->
+        <button id="nextBtn" onclick="nextPage()">></button><!--botón de paginación adelante-->
       </div>
-    </table>
+    </table><!--cierre de la tabla-->
   </div>
-  <script src="JS/fullCatalogue.js"></script>
+  <script src="JS/fullCatalogue.js"></script><!--archivo JS vinculado a este HTML-->
 </body>

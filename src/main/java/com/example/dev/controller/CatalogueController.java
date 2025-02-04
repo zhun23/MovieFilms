@@ -205,10 +205,4 @@ public class CatalogueController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Can't delete, there are no movies with that title");
 		}
 	}
-
-//	@GetMapping("/titleSearch")	Me la bloquea con Spring Security, voy a crear nueva en RestController de Catalogue
-//	public ResponseEntity<List<Movie>> searchWithParams(CatalogueParameters params) {
-//		List<Movie> movieList = this.catalogueService.getWithParameters(params);
-//		return ResponseEntity.ok(movieList);
-//	}
 }

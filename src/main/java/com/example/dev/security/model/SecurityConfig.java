@@ -14,6 +14,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.example.dev.exceptions.CustomAuthenticationFailureHandler;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -27,34 +29,35 @@ public class SecurityConfig {
 	}
 
 	@Bean
-    @Order(2)
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		return http.csrf(AbstractHttpConfigurer::disable)
-			.cors(AbstractHttpConfigurer::disable)
-            .httpBasic(AbstractHttpConfigurer::disable)
-            .formLogin(form -> form
-            		.loginPage("/login")
-            		.defaultSuccessUrl("/index", true)
-            		.permitAll()
-            )
-			.sessionManagement(configurer -> configurer
-					.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-					.sessionFixation(t -> t.changeSessionId())
-					.maximumSessions(1)
-					.maxSessionsPreventsLogin(true)
-			)
-			.logout(logout -> logout
-					.logoutUrl("/logout")
-					.deleteCookies("jsessionid")
-					.invalidateHttpSession(true).clearAuthentication(true)
-					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-					.logoutSuccessUrl("/index")
-					.permitAll()
-			)
-			.authenticationProvider(this.authenticationProvider)
-            .authorizeHttpRequests(authorizeRequests())
-            .build();
-    }
+	@Order(2)
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    return http.csrf(AbstractHttpConfigurer::disable)
+	        .cors(AbstractHttpConfigurer::disable)
+	        .httpBasic(AbstractHttpConfigurer::disable)
+	        .formLogin(form -> form
+	            .loginPage("/login")
+	            .defaultSuccessUrl("/index", true)
+	            .failureHandler(new CustomAuthenticationFailureHandler())
+	            .permitAll()
+	        )
+	        .sessionManagement(configurer -> configurer
+	            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+	            .sessionFixation(t -> t.changeSessionId())
+	            .maximumSessions(1)
+	            .maxSessionsPreventsLogin(true)
+	        )
+	        .logout(logout -> logout
+	            .logoutUrl("/logout")
+	            .deleteCookies("jsessionid")
+	            .invalidateHttpSession(true).clearAuthentication(true)
+	            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+	            .logoutSuccessUrl("/index")
+	            .permitAll()
+	        )
+	        .authenticationProvider(this.authenticationProvider)
+	        .authorizeHttpRequests(authorizeRequests())
+	        .build();
+	}
 
 
 
@@ -92,7 +95,8 @@ public class SecurityConfig {
 		        		"/kids", "/action",
 		        		"/cart", "/movie",
 		        		"/directorResults", "/yearResults",
-		        		"/mostRateds", "/modifyAddress"		        		
+		        		"/newReleaseInc", "/modifyAddress",
+		        		"adminNewRelease"
 		        ).permitAll()
 		        .requestMatchers(HttpMethod.POST,
 		        		"/login", "/user/regUser",

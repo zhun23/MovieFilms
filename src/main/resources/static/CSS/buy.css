@@ -488,17 +488,52 @@ html {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-
-
-
-
-
-
-
-
 .payButton:hover {
   background-color: #0056b3;
 }
+
+
+
+
+
+.modal {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 1100;
+  display: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: -35px;
+  right: 0px;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+
+
 
 .footer-container {
   position: fixed;

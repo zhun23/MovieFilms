@@ -1,26 +1,38 @@
 <!DOCTYPE html>
-<head>
+<head><!--configuración HTML-->
 	<th:block th:insert="~{/fragments/head-fragment.html}" />
-	<link rel="stylesheet" th:href="@{/css/index.css}" />
+	<link rel="stylesheet" th:href="@{/css/index.css}" /><!--vinculación del archivo HTML junto con el CSS-->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-	<title>Bienvenido a MovieFilms</title>
+	<title>Bienvenido a MovieFilms</title><!--título de la ventana de navegación-->
 </head>
 <body>
-	<th:block th:insert="~{/fragments/header.html :: main-header-index}" />
+	<th:block th:insert="~{/fragments/header.html :: main-header-index}" /><!--cabecera, importado mediante Thymeleaf-->
 
-	<div id="loginbox-container"></div>
+	<div id="loginbox-container"></div><!--panel de login-->
 
-	<div class="adminContainer"></div>
+	<div class="adminContainer"></div><!--panel de Zona Admin-->
+
+	<div class="sidebarLeft"><!--barra lateral menú navegación, importado mediante Thymeleaf-->
+        <th:block th:insert="~{/fragments/sidebar.html :: sidebarFragment}" />
+    </div>
 	
+	<div id="body">
+		<h1 id="title">MOVIEFILMS Cátalogo</h1><!--título de la página index-->
+		<div id="pagination-controls"><!--botones de páginación-->
+			<button id="prevBtn"><</button><!--botón atrás paginación-->
+			<span id="page-info"></span><!--recuadro información paginación-->
+			<button id="nextBtn">></button><!--botón adelante paginación-->
+		</div>
 
-	<th:block th:insert="~{/fragments/sidebar.html :: sidebarFragment}" />
+		<main id="main-container"></main><!--contenedor principal de la página web. Se rellena mediante el archivo JavaScript index.js-->
+	</div>
 
-	<th:block th:insert="~{/fragments/footer.html :: main-footer}" />
+	<th:block th:insert="~{/fragments/footer.html :: main-footer}" /><!--footer, importado mediante Thymeleaf-->
 </body>
-	<script th:inline="javascript">
-		var username = /*[[${username}]]*/ ''; // Inyecta el valor de username desde Thymeleaf
+	<script th:inline="javascript">//Script para implementar código JS dentro del HTML
+		var username = /*[[${username}]]*/ ''; // Inyecta el valor de username desde Thymeleaf al front
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script th:src="@{/js/index.js}"></script>
+	<script th:src="@{/js/index.js}"></script><!--vinculación del archivo JavaScript-->
 
 </html>

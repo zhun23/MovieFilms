@@ -10,7 +10,7 @@ $("#menu-toggle-2").click(function(e) {
 });
 
 function initMenu() {
-   $('#menu ul').not('.expanded').hide(); // Ocultar todos los ul excepto los que tienen la clase 'expanded'
+   $('#menu ul').not('.expanded').hide();
    $('#menu li a').click(function() {
        var checkElement = $(this).next();
        if ((checkElement.is('ul')) && (checkElement.is(':visible'))) {

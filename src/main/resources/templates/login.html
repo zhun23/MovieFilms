@@ -1,41 +1,42 @@
 <!DOCTYPE html>
-<head>
-	<th:block th:insert="~{/fragments/head-fragment.html}" />
-	<link rel="stylesheet" type="text/css" th:href="@{css/login.css}" />
-	<title>Inicio de sesión</title>
+<html lang="es">
+<head><!--configuración HTML-->
+    <th:block th:insert="~{/fragments/head-fragment.html}" /><!--se importa mediante Thymeleaf la información de la cabecera-->
+    <link rel="stylesheet" type="text/css" th:href="@{css/login.css}" /><!--vinculación del archivo HTML junto con el CSS-->
+    <title>Inicio de sesión</title><!--título de la ventana de navegación-->
 </head>
-
 <body>
-	<th:block th:insert="~{/fragments/header.html :: header-backbutton}" />
-	<div id="body">
-		<div class="container">
-			<h1 id="title-text">Inicio de sesión</h1>
-				<form th:action="@{/login}" method="post">
-					
-					<div id="username-desc">
-						<label id="usernameDescription" for="username">Nombre de usuario : </label>
-						<input id="username"  name="username" type="text" class="form-control"
-							required autofocus="autofocus" placeholder="Apodo">
-					</div>
-
-					<div id="password-desc">
-						<label id="passwordDescription" for="password">Password : </label>
-						<input id="password" type="password"  name="password" class="form-control" required
-							autofocus="autofocus" placeholder="Contraseña">
-					</div>
-
-					<div id="div-login-submit">
-						<input type="submit" name="login-submit" id="login-submit" value="Iniciar sesión"/>
-					</div>
-				</form>
-			<div id="text-reg">
-				<span>Si no estás registrado <a th:href="@{/register}">regístrate aquí</a></span>
-			</div>			
-		</div>
-	</div>
-	<th:block th:insert="~{/fragments/footer.html :: main-footer}" />	
+    <th:block th:insert="~{/fragments/header.html :: header-backbutton}" /><!--cabecera, importado mediante Thymeleaf-->
+    <div id="body">
+        <div class="container">
+            <h1 id="title-text">Inicio de sesión</h1><!--título de la página login-->
+            <form id="loginForm"><!--apertura de formulario para login-->
+                <div id="username-desc">
+                    <label id="usernameDescription" for="username">Nombre de usuario:</label><!--descripción del input de nombre de usuario del login-->
+                    <input id="username" name="username" type="text" class="form-control" required autofocus="autofocus" placeholder="Apodo"><!--input para introducir el nombre-->
+                </div>
+                <div id="password-desc">
+                    <label id="passwordDescription" for="password">Password:</label><!--descripción del input de contraseña de usuario del login-->
+                    <input id="password" type="password" name="password" class="form-control" required autofocus="autofocus" placeholder="Contraseña"><!--input para introducir la contraseña-->
+                </div>
+                <div id="div-login-submit">
+                    <input type="submit" name="login-submit" id="login-submit" value="Iniciar sesión" /><!--botón de Iniciar sesión-->
+                </div>
+            </form><!--cierre del formulario-->
+            <div id="text-reg">
+                <span>Si no estás registrado <a th:href="@{/register}">regístrate aquí</a></span><!--enlace para registrarse si no está registrado-->
+            </div>			
+        </div>
+    </div>
+    <th:block th:insert="~{/fragments/footer.html :: main-footer}" /><!--footer, importado mediante Thymeleaf-->
+    <div id="errorModal" class="modal"><!--se crea un modal para mostrar el mensaje personalizado en lugar de con un alert-->
+        <div class="modal-content">
+            <span class="close">&times;</span><!--tiempo de cierre automático del modal-->
+            <p id="errorMessage" class="error"></p><!--se muestra el mensaje deseado-->
+        </div>
+    </div>
+    <script src="js/login.js"></script><!--vinculación del archivo JavaScript-->
 </body>
-<script src="js/login.js"></script>
 </html>
 
 

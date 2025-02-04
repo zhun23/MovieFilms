@@ -9,36 +9,54 @@
 <body>
 	<th:block th:insert="~{/fragments/header.html :: admin-header-indexbutton}" />
 	<div id="body">
-		<div class="filmManagement">
-			<i class="material-symbols-outlined" style="font-size:50px;">database</i>
-			<h2>Gestión Películas</h2>
+
+		<h1 id="title">Panel de control</h1>
+
+		<div class="container1">
+			<div class="filmManagementDiv">
+				<div class="filmManagement">
+				<i class="material-symbols-outlined" style="font-size:50px;">database</i>
+				<h2>Gestión Películas</h2>
+				</div>
+				<button id="button10" class="buttonMovies" href="/fullCatalogue">Mostrar/Editar catálogo de películas completo</button>
+				<button id="button11" class="buttonMovies" href="/specMovie">Consultar película</button>
+				<button id="button12" class="buttonMovies" href="/addMovie">Añadir película</button>
+			</div>
+
+			<div class="usersManagementDiv">
+				<div class="usersManagement">
+					<i class="material-symbols-outlined" style="font-size:50px;">supervisor_account</i>
+					<h2>Gestión Usuarios</h2>
+				</div>
+				<button id="button20" class="buttonUsers" href="/fullUsers">Mostrar/Editar listado de usuarios</button>
+			</div>	
 		</div>
-		<button id="button10" class="buttonMovies" href="/fullCatalogue">Mostrar/Editar catálogo de películas completo</button>
-		<button id="button11" class="buttonMovies" href="/specMovie">Consultar película</button>
-		<button id="button12" class="buttonMovies" href="/addMovie">Añadir película</button>
+
+		<div class="container2">
+			<div class="sellManagementDiv">
+				<div class="sellManagement">
+					<i class="material-symbols-outlined" style="font-size:50px;">Payments</i>
+					<h2>Ventas</h2>
+				</div>
+				<button id="button30" class="buttonReviews" href="/buyManagement">Consultar ventas</button>
+			</div>
+			<div class="inventoryManagementDiv">
+				<div class="inventoryManagement">
+					<i class="material-symbols-outlined" style="font-size:50px;">Inventory</i>
+					<h2>Gestión Stock</h2>
+				</div>
+				<button id="button40" class="buttonStock" href="/moviesStock">Control Stock</button>
+			</div>
+
+			<div class="incReleasesManagementDiv">
+				<div class="incReleasesManagement">
+					<i class="material-symbols-outlined" style="font-size:50px;">new_releases</i>
+					<h2>Gestión Próximas Novedades</h2>
+				</div>
+				<button id="button50" class="buttonIncReleases" href="/adminNewRelease">Próximas novedades</button>
+			</div>
+		</div>
 		
-		<div class="usersManagement">
-			<i class="material-symbols-outlined" style="font-size:50px;">supervisor_account</i>
-			<h2>Gestión Usuarios</h2>
-		</div>
-		<button id="button20" class="buttonUsers" href="/fullUsers">Mostrar/Editar listado de usuarios</button>
-		<button id="button21" class="buttonUsers" href="/addCreditUser">Añadir crédito al usuario</button>
-		<button id="button22" class="buttonUsers" href="/globalCreditHistory">Historial saldo de usuarios</button>
-		
-		<div class="usersManagement">
-			<i class="material-symbols-outlined" style="font-size:50px;">star</i>
-			<h2>Gestión Reseñas</h2>
-		</div>
-		<button id="button30" class="buttonReviews" type="submit">Gestionar reseñas de las películas</button>
-		<button id="button31" class="buttonReviews" type="submit">Gestionar reseñas de los usuarios</button>
-		
-		<!--div class="emloyeeManagement">
-			<i class="material-symbols-outlined" style="font-size:50px;">Badge</i>
-			<h2>Gestión empleados</h2>
-		</div>
-		<button id="button40" class="buttonEmployee" type="submit">Mostrar/Editar listado de empleados</button>
-		<button id="button41" class="buttonEmployee" type="submit">Gestionar permisos de trabajadores</button>
-		</div-->
 </body>
 <script src="JS/admin.js"></script>
 </html>

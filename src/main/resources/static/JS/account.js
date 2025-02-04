@@ -163,6 +163,7 @@ function displayUserDetails(user) {
         <p>Correo electrónico: ${user.mail}</p>
     `;
     userDetailsContainer.html(userHTML);
+    console.log(user)
 }
 
 function checkIfAdmin() {
@@ -171,7 +172,7 @@ function checkIfAdmin() {
         type: 'GET',
         success: function(isAdmin) {
             if (isAdmin) {
-                $('#userDetails p:contains("Crédito:")').hide();
+                $('#container').hide();
             }
         },
         error: function(error) {

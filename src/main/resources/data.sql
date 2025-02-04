@@ -5,11 +5,11 @@ INSERT INTO rol (rolname) VALUES
 
 
 -- INSERT EN BBDD TABLA USER
-INSERT INTO user (nickname, firstname, lastname, mail, password, credit, rolid) VALUES
-("ZhuN", "Ivan", "Casado", "ivan@casado.com", "$2a$10$DoRA8GOZSgFy5/hz1L8DleOEaV60/xa6QigGVcCoF8dAzXo/b0jdC", 0, 1),
-("Robus", "Paco", "Ortega", "paco@ortega.es", "$2a$10$A.yUx3auG09VNtHAkfaxFeiVUpLRzXBRt3sf8MNpydNi1u.lmagHe", 18, 2),
-("Melk", "Luis", "Ortega", "luis@ortega.com", "$2a$10$ZpK/bl.F5UAgzOEBX0xVkOQ6bZKePifQEmz3eOCS6lrF/T0p88C3K", 20, 2),
-("Marco", "Marcos", "Vera", "marcos@vera.com", "$2a$10$hB3fzDEcDJbLOZ0ZLjq8OupvkG3dyhi3IHCJBJ4Fg/ebffLAHUFLG", 0, 2);
+INSERT INTO user (nickname, firstname, lastname, mail, password, rolid) VALUES
+("ZhuN", "Ivan", "Casado", "ivan@casado.com", "$2a$10$DoRA8GOZSgFy5/hz1L8DleOEaV60/xa6QigGVcCoF8dAzXo/b0jdC", 1),
+("Robus", "Paco", "Ortega Ruiz", "paco@ortega.es", "$2a$10$A.yUx3auG09VNtHAkfaxFeiVUpLRzXBRt3sf8MNpydNi1u.lmagHe", 2),
+("Melk", "Luis", "Mariano Cobos", "luis@ortega.com", "$2a$10$ZpK/bl.F5UAgzOEBX0xVkOQ6bZKePifQEmz3eOCS6lrF/T0p88C3K", 2),
+("Marco", "Marcos", "Vera Rodriguez", "marcos@vera.com", "$2a$10$hB3fzDEcDJbLOZ0ZLjq8OupvkG3dyhi3IHCJBJ4Fg/ebffLAHUFLG", 2);
 
 
 -- INSERT EN BBDD TABLA MOVIES_CART
@@ -19,23 +19,37 @@ INSERT INTO movies_cart (cartid, userid) VALUES
 (3, 4);
 
 
+-- INSERT EN BBDD TABLA PURCHASE
+INSERT INTO purchase (nickname, date, address1, location, zipcode, province, country, shipping_cost, total_cost) VALUES
+("Robus", '2024-05-20 01:07:58.000000', "Avenida del Padre Esplá, nº 118", "Alicante", "03015", "Alicante", "España", 5, 25),
+("Marco", '2024-05-21 11:14:08.000000', "Avenida Duquesa de la Victoria, num. 38", "Melilla", "52006", "Melilla", "España", 15, 62.75),
+("Robus", '2024-06-09 07:02:05.000000', "Avenida del Padre Esplá, nº 118", "Alicante", "03015", "Alicante", "España", 0, 54),
+("Robus", '2024-06-13 23:14:06.000000', "Avenida del Padre Esplá, nº 118", "Alicante", "03015", "Alicante", "España", 5, 9);
+
+
+-- INSERT EN BBDD TABLA PURCHASE_ITEM
+INSERT INTO purchase_item (purchase_id, purchase_itemid, title, quantity) VALUES
+(1, 1, "El Rey León", 1),
+(1, 2, "Kung Fu Panda 2", 1),
+(2, 3, "Gladiator", 1),
+(2, 4, "El Señor de los Anillos: La Comunidad del Anillo", 1),
+(2, 5, "El Señor de los Anillos: Las dos torres", 1),
+(2, 6, "El Señor de los Anillos: El retorno del Rey", 1),
+(3, 7, "Los minions: nace un villano", 1),
+(3, 8, "Los minions", 1),
+(3, 9, "Avatar", 2),
+(4, 10, "Aladdin", 1);
+
+
 -- INSERT EN BBDD TABLA ADDRESS
 INSERT INTO address (userid, addressid, address_line1, location, zipcode, province, country) VALUES
 (2, 1, "Avenida del Padre Esplá, nº 118", "Alicante", "03015", "Alicante", "España"),
-(3, 2, "Avenida del Padre Esplá, nº 118", "Alicante", "03015", "Alicante", "España");
+(3, 2, "Avenida de la Condomina, nº 253", "Alicante", "03012", "Alicante", "España");
 
 
 -- INSERT EN BBDD TABLA ADDRESS
-INSERT INTO address (userid, addressid, province) VALUES
-(4, 3, "Barcelona");
-
-
--- INSERT EN BBDD TABLA CREDITHISTORY
-INSERT INTO credithistory (usernickname, userid, date, amount, totalcredit, action, buy) VALUES
-("Melk", 3,	"2024-04-25 14:59",	20, 20, "Recarga", false),
-("Robus", 2, "2024-05-01 14:23", 50, 50, "Recarga", false),
-("Robus", 2, "2024-05-02 09:15", -20, 30, "Ajuste", false),
-("Robus", 2, "2024-05-04 23:02", -12, 18, "Compra", true);
+INSERT INTO address (userid, addressid, address_line1, address_line2, location, zipcode, province, country) VALUES
+(4, 3, "Avenida Duquesa de la Victoria, num. 38", "Torre C, 2º A", "Melilla", "52006", "Melilla", "España");
 
 
 -- INSERT EN BBDD TABLA CATALOGUE
@@ -53,7 +67,7 @@ INSERT INTO catalogue (title, description, release_date, genre, director, new_re
 ("El Rey León", "El Rey León es una película animada de Disney dirigida por Roger Allers y Rob Minkoff, estrenada en 1994. La película sigue la historia de Simba, un joven león que debe enfrentar su destino como rey después de la muerte de su padre, Mufasa.", "24-06-1994", "Animation", "Roger Allers, Rob Minkoff", false, 66, 10, "images/frontMovies/elreyleon.jpg"),
 ("El Caballero Oscuro", "El Caballero de la Noche es una película de superhéroes dirigida por Christopher Nolan que se estrenó en 2008. La película es la secuela de Batman Begins y sigue al héroe de Gotham, Batman, mientras se enfrenta al caos desatado por el Joker.", "18-07-2008", "Action", "Christopher Nolan", false, 80, 12, "images/frontMovies/elcaballerooscuro.jpg"),
 ("La La Land", "La La Land es un musical romántico dirigido por Damien Chazelle que se estrenó en 2016. La película sigue a Mia, una aspirante a actriz, y a Sebastian, un pianista de jazz, mientras persiguen sus sueños en Los Ángeles y navegan por su relación.", "09-12-2016", "Musical", "Damien Chazelle", false, 6, 9, "images/frontMovies/lalaland.jpg"),
-("Toy Story", "Toy Story es una película de animación dirigida por John Lasseter y producida por Pixar Animation Studios, estrenada en 1995. La película sigue a un grupo de juguetes que cobran vida cuando sus dueños no están presentes, centrándose en la relación entre Woody, un vaquero de juguete, y Buzz Lightyear, un juguete espacial.", "22-11-1995", "Animation", "John Lasseter", false, 14, 8, "images/frontMovies/toystory.jpg"),
+("Toy Story", "Toy Story es una película de animación dirigida por John Lasseter y producida por Pixar Animation Studios, estrenada en 1995. La película sigue a un grupo de juguetes que cobran vida cuando sus dueños no están presentes, centrándose en la relación entre Woody, un vaquero de juguete, y Buzz Lightyear, un juguete espacial.", "22-11-1995", "Animation", "John Lasseter", false, 0, 8, "images/frontMovies/toystory.jpg"),
 ("La forma del agua", "La forma del agua es una película de fantasía romántica dirigida por Guillermo del Toro que se estrenó en 2017. La película sigue la relación entre Elisa, una mujer muda que trabaja como limpiadora en un laboratorio gubernamental, y un misterioso hombre anfibio que está siendo retenido en el laboratorio.", "08-12-2017", "Fantasy", "Guillermo del Toro", false, 27, 10, "images/frontMovies/laformadelagua.jpg"),
 ("Matrix", "Matrix es una película de ciencia ficción dirigida por Lana y Lilly Wachowski que se estrenó en 1999. La película sigue a Neo, un hacker que descubre que el mundo en el que vive es una simulación controlada por máquinas inteligentes, y se une a la resistencia humana para luchar contra ellas.", "31-03-1999", "ScienceFiction", "Lana Wachowski, Lilly Wachowski", false, 19, 15, "images/frontMovies/matrix.jpg"),
 ("Forrest Gump", "Forrest Gump es una película de drama dirigida por Robert Zemeckis que se estrenó en 1994. La película sigue la vida de Forrest Gump, un hombre con discapacidad intelectual que se convierte en parte de varios eventos importantes de la historia estadounidense.", "06-07-1994", "Drama", "Robert Zemeckis", false, 41, 12, "images/frontMovies/forrestgump.jpg"),
@@ -121,7 +135,7 @@ INSERT INTO catalogue (title, description, release_date, genre, director, new_re
 ("Tiburón", "Un enorme tiburón blanco aterroriza a los habitantes y visitantes de Amity Island, llevando al jefe de policía local, un científico marino y un rudo cazador de tiburones a embarcarse en una desesperada misión para detenerlo", "20-06-1975", "Thriller", "Steven Spielberg", false, 51, 8, "images/frontMovies/tiburon.jpg"),
 ("Déjame salir", "Un joven afroamericano visita a la familia de su novia blanca, donde descubre la inquietante razón detrás de la acogida demasiado cordial de sus anfitriones, desentrañando una trama más siniestra de la que jamás pudo imaginar", "24-02-2017", "Thriller", "Jordan Peele", false, 35, 9, "images/frontMovies/dejamesalir.jpg"),
 ("Los Cazafantasmas", "Tres parapsicólogos desempleados deciden formar un equipo de eliminación de entidades paranormales en Nueva York, enfrentándose a espectros, fantasmas y demonios, culminando en una batalla contra un dios sumerio en el corazón de la ciudad", "08-06-1984", "Comedy", "Ivan Reitman", false, 30, 7, "images/frontMovies/loscazafantasmas.jpg"),
-("Braveheart", "William Wallace, un guerrero escocés, lidera una revuelta contra el tiránico rey inglés Edward I en el siglo XIII", "24-05-1995", "Drama", "Mel Gibson", false, 92, 10, "/frontMovies/braveheart.jpg"),
+("Braveheart", "William Wallace, un guerrero escocés, lidera una revuelta contra el tiránico rey inglés Edward I en el siglo XIII", "24-05-1995", "Drama", "Mel Gibson", false, 92, 10, "images/frontMovies/braveheart.jpg"),
 ("Kill Bill", "Una asesina traicionada por su jefe Bill y sus antiguos compañeros emprende una venganza sin cuartel contra ellos, enfrentándose a varios enemigos en su camino", "10-10-2003", "Thriller", "Quentin Tarantino", false, 71, 12, "images/frontMovies/killbill1.jpg"),
 ("Kill Bill 2", "La Novia continúa su búsqueda de venganza contra su exjefe y amante Bill, el responsable de su intento de asesinato y el de su hijo no nacido", "16-04-2004", "Thriller", "Quentin Tarantino", true, 72, 12, "images/frontMovies/killbill2.jpg"),
 ("El laberinto del fauno", "En la España de posguerra, una joven se refugia en un mundo fantástico y aterrador para escapar de la crueldad de su padrastro, un capitán del ejército franquista", "11-10-2006", "Fantasy", "Guillermo del Toro", false, 29, 10, "images/frontMovies/ellaberintodelfauno.jpg"),
@@ -147,3 +161,15 @@ INSERT INTO cart_details (cartid, catalogue_catalogueid, quantity) VALUES
 (1, 1, 3),
 (1, 34, 2),
 (2, 29, 5);
+
+
+-- INSERT EN BBDD TABLA inc_new_movies
+INSERT INTO inc_new_movies (title, release_date) VALUES
+("Capitán América: Brave New World", '2025-02-14'),
+("Blancanives", '2025-03-21'),
+("Minecraft", '2025-04-04'),
+("Michael", '2025-04-18'),
+("Misión: Imposible 8", '2025-05-23'),
+("Jurassic City", '2025-07-12'),
+("Superman", '2025-07-11'),
+("Avatar 3", '2025-12-19');

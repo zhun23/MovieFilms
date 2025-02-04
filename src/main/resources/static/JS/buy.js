@@ -1,3 +1,5 @@
+
+
 document.getElementById('backButton').addEventListener('click', function() {
     window.location.href = "/cart";
 });
@@ -129,6 +131,19 @@ function checkIfAdmin(nickname, callback) {
         });
 }
 
+var nickname99 ='';
+var addressLine199 ='';
+var addressLine299 ='';
+var zipcode99 ='';
+var location99 ='';
+var province99 ='';
+var country99 ='';
+var shippingCost99 ='';
+var totalOrderAmount99 ='';
+var cartDetails99 ='';
+
+var nickname99 = username;
+
 function getPreOrder() {
     $.ajax({
         url: 'http://localhost:8090/api/getPreOrder/' + username,
@@ -137,9 +152,18 @@ function getPreOrder() {
             console.log(response);
             displayArticles(response.cartDetails);
             displayAddress(response);
+            console.log(addressLine199);
+            console.log(addressLine299);
+            console.log(zipcode99);
+            console.log(location99);
+            console.log(province99);
+            console.log(country99);
         }
     });
 }
+
+console.log(nickname99);
+
 
 function displayArticles(cartDetails) {
     var articlesDetailDiv = $('#articlesDetail');
@@ -163,6 +187,13 @@ function displayArticles(cartDetails) {
 function displayAddress(address) {
     var addressDetailDiv = $('#addressDetail');
     var addressDiv = $('<div class="address"></div>');
+
+    addressLine199 = address.addressLine1;
+    addressLine299 = address.addresLine2;
+    zipcode99 = address.zipcode;
+    location99 = address.location;
+    province99 = address.province;
+    country99 = address.country;
 
     if (
         address.addressLine1 === null &&
@@ -220,6 +251,23 @@ function displayDeliveryAmount(preOrder) {
     var orderPrice = preOrder.orderPrice.toFixed(2);
     var shippingCost = preOrder.shippingCost.toFixed(2);
     var totalOrderAmount = preOrder.totalOrderAmount.toFixed(2);
+
+    shippingCost99 = preOrder.shippingCost.toFixed(2);
+    totalOrderAmount99 = preOrder.totalOrderAmount.toFixed(2);
+
+    console.log(shippingCost99);
+    console.log(totalOrderAmount99);
+
+    cartDetails99 = preOrder.cartDetails.map(function(item) {
+        return {
+            quantity: item.quantity,
+            catalogue: {
+                title: item.catalogue.title
+            }
+        };
+    });
+
+    console.log(cartDetails99);
     
     preOrder.cartDetails.forEach(function(item) {
         totalItems += item.quantity;
@@ -297,6 +345,8 @@ function displayDeliveryAmount(preOrder) {
 }
 
 $(document).ready(function() {
+    $('.overlay').remove();
+    $('.modal').remove();
     getPreOrder(username);
 });
 
@@ -349,7 +399,7 @@ function createPaymentForm() {
                     </div>
 
                     <div class="submitDiv">
-                        <button id="submit" class="submitButton">Pagar</button>
+                        <button id="submitBuy" class="submitButton">Pagar</button>
                     </div>
                 </div>
             </form>
@@ -358,9 +408,80 @@ function createPaymentForm() {
 
     $('body').append(paymentFormHtml);
 
-    // Event listener to close the payment form and overlay when clicking outside of the form
     $('.overlay').click(function() {
         $('.paymentDiv').remove();
-        $('.overlay').remove();
+        $('.payment-overlay').remove();
+    });
+
+    $('#submitBuy').click(function() {
+        submitPaymentForm();
+    });
+}
+
+function submitPaymentForm() {
+    var purchaseData = {
+        nickname: nickname99,
+        addressLine1: addressLine199,
+        addressLine2: addressLine299,
+        zipcode: zipcode99,
+        location: location99,
+        province: province99,
+        country: country99,
+        shippingCost: shippingCost99,
+        totalOrderAmount: totalOrderAmount99,
+        cartDetails: cartDetails99
+    };
+
+    console.log(JSON.stringify(purchaseData, null, 2));
+    
+    console.log("Purchase Data:", purchaseData);
+
+    $.ajax({
+        url: 'http://localhost:8090/api/purchase/create',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(purchaseData),
+        success: function(response) {
+            console.log(response);
+
+            $('.paymentDiv').remove();
+            $('.payment-overlay').remove();
+            showModal();
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+
+            $('.paymentDiv').remove();
+            $('.payment-overlay').remove();
+        }
+    });
+}
+
+function showModal() {
+    var modalHtml = `
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Compra realizada correctamente. <br>Puedes ver los detalles desde el área de usuario.</p>
+            </div>
+        </div>
+    `;
+
+    $('body').append(modalHtml);
+
+    var modal = $('#successModal');
+
+    modal.show();
+
+    $('.close').click(function() {
+        $('.modal').remove();
+        window.location.href = '/index';
+    });
+
+    modal.click(function(event) {
+        if ($(event.target).hasClass('modal')) {
+            $('.modal').remove();
+            window.location.href = '/index';
+        }
     });
 }

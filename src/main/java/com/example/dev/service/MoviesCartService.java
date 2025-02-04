@@ -47,10 +47,6 @@ public class MoviesCartService implements IMoviesCartService {
 			throw new RuntimeException();
 		}
 
-        // 1. Cogemos los detalles del carrito
-        // 2. Comprobar si el producto existe en el carrito
-        // 3. Si existe, actualizamos la cantidad, si no existe lo insertamos
-
         CartDetail newDetail = new CartDetail();
         newDetail.setCatalogue(movie);
         newDetail.setQuantity(quantity);
@@ -67,23 +63,11 @@ public class MoviesCartService implements IMoviesCartService {
 
         Movie movie = catalogueDao.findById(catalogueid).orElseThrow(() -> new RuntimeException("Película no encontrada"));
 
-        // posible NullPointerException
         MoviesCart cart = user.getCart();
 
         if (cart == null) {
 			throw new RuntimeException();
 		}
-
-//        cart.getCartDetails()
-//        	.stream()
-//        	.map(cartDetail -> {
-//        		if (movie.equals( cartDetail.getCatalogue() )) {
-//        			cartDetail.setQuantity(quantity);
-//        		}
-//        		return cartDetail;
-//        	})
-//        	.toList();
-
 
         for (CartDetail cartDetail : cart.getCartDetails()) {
     		if (movie.equals( cartDetail.getCatalogue() )) {

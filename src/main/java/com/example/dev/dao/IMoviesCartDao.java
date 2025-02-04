@@ -1,16 +1,23 @@
 package com.example.dev.dao;
 
+import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.example.dev.model.MoviesCart;
+import com.example.dev.model.UserCt;
 
-@Repository
-public interface IMoviesCartDao extends JpaRepository<MoviesCart, Integer> {
+
+public interface IMoviesCartDao {
 
 	Optional<MoviesCart> findByUser_Userid(Integer userid);
 
-
+	MoviesCart findByUserNickname(String nickname);
+	
+	MoviesCart findByUser(UserCt user);
+	
+	MoviesCart save(MoviesCart moviesCart);
+	
+	List<MoviesCart> findAll();
+	
+	void delete(MoviesCart cart);
 }

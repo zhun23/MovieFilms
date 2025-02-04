@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+  <th:block th:insert="~{/fragments/head-fragment.html}" />
+  <link rel="stylesheet" href="CSS/moviesStock.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>Gestión de stock MovieFilms</title>
+</head>
+<body>
+    <th:block th:insert="~{/fragments/header.html :: admin-header-backbutton}" />
+    <div id="body">
+        <table id="table">
+          <!--label for="lowStockThreshold">Seleccionar control bajo stock:</label>
+        <select id="lowStockThreshold" onchange="fetchPage(currentPage)">
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+        </select-->
+            <thead>
+              <tr>
+                <th colspan="3" id="thTitle">Stock del Catálogo</th>
+              </tr>
+              <tr>
+                <th>#</th>
+                <th class="titleThRow">Título</th>
+                <th class="titleThRow">Stock</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+      
+            </tbody>
+
+              <div id="paginationControl">
+                <button id="prevBtn" onclick="prevPage()">&lt;</button>
+                <span id="page-info">Página 1</span>
+                <button id="nextBtn" onclick="nextPage()">&gt;</button>
+              </div>
+              <div class="select-container">
+                <label for="lowStockThreshold">Seleccionar control bajo stock:</label>
+                <select id="lowStockThreshold" onchange="fetchPage(currentPage)">
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                  <option value="25">25</option>
+                </select>
+              </div>
+
+        </table>
+    </div>
+    <script src="js/moviesStock.js"></script>
+</body>

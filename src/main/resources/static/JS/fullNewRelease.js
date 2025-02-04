@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const userDetails = createUserDetails(username);
         document.body.appendChild(userDetails);
 
-        // Check if user is admin and only show cartIcon if not admin
         checkIfAdmin(username, function(isAdmin) {
             if (!isAdmin) {
                 const cartIcon = createCartIcon();
@@ -82,7 +81,7 @@ function createLoginBox() {
 function createCartIcon() {
     const cartIconLink = document.createElement('a');
     cartIconLink.id = 'cart-icon';
-    cartIconLink.href = '/cart'; // Establecer la URL de destino como cart.html
+    cartIconLink.href = '/cart';
 
     const cartIcon = document.createElement('i');
     cartIcon.className = 'material-symbols-outlined';
@@ -126,9 +125,6 @@ function checkIfAdmin(nickname, callback) {
         });
 }
 
-
-
-// Función para crear la estructura de HTML de la tarjeta de película
 function createMovieCard(movie) {
     const completeCard = document.createElement('div');
     completeCard.classList.add('completeCard');

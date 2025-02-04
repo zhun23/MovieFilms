@@ -33,7 +33,7 @@ public class UserCt implements UserDetails {
 
 	@Column(name = "nickname", unique = true)
 	private String nickname;
-
+ 
 	@Column(name = "firstname")
 	private String firstname;
 
@@ -60,9 +60,6 @@ public class UserCt implements UserDetails {
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Address address;
-
-    @OneToMany(mappedBy = "userCt", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CreditHistory> creditHistories;
 
 	public UserCt() {
 		this.rol = new Rol("User");

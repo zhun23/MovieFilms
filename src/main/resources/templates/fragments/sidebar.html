@@ -13,7 +13,7 @@
                <ul id="searchByTitleDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
                   <form th:action="@{/titleResults}" method="post">
                      <li>
-                        <input id="inputSearchStyle" name="titleQuery" class="movieSearch" minlength="3" required />
+                        <input name="titleQuery" class="inputSearchStyle movieSearch" minlength="3" required />
                      </li>
                      <li>
                          <input id="searchButtonByTitle" type="submit" value="Buscar" />
@@ -40,14 +40,14 @@
                  </ul>
               </li>
               <li>
-                <a href="/mostRateds"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Mejor valoradas</a>
+                <a href="/newReleaseInc"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Próximos lanzamientos</a>
              </li>
               <li class="active">
                 <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span> Director</a>
                 <ul id ="searchByDirectorDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
                   <form th:action="@{/directorResults}" method="post">
                      <li>
-                        <input id="inputSearchStyle" name="directorQuery" class="movieSearch" minlength="3" required />
+                        <input name="directorQuery" class="inputSearchStyle movieSearch" minlength="3" required />
                      </li>
                      <li>
                         <input id="searchButtonByDirector" type="submit" value="Buscar">
@@ -60,7 +60,7 @@
                 <ul id ="searchByYearDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
                   <form th:action="@{/yearResults}" method="post">
                      <li>
-                        <input id="inputSearchStyle" name="yearQuery" class="movieSearch" minlength="3" required />
+                        <input name="yearQuery" class="inputSearchStyle movieSearch" minlength="3" required />
                      </li>
                      <li>
                         <input id="searchButtonByYear" type="submit" value="Buscar">
@@ -93,7 +93,7 @@
                <ul id="searchByTitleDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
                   <form th:action="@{/titleResults}" method="post">
                      <li>
-                         <input id="inputSearchStyle" name="titleQuery" class="movieSearch" />
+                         <input name="titleQuery" class="inputSearchStyle movieSearch" />
                      </li>
                      <li>
                          <input id="searchButtonByTitle" type="submit" value="Buscar" />
@@ -120,14 +120,14 @@
                  </ul>
               </li>
               <li>
-               <a href="/mostRateds"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Mejor valoradas</a>
+               <a href="/newReleaseInc"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Próximos lanzamientos</a>
              </li>
               <li class="active">
                 <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span> Director</a>
                 <ul id ="searchByDirectorDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
                   <form th:action="@{/directorResults}" method="post">
                      <li>
-                        <input id="inputSearchStyle" name="directorQuery" class="movieSearch" minlength="3" required />
+                        <input name="directorQuery" class="inputSearchStyle movieSearch" minlength="3" required />
                      </li>
                      <li>
                         <input id="searchButtonByDirector" type="submit" value="Buscar">
@@ -140,7 +140,7 @@
                 <ul id ="searchByYearDiv" class="nav-pills nav-stacked" style="list-style-type:none;">
                   <form th:action="@{/yearResults}" method="post">
                      <li>
-                        <input id="inputSearchStyle" name="yearQuery" class="movieSearch" minlength="3" required />
+                        <input name="yearQuery" class="inputSearchStyle movieSearch" minlength="3" required />
                      </li>
                      <li>
                         <input id="searchButtonByYear" type="submit" value="Buscar">

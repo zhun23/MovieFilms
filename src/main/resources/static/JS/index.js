@@ -142,3 +142,186 @@ function createAdminButton() {
         console.error('No se encontró el contenedor .adminContainer en el documento.');
     }
 }
+
+function createMovieCard(movie) {
+    const completeCard = document.createElement('div');
+    completeCard.classList.add('completeCard');
+    completeCard.id = 'completeCard';
+
+    const completeCardTitle = document.createElement('h2');
+    completeCardTitle.classList.add('completeCardTitle');
+    completeCardTitle.id = 'completeCardTitle';
+    completeCardTitle.textContent = movie.title;
+
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.id = 'movie-card';
+
+    const img = document.createElement('img');
+    img.src = movie.imgUrl;
+    img.alt = 'Descripción de la imagen';
+
+    const cardContent = document.createElement('div');
+    cardContent.classList.add('card-content');
+
+    const description = document.createElement('p');
+    description.textContent = movie.description;
+
+    const alquilarLink = document.createElement('a');
+    alquilarLink.href = '/movie';
+
+    alquilarLink.addEventListener('click', function(event) {
+        localStorage.setItem('selectedMovie', JSON.stringify(movie));
+    });
+    
+    if (movie.stock > 0) {
+        alquilarLink.textContent = 'Info';
+        alquilarLink.classList.add('rent-button');
+        const span = document.createElement('span');
+        span.classList.add('material-symbols-outlined');
+        span.textContent = 'arrow_right_alt';
+        alquilarLink.appendChild(span);
+    } else {
+        alquilarLink.classList.add('rent-button-nonstock');
+        alquilarLink.textContent = 'No disponible';
+        alquilarLink.disabled = true;
+    }
+
+    completeCard.appendChild(completeCardTitle);
+    
+    card.appendChild(img);
+    card.appendChild(cardContent);
+    cardContent.appendChild(description);
+    cardContent.appendChild(alquilarLink);
+
+    return [completeCard, card];
+}
+
+async function showCataloguePage(page) {
+    togglePaginationButtons(false);
+    const size = 12;
+    const url = `http://localhost:8090/api/catalogue/listAll?page=${page}&size=${size}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            if (response.status === 404 && page > 0) {
+                showCataloguePage(page - 1);
+                return;
+            } else {
+                throw new Error("Error al obtener los datos: " + response.statusText);
+            }
+        }
+
+        const data = await response.json();
+        console.log("Datos recibidos:", data);
+
+        if (data.movies.length === 0 && page > 0) {
+            showCataloguePage(page - 1);
+            return;
+        }
+
+        const mainContainer = document.getElementById('main-container');
+        mainContainer.innerHTML = '';
+
+        createMovieCards(data);
+
+        const totalPages = data.totalPages || 1;
+        document.getElementById('page-info').textContent = `Página ${page + 1} de ${totalPages}`;
+        currentPage = page;
+    } catch (error) {
+        console.error("Error en la solicitud:", error.message);
+        alert("Error al cargar los datos. Por favor, inténtalo de nuevo más tarde.");
+    } finally {
+        togglePaginationButtons(true);
+    }
+}
+
+function createMovieCard(movie) {
+    const completeCard = document.createElement('div');
+    completeCard.classList.add('completeCard');
+    completeCard.id = 'completeCard';
+
+    const completeCardTitle = document.createElement('h2');
+    completeCardTitle.classList.add('completeCardTitle');
+    completeCardTitle.id = 'completeCardTitle';
+    completeCardTitle.textContent = movie.title;
+
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.id = 'movie-card';
+
+    const img = document.createElement('img');
+    img.src = movie.imgUrl;
+    img.alt = 'Descripción de la imagen';
+
+    const cardContent = document.createElement('div');
+    cardContent.classList.add('card-content');
+
+    const description = document.createElement('p');
+    description.textContent = movie.description;
+
+    const alquilarLink = document.createElement('a');
+    alquilarLink.href = '/movie';
+
+    alquilarLink.addEventListener('click', function(event) {
+        localStorage.setItem('selectedMovie', JSON.stringify(movie));
+    });
+
+    if (movie.stock > 0) {
+        alquilarLink.textContent = 'Info';
+        alquilarLink.classList.add('rent-button');
+        const span = document.createElement('span');
+        span.classList.add('material-symbols-outlined');
+        span.textContent = 'arrow_right_alt';
+        alquilarLink.appendChild(span);
+    } else {
+        alquilarLink.classList.add('rent-button-nonstock');
+        alquilarLink.textContent = 'No disponible';
+        alquilarLink.disabled = true;
+    }
+
+    completeCard.appendChild(completeCardTitle);
+
+    card.appendChild(img);
+    card.appendChild(cardContent);
+    cardContent.appendChild(description);
+    cardContent.appendChild(alquilarLink);
+
+    return [completeCard, card];
+}
+
+function createMovieCards(data) {
+    const mainContainer = document.getElementById('main-container');
+    data.movies.forEach(movie => {
+        const [completeCard, card] = createMovieCard(movie);
+        const container = document.createElement('div');
+        container.classList.add('card-container');
+        container.appendChild(completeCard);
+        container.appendChild(card);
+        mainContainer.appendChild(container);
+    });
+}
+
+// Inicializa la primera página
+let currentPage = 0;
+showCataloguePage(currentPage);
+
+// Agrega event listeners para la paginación
+document.getElementById('prevBtn').addEventListener('click', () => {
+    if (currentPage > 0) {
+        showCataloguePage(currentPage - 1);
+    }
+});
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+    const totalPages = parseInt(document.getElementById('page-info').textContent.split(' ')[3]);
+    if (currentPage < totalPages - 1) {
+        showCataloguePage(currentPage + 1);
+    }
+});
+
+function togglePaginationButtons(enable) {
+    document.getElementById('prevBtn').disabled = !enable;
+    document.getElementById('nextBtn').disabled = !enable;
+}

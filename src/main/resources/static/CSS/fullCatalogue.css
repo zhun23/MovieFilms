@@ -77,6 +77,10 @@ table {
   background-color: #dddddd99;
 }
 
+#titleCol {
+  width: 70%;
+}
+
 #newReleaseAllign {
   padding-left: 20px;
 }
@@ -163,7 +167,7 @@ tbody {
 
 .ButtonLabelsTable {
   display: flex;
-  justify-content: right; /* O space-between, según necesites */
+  justify-content: right;
   align-items: right;
 }
 

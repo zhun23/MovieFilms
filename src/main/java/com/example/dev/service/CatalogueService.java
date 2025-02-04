@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.dev.dao.ICatalogueDao;
 import com.example.dev.dao.IMoviesCartDao;
+import com.example.dev.dao.IPurchaseItemDao;
+import com.example.dev.dto.MovieStockDto;
 import com.example.dev.model.CatalogueParameters;
 import com.example.dev.model.Genre;
 import com.example.dev.model.Movie;
@@ -31,6 +33,9 @@ public class CatalogueService implements ICatalogueService {
 
 	@Autowired
     private EntityManager entityManager;
+	
+	@Autowired
+	private IPurchaseItemDao purchaseItemDao;
 
 	@Override
 	public Page<Movie> findAll(Pageable pageable) {
@@ -47,11 +52,16 @@ public class CatalogueService implements ICatalogueService {
 		return catalogueDao.findMovieByTitle(title);
 	}
 
+	//@Override
+	//public List<Movie> findMovieByReleaseDate(String releasedate) {
+	// 	return catalogueDao.findAll().stream()
+    //            .filter(movie -> movie.getReleaseDate().endsWith(releasedate))
+    //            .collect(Collectors.toList());
+	//}
+	
 	@Override
-	public List<Movie> findMovieByReleaseDate(String releasedate) {
-	 	return catalogueDao.findAll().stream()
-                .filter(movie -> movie.getReleaseDate().endsWith(releasedate))
-                .collect(Collectors.toList());
+	public List<Movie> findMovieByReleaseDate(String releaseDate) {
+	    return catalogueDao.findMovieByReleaseDate(releaseDate);
 	}
 
 	@Override
@@ -102,4 +112,8 @@ public class CatalogueService implements ICatalogueService {
 	public List<Movie> findDirectorWithParameters(CatalogueParameters params) {
     	return this.catalogueDao.findDirectorWithParameters(params);
     }
+    
+    public Page<MovieStockDto> getAllMovieStock(Pageable pageable) {
+    	return this.catalogueDao.findAllMovieStockOrderedByStock(pageable);
+    	}
 }

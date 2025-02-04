@@ -1,5 +1,5 @@
-let currentPage = 0;  // Página actual inicializada en 0
-let totalPages = 1;   // Total de páginas inicializada en 1
+let currentPage = 0;
+let totalPages = 1;
 
 window.onload = function() {
     showFullUsers(currentPage);
@@ -16,10 +16,8 @@ let showFullUsers = async (page) => {
             }
         });
 
-        // Primero chequeamos el estado de la respuesta
         if (!request.ok) {
             if (request.status === 404 && page > 0) {
-                // Intenta cargar la página anterior si la respuesta es 404 y no estamos en la primera página
                 showFullUsers(page - 1);
                 return;
             } else {
@@ -29,15 +27,16 @@ let showFullUsers = async (page) => {
 
         const data = await request.json();
 
+        console.log(data);
+
         if (data.users.length === 0 && page > 0) {
-            // Si no hay usuarios en la página actual y no es la primera página, carga la página anterior
             showFullUsers(page - 1);
             return;
         }
 
-        totalPages = data.totalPages;  // Actualiza el número total de páginas
-        currentPage = page;  // Asegúrate de actualizar la página actual correctamente
-        updatePageInfo(currentPage + 1, totalPages);  // Actualiza la información de la página
+        totalPages = data.totalPages;
+        currentPage = page;
+        updatePageInfo(currentPage + 1, totalPages);
 
         let contentTable = "";
         for (let user of data.users) {
@@ -47,7 +46,6 @@ let showFullUsers = async (page) => {
                 <td>${user.firstname}</td>
                 <td>${user.lastname}</td>
                 <td>${user.mail}</td>
-                <td id="showCredit">${user.credit}</td>
                 <td class="acciones">
                     <i onClick="showUserEdit(${user.userid})" class="material-icons button edit">edit</i>
                     <i onClick="delUser(${user.userid})" class="material-icons button delete">delete</i>
@@ -98,7 +96,7 @@ let delUser = async (userid) => {
     let confirmRow = document.createElement("tr");
     confirmRow.classList.add("confirm-row", `confirm-row-${userid}`);
     let confirmCell = document.createElement("td");
-    confirmCell.colSpan = 8; // Asumiendo que tienes 8 columnas en tu tabla
+    confirmCell.colSpan = 8;
     confirmCell.innerHTML = `
         <div>Estás seguro de borrar el usuario: <strong>${row.cells[1].textContent}</strong>?</div>
         <button onclick="confirmDelete(${userid})" class="confirm-button">Confirmar</button>
@@ -184,21 +182,6 @@ async function showUserEdit(userid) {
 
     tableBody.insertBefore(buttonsRow, row.nextSibling);
 
-    let creditRow = document.createElement("tr");
-    creditRow.classList.add("edit-row", `edit-row-${userid}`);
-    let creditCell = document.createElement("td");
-    creditCell.classList.add("Labels");
-    creditCell.textContent = "Saldo";
-    let creditInputCell = document.createElement("td");
-    let creditInput = document.createElement("input");
-    creditInput.classList.add("inputCustomNickname");
-    creditInput.type = "text";
-    creditInput.id = "inputCredit";
-    creditInput.value = user.credit;
-    creditInputCell.appendChild(creditInput);
-    creditRow.appendChild(creditCell);
-    creditRow.appendChild(creditInputCell);
-
     let mailRow = document.createElement("tr");
     mailRow.classList.add("edit-row", `edit-row-${userid}`);
     let mailCell = document.createElement("td");
@@ -264,13 +247,12 @@ async function showUserEdit(userid) {
     tableBody.insertBefore(firstNameRow, nicknameRow.nextSibling);
     tableBody.insertBefore(lastNameRow, firstNameRow.nextSibling);
     tableBody.insertBefore(mailRow, lastNameRow.nextSibling);
-    tableBody.insertBefore(creditRow, mailRow.nextSibling);
 
     let idRow = document.createElement("tr");
     idRow.classList.add("edit-row", `edit-row-${userid}`, "IDrowEdit");
     let idCell = document.createElement("td");
     idCell.textContent = userid;
-    idCell.setAttribute("rowspan", "7"); 
+    idCell.setAttribute("rowspan", "6"); 
     idRow.appendChild(idCell);
 
     tableBody.insertBefore(idRow, row.nextSibling);
@@ -286,7 +268,6 @@ let editUser = async (userid) => {
         "firstname": document.getElementById("inputFirstName").value,
         "lastname": document.getElementById("inputLastName").value,
         "mail": document.getElementById("inputMail").value,
-        "credit": document.getElementById("inputCredit").value
     };
 
     console.log("JSON data sent to server:", rowData);

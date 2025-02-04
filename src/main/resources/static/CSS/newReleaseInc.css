@@ -180,23 +180,78 @@ html {
   
   #body {
     margin-top: 160px;
-    margin-left: 350px;
+    margin-left: 260px;
   }
 
-  #title {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    margin-left: 31%;
-    margin-bottom: -70px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  }
-
-#constructionImg {
-  margin-top: 20px;
+#title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin-left: 33%;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+#table {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  margin: 35px auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  background-color: #f9f9f9;
+}
 
+#table th, #table td {
+  padding: 12px 15px;
+  text-align: left;
+}
 
+#table td {
+  padding-left: 60px;
+}
 
+#table thead {
+  background-color: #848484;
+  color: white;
+}
+
+#table th {
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+#table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#table tbody tr:hover {
+  background-color: #e2e2e2;
+}
+
+#table #titleCol {
+  width: 70%;
+  padding-left: 70px;
+}
+
+#table #dateCol {
+  width: 30%;
+}
+
+#titleCol, #DateCol {
+  cursor: pointer;
+}
+
+.titleClass {
+  font-weight: normal;
+  font-size: 16px;
+  padding-left: 40px;
+}
+
+.dateClass {
+  font-size: 16px;
+  color: #555;
+  padding-left: 40px;
+}
 
 .footer-container {
   position: fixed;

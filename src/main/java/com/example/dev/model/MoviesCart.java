@@ -15,7 +15,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
-//@Table(name = "")
 public class MoviesCart {
 
 	@Id

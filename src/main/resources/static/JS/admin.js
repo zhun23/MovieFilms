@@ -18,12 +18,17 @@ document.getElementById("button20").addEventListener("click", function() {
     window.location.href = href;
 });
 
-document.getElementById("button21").addEventListener("click", function() {
+document.getElementById("button30").addEventListener("click", function() {
     const href = this.getAttribute("href");
     window.location.href = href;
 });
 
-document.getElementById("button22").addEventListener("click", function() {
+document.getElementById("button40").addEventListener("click", function() {
+    const href = this.getAttribute("href");
+    window.location.href = href;
+});
+
+document.getElementById("button50").addEventListener("click", function() {
     const href = this.getAttribute("href");
     window.location.href = href;
 });

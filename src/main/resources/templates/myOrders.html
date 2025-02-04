@@ -9,18 +9,16 @@
 <body>
 	<th:block th:insert="~{/fragments/header.html :: header-backbuttonPreviusURL}" />
     <h1 id="title">Mis pedidos</h1>
-    <!--div id="userDetails">
-        <p>Apodo: <span id="username"></span></p>
-        <p id="firstnameDesc">Nombre: <span id="firstname"></span></p>
-        <p id="lastnameDesc">Apellidos: <span id="lastname"></span></p>
-        <p>Email: <span id="mail"></span></p>
-        <p id="creditDesc">Saldo disponible: <span id="credit"></span> €</p>
+    
+    <div id="purchaseDetails">
+
     </div>
-    <button id="button1" class="buttonAddress" href="/manageAddresses">Gestionar mis direcciones</button-->
+
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:inline="javascript">
     var username = /*[[${username}]]*/ ''; // Inyecta el valor de username desde Thymeleaf
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="JS/myOrders.js"></script>
 </html>
